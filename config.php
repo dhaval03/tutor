@@ -6,7 +6,7 @@ define('APPLICATION', 'Catalog');
 define('HTTP_SERVER', 'http://127.0.0.1/tutor/');
 
 // DIR
-define('DIR_OPENCART', 'C:/wamp/www/tutor/');
+define('DIR_OPENCART', dirname(__FILE__).'/');
 define('DIR_APPLICATION', DIR_OPENCART . 'catalog/');
 define('DIR_EXTENSION', DIR_OPENCART . 'extension/');
 define('DIR_IMAGE', DIR_OPENCART . 'image/');

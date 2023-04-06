@@ -7,7 +7,7 @@ define('HTTP_SERVER', 'http://127.0.0.1/tutor/admin/');
 define('HTTP_CATALOG', 'http://127.0.0.1/tutor/');
 
 // DIR
-define('DIR_OPENCART', 'C:/wamp/www/tutor/');
+define('DIR_OPENCART', dirname(dirname(__FILE__)) . '/');
 define('DIR_APPLICATION', DIR_OPENCART . 'admin/');
 define('DIR_EXTENSION', DIR_OPENCART . 'extension/');
 define('DIR_IMAGE', DIR_OPENCART . 'image/');

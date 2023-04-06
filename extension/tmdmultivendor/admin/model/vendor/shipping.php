@@ -122,7 +122,7 @@ class Shipping extends \Opencart\System\Engine\Model {
 	
 	public function getVendorStoreDescription($data) {
         
-		$sql = "SELECT * FROM " . DB_PREFIX . "vendor vs LEFT JOIN " . DB_PREFIX . "vendor_description vsd ON (vs.vendor_id = vsd.vendor_id) WHERE vsd.language_id = '" . (int)$this->config->get('config_language_id') . "' and vs.vendor_id<>0";
+		$sql = "SELECT * FROM " . DB_PREFIX . "multivendor vs LEFT JOIN " . DB_PREFIX . "vendor_description vsd ON (vs.vendor_id = vsd.vendor_id) WHERE vsd.language_id = '" . (int)$this->config->get('config_language_id') . "' and vs.vendor_id<>0";
 		$query = $this->db->query($sql);
 		
 		return $query->rows;

@@ -850,7 +850,7 @@ class Import extends \Opencart\System\Engine\Model {
 		}
 
 	public function getVendors($data) {
-		$sql = "SELECT vendor_id,firstname,lastname FROM " . DB_PREFIX . "vendor where vendor_id<>0";
+		$sql = "SELECT vendor_id,firstname,lastname FROM " . DB_PREFIX . "multivendor where vendor_id<>0";
 		
 		if (isset($data['filter_firstname'])){
 		 	$sql .=" and firstname like '".$this->db->escape((string)$data['filter_firstname'])."%'";

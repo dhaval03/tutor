@@ -614,7 +614,7 @@ class Vendor extends \Opencart\System\Engine\Model {
 
 	public function getVendors($data) {
 		/* 05 02 2020 update query*/
-		$sql = "SELECT *, CONCAT(firstname, ' ', lastname) AS vendorname , (SELECT count(*) as total FROM  " . DB_PREFIX . "vendor_to_product where vendor_id=v.vendor_id) AS totalproduct FROM " . DB_PREFIX . "vendor v where vendor_id<>0";
+		$sql = "SELECT *, CONCAT(firstname, ' ', lastname) AS vendorname , (SELECT count(*) as total FROM  " . DB_PREFIX . "vendor_to_product where vendor_id=v.vendor_id) AS totalproduct FROM " . DB_PREFIX . "multivendor v where vendor_id<>0";
 	
 		if (!empty($data['filter_firstname'])){
 		 	$sql .=" and CONCAT(firstname, ' ', lastname) LIKE '%" . $this->db->escape($data['filter_firstname'])."%'";
@@ -672,7 +672,7 @@ class Vendor extends \Opencart\System\Engine\Model {
 
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
 		}
-	
+
 		$query = $this->db->query($sql);
 
 		return $query->rows;

@@ -57,7 +57,7 @@ class Review extends \Opencart\System\Engine\Model {
 	}
 
 	public function getVendor($vendor_id) {
-		$sql = "SELECT * FROM " . DB_PREFIX . "vendor where vendor_id='".(int)$vendor_id."'";
+		$sql = "SELECT * FROM " . DB_PREFIX . "multivendor where vendor_id='".(int)$vendor_id."'";
 		$query = $this->db->query($sql);
 		return $query->row;
 	}

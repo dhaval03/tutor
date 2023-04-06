@@ -48,8 +48,23 @@ class Cart extends \Opencart\System\Engine\Controller {
 				}
 			}
 
-			$json['products'][] = [
-				'cart_id'      => $product['cart_id'],
+			$this->load->model('extension/tmdmultivendor/vendor/vendor');
+$seller_infos=$this->model_extension_tmdmultivendor_vendor_vendor->getVendorid($product['product_id']);
+if(isset($seller_infos['vendor_id'])){
+$seller_info=$this->model_extension_tmdmultivendor_vendor_vendor->getVendor($seller_infos['vendor_id']);
+}
+if(isset($seller_info['display_name'])){
+$sellername = $seller_info['display_name'];
+} else {
+$sellername ='';
+}
+if(isset($seller_info['vendor_id'])){
+$ids = $seller_info['vendor_id'];
+} else {
+$ids ='';
+}
+$json['products'][] = ['sellername'   	   => $sellername,
+'vendor_id'   => $ids,				'cart_id'      => $product['cart_id'],
 				'product_id'   => $product['product_id'],
 				'name'         => $product['name'],
 				'model'        => $product['model'],

@@ -150,7 +150,7 @@ class Vendor extends \Opencart\System\Engine\Model {
 	
 	public function editVendor(int $vendor_id, array $data): void {
 		
-	$this->db->query("UPDATE " . DB_PREFIX ."vendor set display_name = '" . $this->db->escape($data['display_name']) . "',firstname = '" . $this->db->escape($data['firstname']) . "',lastname = '" . $this->db->escape($data['lastname']) . "',telephone = '" . $this->db->escape($data['telephone']) . "',fax = '" . $this->db->escape($data['fax']) . "',company = '" . $this->db->escape($data['company']) . "',address_1 = '" . $this->db->escape($data['address_1']) . "',address_2 = '" . $this->db->escape($data['address_2']) . "', postcode = '" . $this->db->escape($data['postcode']) . "', map_url = '" . $this->db->escape($data['map_url']) . "',facebook_url = '" . $this->db->escape($data['facebook_url']) . "', google_url = '" . $this->db->escape($data['google_url']) . "', whatsapp_url = '" . $this->db->escape($data['whatsapp_url']) . "', instagram_url = '" . $this->db->escape($data['instagram_url']) . "', twitter_url = '" . $this->db->escape($data['twitter_url']) . "', snapchat_url = '" . $this->db->escape($data['snapchat_url']) . "', pinterest_url = '" . $this->db->escape($data['pinterest_url']) . "',  youtube_url = '" . $this->db->escape($data['youtube_url']) . "', linkidin_url = '" . $this->db->escape($data['linkidin_url']) . "', tiktok_url = '" . $this->db->escape($data['tiktok_url']) . "',city = '" . $this->db->escape($data['city']) . "',country_id = '" .(int)$data['country_id'] . "',zone_id = '" .(int)$data['zone_id'] . "',about = '" . $this->db->escape($data['about']) . "',image='".$data['image']."',logo='".$data['logo']."',store_about='".$this->db->escape($data['store_about'])."',bank_detail='".$this->db->escape($data['bank_detail'])."',banner='".$data['banner']."',payment_method='".$this->db->escape($data['payment_method'])."',paypal = '" . $this->db->escape($data['paypal']) . "', bank_name = '" . $this->db->escape($data['bank_name']) . "', bank_branch_number = '" . $this->db->escape($data['bank_branch_number']) . "', bank_swift_code = '" . $this->db->escape($data['bank_swift_code']) . "', bank_account_name = '" . $this->db->escape($data['bank_account_name']) . "', bank_account_number = '" . $this->db->escape($data['bank_account_number']) . "',tax_number='".$this->db->escape($data['tax_number'])."',shipping_charge='".$this->db->escape($data['shipping_charge'])."',store_logowidth='".$this->db->escape($data['store_logowidth'])."', store_logoheight='".$this->db->escape($data['store_logoheight'])."', store_bannerwidth='".$this->db->escape($data['store_bannerwidth'])."',  store_bannerheight='".$this->db->escape($data['store_bannerheight'])."', status = '1',approved = '1' WHERE vendor_id='".(int)$this->vendor->getId()."'");
+	$this->db->query("UPDATE " . DB_PREFIX ."multivendor set display_name = '" . $this->db->escape($data['display_name']) . "',firstname = '" . $this->db->escape($data['firstname']) . "',lastname = '" . $this->db->escape($data['lastname']) . "',telephone = '" . $this->db->escape($data['telephone']) . "',fax = '" . $this->db->escape($data['fax']) . "',company = '" . $this->db->escape($data['company']) . "',address_1 = '" . $this->db->escape($data['address_1']) . "',address_2 = '" . $this->db->escape($data['address_2']) . "', postcode = '" . $this->db->escape($data['postcode']) . "', map_url = '" . $this->db->escape($data['map_url']) . "',facebook_url = '" . $this->db->escape($data['facebook_url']) . "', google_url = '" . $this->db->escape($data['google_url']) . "', whatsapp_url = '" . $this->db->escape($data['whatsapp_url']) . "', instagram_url = '" . $this->db->escape($data['instagram_url']) . "', twitter_url = '" . $this->db->escape($data['twitter_url']) . "', snapchat_url = '" . $this->db->escape($data['snapchat_url']) . "', pinterest_url = '" . $this->db->escape($data['pinterest_url']) . "',  youtube_url = '" . $this->db->escape($data['youtube_url']) . "', linkidin_url = '" . $this->db->escape($data['linkidin_url']) . "', tiktok_url = '" . $this->db->escape($data['tiktok_url']) . "',city = '" . $this->db->escape($data['city']) . "',country_id = '" .(int)$data['country_id'] . "',zone_id = '" .(int)$data['zone_id'] . "',about = '" . $this->db->escape($data['about']) . "',image='".$data['image']."',logo='".$data['logo']."',store_about='".$this->db->escape($data['store_about'])."',bank_detail='".$this->db->escape($data['bank_detail'])."',banner='".$data['banner']."',payment_method='".$this->db->escape($data['payment_method'])."',paypal = '" . $this->db->escape($data['paypal']) . "', bank_name = '" . $this->db->escape($data['bank_name']) . "', bank_branch_number = '" . $this->db->escape($data['bank_branch_number']) . "', bank_swift_code = '" . $this->db->escape($data['bank_swift_code']) . "', bank_account_name = '" . $this->db->escape($data['bank_account_name']) . "', bank_account_number = '" . $this->db->escape($data['bank_account_number']) . "',tax_number='".$this->db->escape($data['tax_number'])."',shipping_charge='".$this->db->escape($data['shipping_charge'])."',store_logowidth='".$this->db->escape($data['store_logowidth'])."', store_logoheight='".$this->db->escape($data['store_logoheight'])."', store_bannerwidth='".$this->db->escape($data['store_bannerwidth'])."',  store_bannerheight='".$this->db->escape($data['store_bannerheight'])."', status = '1',approved = '1' WHERE vendor_id='".(int)$this->vendor->getId()."'");
 		
 	
 		
@@ -183,7 +183,7 @@ class Vendor extends \Opencart\System\Engine\Model {
 	}
 
 	public function verifyPassword($vendor_id,$data){
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "vendor WHERE vendor_id = '" . (int)$this->vendor->getId() . "' AND (password = SHA1(CONCAT(salt, SHA1(CONCAT(salt, SHA1('" . $this->db->escape($data['oldpassword']) . "'))))) OR password = '" . $this->db->escape(md5($data['oldpassword'])) . "')");
+		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "multivendor WHERE vendor_id = '" . (int)$this->vendor->getId() . "' AND (password = SHA1(CONCAT(salt, SHA1(CONCAT(salt, SHA1('" . $this->db->escape($data['oldpassword']) . "'))))) OR password = '" . $this->db->escape(md5($data['oldpassword'])) . "')");
 		
 		return $query->row['total'];
 	}
@@ -228,26 +228,26 @@ class Vendor extends \Opencart\System\Engine\Model {
 	}
 	
 	public function getVendor($vendor_id=0){
-		$sql = "SELECT *,v.vendor_id as vendor_id FROM " . DB_PREFIX . "vendor v LEFT JOIN " . DB_PREFIX . "vendor_description vd ON (v.vendor_id = vd.vendor_id) LEFT JOIN ".DB_PREFIX."vendor_review vr ON(v.vendor_id = vr.vendor_id) WHERE v.vendor_id='".(int)$vendor_id."' AND v.approved!=0 AND vd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+		$sql = "SELECT *,v.vendor_id as vendor_id FROM " . DB_PREFIX . "multivendor v LEFT JOIN " . DB_PREFIX . "vendor_description vd ON (v.vendor_id = vd.vendor_id) LEFT JOIN ".DB_PREFIX."vendor_review vr ON(v.vendor_id = vr.vendor_id) WHERE v.vendor_id='".(int)$vendor_id."' AND v.approved!=0 AND vd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 		$query=$this->db->query($sql);
 		
-		return $query->row;
+		return ($vendor_id>0 && $query->num_rows>0)?$query->row:false;
 	}
 
 	public function getStorename($vendor_id){
-		$sql = "SELECT * FROM " . DB_PREFIX . "vendor v LEFT JOIN " . DB_PREFIX . "vendor_description vd ON (v.vendor_id = vd.vendor_id) WHERE v.vendor_id='".(int)$vendor_id."'";
+		$sql = "SELECT * FROM " . DB_PREFIX . "multivendor v LEFT JOIN " . DB_PREFIX . "vendor_description vd ON (v.vendor_id = vd.vendor_id) WHERE v.vendor_id='".(int)$vendor_id."'";
 		$query=$this->db->query($sql);
 		return $query->row;
 	}
 
 	public function getVendorLogo($vendor_id){
-		$sql = "SELECT * FROM " . DB_PREFIX . "vendor v LEFT JOIN " . DB_PREFIX . "vendor_description vd ON (v.vendor_id = vd.vendor_id) WHERE v.vendor_id='".(int)$this->vendor->getId()."'";
+		$sql = "SELECT * FROM " . DB_PREFIX . "multivendor v LEFT JOIN " . DB_PREFIX . "vendor_description vd ON (v.vendor_id = vd.vendor_id) WHERE v.vendor_id='".(int)$this->vendor->getId()."'";
 		$query=$this->db->query($sql);
 		return $query->row;
 	}
 	
 	public function getVendors($data){
-			$sql="select * from " . DB_PREFIX . "vendor v LEFT JOIN " . DB_PREFIX . "vendor_description vd on(v.vendor_id = vd.vendor_id) where v.vendor_id<>0  AND v.approved!=0  AND v.status!=0  AND vd.language_id = '" . (int)$this->config->get('config_language_id') . "' order by v.vendor_id desc ";
+			$sql="select * from " . DB_PREFIX . "multivendor v LEFT JOIN " . DB_PREFIX . "vendor_description vd on(v.vendor_id = vd.vendor_id) where v.vendor_id<>0  AND v.approved!=0  AND v.status!=0  AND vd.language_id = '" . (int)$this->config->get('config_language_id') . "' order by v.vendor_id desc ";
 			
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {
@@ -265,12 +265,12 @@ class Vendor extends \Opencart\System\Engine\Model {
 	}
 	
 	public function getVendorByEmail($email) {
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "vendor WHERE LOWER(email) = '" . $this->db->escape(strtolower($email)) . "'");
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "multivendor WHERE LOWER(email) = '" . $this->db->escape(strtolower($email)) . "'");
 		return $query->row;
 	}
 	
 	public function getTotalVendorByEmail($email) {
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "vendor WHERE LCASE(email) = '" . $this->db->escape(Helper\Utf8\strtolower($email)) . "'");
+		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "multivendor WHERE LCASE(email) = '" . $this->db->escape(Helper\Utf8\strtolower($email)) . "'");
 		return $query->row['total'];
 	}
 	
@@ -368,7 +368,7 @@ class Vendor extends \Opencart\System\Engine\Model {
  	}
 	
 	public function getAboutStore($vendor_id){
-		$sql="select * from " . DB_PREFIX . "vendor where vendor_id='".(int)$vendor_id."'";
+		$sql="select * from " . DB_PREFIX . "multivendor where vendor_id='".(int)$vendor_id."'";
 		$query=$this->db->query($sql);
 		return $query->row;
 	}
@@ -580,7 +580,7 @@ class Vendor extends \Opencart\System\Engine\Model {
 	}
 		
 	public function getSellerInfo($vendor_id){
-		$sql="select *, c.name as countryname From " . DB_PREFIX . "vendor v LEFT JOIN ".DB_PREFIX."country c on(v.country_id = c.country_id) where v.vendor_id='".(int)$vendor_id."'";
+		$sql="select *, c.name as countryname From " . DB_PREFIX . "multivendor v LEFT JOIN ".DB_PREFIX."country c on(v.country_id = c.country_id) where v.vendor_id='".(int)$vendor_id."'";
 		
 		$query=$this->db->query($sql);
 		
@@ -958,7 +958,7 @@ class Vendor extends \Opencart\System\Engine\Model {
     
     public function getTotalVendors($data = array()) {
 	
-		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "vendor WHERE vendor_id = '" . (int)$vendor_id . "' AND approved!=0");
+		$query = $this->db->query("SELECT COUNT(*) AS total FROM " . DB_PREFIX . "multivendor WHERE vendor_id = '" . (int)$vendor_id . "' AND approved!=0");
 
 		return $query->row['total'];
 	}
@@ -975,7 +975,7 @@ class Vendor extends \Opencart\System\Engine\Model {
     }
 
 	public function editPasswordemail($email,$password){
-		$sql = "update " .DB_PREFIX . "vendor SET salt = '" . $this->db->escape($salt = token(9)) . "',password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($password)))) . "',date_modified=now() WHERE email = '" . $email ."'";
+		$sql = "update " .DB_PREFIX . "multivendor SET salt = '" . $this->db->escape($salt = token(9)) . "',password = '" . $this->db->escape(sha1($salt . sha1($salt . sha1($password)))) . "',date_modified=now() WHERE email = '" . $email ."'";
 		$query = $this->db->query($sql);
 	}
 	
@@ -1014,7 +1014,7 @@ class Vendor extends \Opencart\System\Engine\Model {
 		
 		$mailinfo = $this->model_extension_tmdmultivendor_vendor_mail->getMailInfo($sellertype);
 		
-		$querymail = $this->db->query("SELECT *  FROM " . DB_PREFIX . "vendor WHERE vendor_id = '" . (int)$vendor_id . "'");
+		$querymail = $this->db->query("SELECT *  FROM " . DB_PREFIX . "multivendor WHERE vendor_id = '" . (int)$vendor_id . "'");
 		$vendor_mail=$querymail->row['email'];
 		
 		$querycust= $this->db->query("SELECT *  FROM " . DB_PREFIX . "customer WHERE customer_id = '" . (int)$this->customer->getId() . "'");
@@ -1170,7 +1170,7 @@ class Vendor extends \Opencart\System\Engine\Model {
 	}
 	
 	public function getInProductSellerName($product_id, $vendor_id){
-		$sql = "SELECT *,vd.name as storename FROM " . DB_PREFIX . "vendor_to_product vp LEFT JOIN  " . DB_PREFIX . "vendor v ON vp.vendor_id=v.vendor_id LEFT JOIN  " . DB_PREFIX . "vendor_description vd ON v.vendor_id=vd.vendor_id WHERE vp.product_id='".(int)$product_id."' AND vp.vendor_id ='".(int)$vendor_id."' AND  vd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+		$sql = "SELECT *,vd.name as storename FROM " . DB_PREFIX . "vendor_to_product vp LEFT JOIN  " . DB_PREFIX . "multivendor v ON vp.vendor_id=v.vendor_id LEFT JOIN  " . DB_PREFIX . "vendor_description vd ON v.vendor_id=vd.vendor_id WHERE vp.product_id='".(int)$product_id."' AND vp.vendor_id ='".(int)$vendor_id."' AND  vd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 		
 		$query=$this->db->query($sql);
 		return $query->row;
@@ -1238,7 +1238,7 @@ class Vendor extends \Opencart\System\Engine\Model {
 		}
 		if(!$commissionstatus){
 
-			$vendorinfo = $this->db->query("SELECT v2p.vendor_id, vs.commission FROM " . DB_PREFIX . "vendor_to_product v2p LEFT JOIN " . DB_PREFIX . "vendor vs ON (v2p.vendor_id = vs.vendor_id) WHERE v2p.product_id = '" .$product_id. "'");
+			$vendorinfo = $this->db->query("SELECT v2p.vendor_id, vs.commission FROM " . DB_PREFIX . "vendor_to_product v2p LEFT JOIN " . DB_PREFIX . "multivendor vs ON (v2p.vendor_id = vs.vendor_id) WHERE v2p.product_id = '" .$product_id. "'");
 
 			/* update code 24-05-2019 isset to !empty */
 

@@ -3,7 +3,7 @@ namespace Opencart\Catalog\Model\Extension\Tmdmultivendor\Vendor;
 class Store extends \Opencart\System\Engine\Model {
 			
 	public function getViewStore($vendor_id){
-		$sql = "SELECT * FROM " . DB_PREFIX . "vendor v LEFT JOIN " . DB_PREFIX . "vendor_description vd ON (v.vendor_id = vd.vendor_id) WHERE vd.language_id = '" . (int)$this->config->get('config_language_id') . "' and v.vendor_id='".(int)$vendor_id."'";
+		$sql = "SELECT * FROM " . DB_PREFIX . "multivendor v LEFT JOIN " . DB_PREFIX . "vendor_description vd ON (v.vendor_id = vd.vendor_id) WHERE vd.language_id = '" . (int)$this->config->get('config_language_id') . "' and v.vendor_id='".(int)$vendor_id."'";
 		$query=$this->db->query($sql);
 		return $query->row;
 	}
@@ -14,7 +14,7 @@ class Store extends \Opencart\System\Engine\Model {
 	}
 	
 	public function getStores($data=array()){
-		$sql = "SELECT * FROM " . DB_PREFIX . "vendor v LEFT JOIN " . DB_PREFIX . "vendor_description vd ON (v.vendor_id = vd.vendor_id) WHERE vd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+		$sql = "SELECT * FROM " . DB_PREFIX . "multivendor v LEFT JOIN " . DB_PREFIX . "vendor_description vd ON (v.vendor_id = vd.vendor_id) WHERE vd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 		
 		if(isset($data['vendor_id'])){
 			$sql .= " and v.vendor_id='". (int)$data['vendor_id']."'";
@@ -48,7 +48,7 @@ class Store extends \Opencart\System\Engine\Model {
  	}
 	
 	public function getTotalVendorStore($data) {
-		$sql = "SELECT COUNT(*) AS total FROM " . DB_PREFIX . "vendor v LEFT JOIN " . DB_PREFIX . "vendor_description vd ON (v.vendor_id = vd.vendor_id) WHERE vd.language_id = '" . (int)$this->config->get('config_language_id') . "' and v.vendor_id<>0";
+		$sql = "SELECT COUNT(*) AS total FROM " . DB_PREFIX . "multivendor v LEFT JOIN " . DB_PREFIX . "vendor_description vd ON (v.vendor_id = vd.vendor_id) WHERE vd.language_id = '" . (int)$this->config->get('config_language_id') . "' and v.vendor_id<>0";
 		
 		if(isset($data['vendor_id'])){
 			$sql .= " and v.vendor_id='".(int)$data['vendor_id']."'";

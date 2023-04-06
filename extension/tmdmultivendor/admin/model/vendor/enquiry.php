@@ -14,7 +14,7 @@ class Enquiry extends \Opencart\System\Engine\Model {
 	/* 11 02 2020 sname */
 	public function getVendor($vendor_id) {
 	
-		$sql = "SELECT *, CONCAT(firstname, ' ', lastname) AS sname FROM " . DB_PREFIX . "vendor where vendor_id='".(int)$vendor_id."'";
+		$sql = "SELECT *, CONCAT(firstname, ' ', lastname) AS sname FROM " . DB_PREFIX . "multivendor where vendor_id='".(int)$vendor_id."'";
 		$query = $this->db->query($sql);
 		return $query->row;
 	}

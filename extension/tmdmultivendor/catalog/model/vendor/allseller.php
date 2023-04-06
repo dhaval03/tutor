@@ -4,7 +4,7 @@ class allseller extends \Opencart\System\Engine\Model {
 	
 	public function getVendors($data=array()){
 		/* 01-02-2019 approved code  23-02-2019 update */ 
-		$sql="select * from " . DB_PREFIX . "mutivendor v LEFT JOIN " . DB_PREFIX . "vendor_description vd on(v.vendor_id = vd.vendor_id) WHERE v.vendor_id<>0  AND v.approved!=0   AND v.status!=0  AND vd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+		$sql="select * from " . DB_PREFIX . "multivendor v LEFT JOIN " . DB_PREFIX . "vendor_description vd on(v.vendor_id = vd.vendor_id) WHERE v.vendor_id<>0  AND v.approved!=0   AND v.status!=0  AND vd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 			
 		$sort_data = array(
 			'v.vendor_id'
@@ -40,7 +40,7 @@ class allseller extends \Opencart\System\Engine\Model {
 
  	public function getTotalVendors($data) {
 		/* 18-02-2020 approved code */
-		$sql = "SELECT COUNT(*) AS total FROM " . DB_PREFIX . "mutivendor WHERE vendor_id<>0  AND approved!=0 AND status!=0 ";
+		$sql = "SELECT COUNT(*) AS total FROM " . DB_PREFIX . "multivendor WHERE vendor_id<>0  AND approved!=0 AND status!=0 ";
 		$query = $this->db->query($sql);
 		return $query->row['total'];
 	}

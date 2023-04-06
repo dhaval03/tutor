@@ -1,0 +1,148 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="float-end">
+       <button type="submit" form="form-shiftproduct" formaction="{{ save }}" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fas fa-save"></i></button>
+	  </div>
+      <h1>{{ heading_title }}</h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+	  <div class="container-fluid">
+	    <div class="card">
+	      <div class="card-header"><i class="fas fa-pencil-alt"></i> {{ text_form }}</div>
+	      <div class="card-body">
+	       	 <form id="form-shiftproduct" action="{{ save }}" method="post" data-oc-toggle="ajax">
+				<div class="row mb-3">
+				  <label class="col-sm-2 col-form-label">{{ entry_manufacture }}</label>
+				  <div class="col-sm-10">
+				    <input type="text" name="manufacturer" value="" placeholder="{{ entry_manufacture }}" id="input-manufacturer" list="list-manufacturer" class="form-control"/>
+				    <datalist id="list-manufacturer"></datalist>
+				    <div class="input-group">
+				      <div class="form-control p-0" style="height: 150px; overflow: auto;">
+				        <table id="product-manufacture" class="table table-sm m-0">
+				          <tbody>
+				            {% for product_manufacture in product_manufacturies %}
+				              <tr id="product-manufacture-{{ product_manufacture.manufacturer_id }}">
+				                <td>
+				                {{ product_manufacture.name }}
+				                <input type="hidden" name="product_manufacture[]" value="{{ product_manufacture.manufacturer_id }}"/></td>
+				                <td class="text-end"><button type="button" class="btn btn-danger btn-sm"><i class="fas fa-minus-circle"></i></button></td>
+				              </tr>
+				            {% endfor %}
+				          </tbody>
+				        </table>
+				      </div>
+				    </div>
+				    <div class="form-text">{{ help_manufacturer }}</div>
+				  </div>
+				</div>
+			  
+				<div class="row mb-3 required">
+				  <label class="col-sm-2 col-form-label">{{ entry_vendors }}</label>
+				  <div class="col-sm-10">
+				    <div class="input-group">
+				      <input type="text" name="vendor" value="{{ vendor }}" placeholder="{{ entry_vendors }}" id="input-vendor" list="list-vendor" class="form-control"/>
+				    </div>
+				    <input type="hidden" name="vendor_id" value="{{ vendor_id }}" id="input-vendor-id"/>
+				    <datalist id="list-vendor"></datalist>
+				    <div class="form-text">{{ help_vendor }}</div>
+				     <div id="error-vendor" class="invalid-feedback"></div>
+				  </div>
+				</div>
+				
+				<div class="row mb-3">
+					<label class="col-sm-2 col-form-label" for="input-status">{{ entry_status }}</label>
+					<div class="col-sm-10">
+						<select name="status" id="input-status" class="form-control">
+						{% if status %}
+							<option value="1" selected="selected">{{ text_enabled }}</option>
+							<option value="0">{{ text_disabled }}</option>
+						{% else %}
+							<option value="1">{{ text_enabled }}</option>
+							<option value="0" selected="selected">{{ text_disabled }}</option>
+						{% endif %}
+						</select>
+					</div>
+				</div>
+				
+				<div class="row mb-3 d-none">
+					<label class="col-sm-2 col-form-label">{{ entry_shiftproduct }}</label>
+					<div class="col-sm-10">
+						<input type="submit" class="btn btn-primary" value="{{ button_shiftproduct }}">
+					</div>
+				</div>
+					<input type="hidden" name="product_id" value="{{ product_id }}" id="input-product_id"/>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript"><!--
+
+$('#input-manufacturer').autocomplete({
+    'source': function (request, response) {
+        $.ajax({
+            url: 'index.php?route=extension/tmdmultivendor/vendor/shiftproduct|autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+            dataType: 'json',
+            success: function (json) {
+                response($.map(json, function (item) {
+                    return {
+                        label: item['name'],
+                        value: item['manufacturer_id']
+                    }
+                }));
+            }
+        });
+    },
+    'select': function (item) {
+        $('#input-manufacturer').val('');
+
+        $('#product-manufacture' + item['value']).remove();
+
+        html = '<tr id="product-manufacture' + item['value'] + '">';
+        html += '  <td>' + item['label'] + '<input type="hidden" name="product_manufacture[]" value="' + item['value'] + '"/></td>';
+        html += '  <td class="text-end"><button type="button" class="btn btn-danger btn-sm"><i class="fas fa-minus-circle"></i></button></td>';
+        html += '</tr>';
+
+        $('#product-manufacture tbody').append(html);
+    }
+});
+
+$('#product-manufacture').on('click', '.btn', function () {
+    $(this).parent().parent().remove();
+});
+
+// Vendor
+$('#input-vendor').autocomplete({
+    'source': function (request, response) {
+        $.ajax({
+            url: 'index.php?route=extension/tmdmultivendor/vendor/vendor|autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+            dataType: 'json',
+            success: function (json) {
+                json.unshift({
+                    vendor_id: 0,
+                    vendorname: '{{ text_none }}'
+                });
+
+                response($.map(json, function (item) {
+                    return {
+                        label: item['vendorname'],
+                        value: item['vendor_id']
+                    }
+                }));
+            }
+        });
+    },
+    'select': function (item) {
+        //$('#input-vendor').val(item['label']);
+        $('#input-vendor-id').val(item['value']);
+    }
+});
+</script>
+{{ footer }}

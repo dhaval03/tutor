@@ -1,0 +1,59 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <h1>{{ heading_bulktitle }}</h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header"><i class="fas fa-pencil-alt"></i> {{ text_bulklist }}</div>
+      <div class="card-body">
+
+			<div class="well">
+				<div class="row">
+					<div class="col-sm-12" style="text-align:left;">
+					<div>
+						<label class="control-label col-form-label" for="input-name" style="  font-weight: normal; ">{{ entry_time_allowed }}</label><label style="font-weight: bold;">{{ timeallowed }}</label>
+					</div>
+					<div>
+						<label class="control-label col-form-label" for="input-name" style=" font-weight: normal ">{{ entry_file_size }}</label><label style="font-weight: bold;">{{ filesize }}</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<form action="{{ export }}" method="post" enctype="multipart/form-data" id="export">
+			<div class="card-header">
+				<h3 class="panel-title"><i class="fas fa-cloud-download"></i>{{ entry_export }}</h3>
+			</div>
+			<div class="well">
+				<div class="form-group">
+					<input type="submit" value="{{ entry_export }}" class="btn btn-primary" class="button_add"  style=" padding: 8px 20px 8px 20px; " >
+				</div>
+			</div>
+		</form>
+		<form action="{{ import }}" method="post" enctype="multipart/form-data">
+			<div class="card-header">
+				<h3 class="panel-title "><i class="fas fa-file-upload"></i> {{ entry_upload }}</h3>
+			</div>
+			<div class="well">
+				<div class="form-group">
+					<input type="file" name="import">
+				</div>
+				<div class="form-group">
+				<input type="submit" value="{{ button_upload }}" class="btn btn-primary" class="button_add"  style=" padding: 8px 20px 8px 20px; " >
+					
+				</div>
+			</div>
+
+		</form>
+    </div>
+  </div>
+</div>
+{{ footer }}

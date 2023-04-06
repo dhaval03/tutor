@@ -1,0 +1,104 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="float-end">
+       
+       
+      </div>
+      <h1>{{ heading_title }}</h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <div id="filter-order-report" class="col-lg-3 col-md-12 order-lg-last d-none d-lg-block mb-3">
+        <div class="card">
+          <div class="card-header"><i class="fa fa-filter"></i> {{ text_filter }}</div>
+          <div class="card-body">
+
+           <div class="mb-3">
+                <label class="control-label" for="input-order-id">{{ entry_order_id }}</label>
+                <input type="text" name="filter_order_id" value="{{ filter_order_id }}" placeholder="{{ entry_order_id }}" id="input-order-id" class="form-control" />
+              </div>
+
+            <div class="text-end">
+                <button type="button" id="button-filter" class="btn btn-primary pull-right"><i class="fa fa-search"></i> {{ button_filter }}</button>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-9 col-md-12">
+        <div class="card">
+          <div class="card-header"><i class="fa fa-list"></i> {{ text_list }}</div>
+          <div id="order-report" class="card-body">{{ list }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+$('#button-filter').on('click', function() {
+  var url = 'index.php?route=extension/tmdmultivendor/vendor/order_report';
+
+  var filter_order_id = $('input[name=\'filter_order_id\']').val();
+
+  if (filter_order_id) {
+    url += '&filter_order_id=' + encodeURIComponent(filter_order_id);
+  }
+
+
+  $('#order-report').load('index.php?route=extension/tmdmultivendor/vendor/order_report|list&' + url);
+  
+});
+</script>
+<script type="text/javascript"><!--
+  $('.date').datetimepicker({
+    pickTime: false
+  });
+
+  $('.time').datetimepicker({
+    pickDate: false
+  });
+
+  $('.datetime').datetimepicker({
+    pickDate: true,
+    pickTime: true
+  });
+//--></script>
+<!--19 02 2020-->
+ <script type="text/javascript"><!--
+$('input[name^=\'selected\']').on('change', function() {
+  $('#button-order-report, #button-invoice').prop('disabled', true);
+
+  var selected = $('input[name^=\'selected\']:checked');
+
+  if (selected.length) {
+    $('#button-invoice').prop('disabled', false);
+  }
+
+  for (i = 0; i < selected.length; i++) {
+    if ($(selected[i]).parent().find('input[name^=\'order-report_code\']').val()) {
+      $('#button-order-report').prop('disabled', false);
+
+      break;
+    }
+  }
+});
+
+$('#button-order-report, #button-invoice').prop('disabled', true);
+
+$('input[name^=\'selected\']:first').trigger('change');
+
+// IE and Edge fix!
+$('#button-order-report, #button-invoice').on('click', function(e) {
+  $('#form-report').attr('action', this.getAttribute('formAction'));
+});
+//--></script> 
+{{ footer }}

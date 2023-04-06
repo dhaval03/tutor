@@ -1,0 +1,79 @@
+<form id="form-inquiry" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#inquiry">
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>         
+          <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
+            <td class="text-left">{% if sort == 'name' %}
+              <a href="{{ sort_name }}" class="{{ order|lower }}">{{ column_name }}</a>
+              {% else %}
+              <a href="{{ sort_name }}">{{ column_name }}</a>
+              {% endif %}</td>
+            <td class="text-left">{% if sort == 'email' %}
+              <a href="{{ sort_email }}" class="{{ order|lower }}">{{ column_email }}</a>
+              {% else %}
+              <a href="{{ sort_email }}">{{ column_email }}</a>
+              {% endif %}</td>
+            <td class="text-left">{% if sort == 'product' %}
+              <a href="{{ sort_product }}" class="{{ order|lower }}">{{ column_product }}</a>
+              {% else %}
+              <a href="{{ sort_product }}">{{ column_product }}</a>
+              {% endif %}</td>
+            <!--  tmd vendor2 customer condtion  -->
+          {% if vendor2customer==1 %}
+            <td class="text-left">{% if sort == 'customer' %}
+              <a href="{{ sort_customer }}" class="{{ order|lower }}">{{ column_customer }}</a>
+              {% else %}
+              <a href="{{ sort_customer }}">{{ column_customer }}</a>
+              {% endif %}</td>
+          {% endif %}
+          <!--  tmd vendor2 customer condtion  -->
+            <td class="text-left hide">{% if sort == 'status' %}
+              <a href="{{ sort_status }}" class="{{ order|lower }}">{{ column_status }}</a>
+              {% else %}
+              <a href="{{ sort_status }}">{{ column_status }}</a>
+              {% endif %}</td>
+          <td class="text-left">{{ column_description }} </td>
+            <td class="text-left">{% if sort == 'date_added' %}
+              <a href="{{ sort_date_added }}" class="{{ order|lower }}">{{ column_date_added }}</a>
+              {% else %}
+              <a href="{{ sort_date_added }}">{{ column_date_added }}</a>
+              {% endif %}</td>
+                 
+        </tr>
+      </thead>
+      <tbody>
+        {% if enquires %}
+                {% for enquiry in enquires %}
+                <tr>
+                  <td class="text-center">{% if enquiry.inquiry_id in selected %}
+                    <input type="checkbox" name="selected[]" value="{{ enquiry.inquiry_id }}" checked="checked" />
+                    {% else %}
+                    <input type="checkbox" name="selected[]" value="{{ enquiry.inquiry_id }}" />
+                    {% endif %}</td>
+                  <td class="text-left">{{ enquiry.name }}</td>
+                  <td class="text-left">{{ enquiry.email }}</td>
+          <!--07-03-2019 update-->
+                  <td class="text-left"><a href="{{ enquiry.producturl }}" target="_blank">{{ enquiry.pname }}</a></td>
+          <!--07-03-2019 update-->
+          {% if vendor2customer==1 %}
+                  <td class="text-left">{{ enquiry.cname }}</td>
+          {% endif %}
+                  <td class="text-left hide">{{ enquiry.status }}</td>
+          <td class="text-left">{{ enquiry.description }}</td>
+                  <td class="text-left"><span style="font-size:12px;" class="label btn-info"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ enquiry.date_added }}</span></td>
+                </tr>
+                {% endfor %}
+                {% else %}
+                <tr>
+                  <td class="text-center" colspan="8">{{ text_no_results }}</td>
+                </tr>
+                {% endif %}
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 text-start">{{ pagination }}</div>
+    <div class="col-sm-6 text-end">{{ results }}</div>
+  </div>
+</form>

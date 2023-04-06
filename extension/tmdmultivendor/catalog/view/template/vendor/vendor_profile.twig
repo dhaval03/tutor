@@ -1,0 +1,657 @@
+{{ header }}
+<script type="text/javascript" src="extension/tmdmultivendor/catalog/view/javascript/vendor/megnor/megnor.min.js"></script>
+<script type="text/javascript" src="extension/tmdmultivendor/catalog/view/javascript/vendor/megnor/custom.js"></script>
+<script type="text/javascript" src="extension/tmdmultivendor/catalog/view/javascript/vendor/megnor/jquery.custom.min.js"></script>
+<script type="text/javascript" src="extension/tmdmultivendor/catalog/view/javascript/vendor/megnor/jstree.min.js"></script>
+<link href="extension/tmdmultivendor/catalog/view/stylesheet/vendor/vendor.css" rel="stylesheet">
+ <script type="text/javascript" src="catalog/view/javascript/jquery/datetimepicker/daterangepicker.js"></script>
+ <link href="catalog/view/javascript/jquery/datetimepicker/daterangepicker.css" rel="stylesheet" type="text/css"/>
+<div class="container">
+	<ol class="breadcrumb">
+		{% for breadcrumb in breadcrumbs %}
+		  <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+		{% endfor %}
+	</ol>
+  <div class="row">{{ column_left }}
+    {% if column_left and column_right %}
+    {% set class = 'col-sm-6' %}
+    {% elseif column_left or column_right %}
+    {% set class = 'col-sm-9' %}
+    {% else %}
+    {% set class = 'col-sm-12' %}
+    {% endif %}
+    <div id="content" class="{{ class }} vendor_profile">{{ content_top }}
+		<div class="cover-main">
+			<img src="{{ banners }}" alt="{{ name }}" title="{{ name }}" class="img-fluid" />
+			<div class="col-sm-12 profile">
+				<div class="image">
+					<img src="{{ images }}" class="img-fluid" alt="profile" title="profile" />
+				</div>
+				<div class="detail">
+					{% if vendor_hidevname %}
+					<h4>{{ display_name }}</h4>
+					{% endif %}
+					<!--03 10 2019 -->
+					<div class="rating">
+						{% for i in 1..5 %}
+						  {% if reviewvalue < i %}
+							<span class="fas fa-stack"><i class="far fa-star fa-stack-2x"></i></span>
+						  {% else %}
+							<span class="fas fa-stack"><i class="fas fa-star fa-stack-2x"></i><i class="far fa-star fa-stack-2x"></i></span>
+						  {% endif %}
+						{% endfor %}
+					</div>
+					<!--03 10 2019 -->
+
+					{% if vendorcontact !=1 %}
+					<ul class="list-inline">
+						{% if vendor_hidevponeno %}
+							<li class="nav-item list-inline-item"><i class="fa fa-phone-alt"></i> {{ telephone }}</li>
+						{% endif %}
+
+						{% if vendor_hidevemail %}
+							<li class="nav-item list-inline-item"><i class="fas fa-envelope"></i> <a class="vendoremail" href="mailto:{{ email }}" target="_top">{{ email }}</a></li>
+						{% endif %}
+					</ul>
+
+
+					{% if vendor_hidevsocialicon %}
+					<ul class="list-unstyled btn-social">
+						<li>
+							<!--Social icon-->
+								{% if facebookurl %}
+								<a href="{{ facebookurl }}" target="new"><i class="fab fa-facebook"></i></a>
+								{% endif %}
+								{% if googleurl %}
+								<a href="{{ googleurl }}" target="new"><i class="fab fa-google"></i></a>
+								{% endif %}
+								
+								{% if whatsapp_url %}
+								<a href="{{ whatsapp_url }}" target="new"><i class="fab fa-whatsapp" ></i></a>
+								{% endif %}
+								
+								{% if instagram_url %}
+								<a href="{{ instagram_url }}" target="new"><i class="fab fa-instagram" ></i></a>
+								{% endif %}
+								
+								{% if twitter_url %}
+								<a href="{{ twitter_url }}" target="new"><i class="fab fa-twitter" ></i></a>
+								{% endif %}
+								
+								{% if snapchat_url %}
+								<a href="{{ snapchat_url }}" target="new"><i class="fab fa-snapchat-ghost" ></i></a>
+								{% endif %}
+								
+								{% if pinterest_url %}
+								<a href="{{ pinterest_url }}" target="new"><i class="fab fa-pinterest" ></i></a>
+								{% endif %}
+								
+								{% if youtube_url %}
+								<a href="{{ youtube_url }}" target="new"><i class="fab fa-youtube" ></i></a>
+								{% endif %}
+								
+								{% if linkidin_url %}
+								<a href="{{ linkedin_url }}" target="new"><i class="fab fa-linkedin-in" ></i></a>
+								{% endif %}
+								
+								{% if tiktok_url %}
+								<a href="{{ tiktok_url }}" target="new"><i class="fas fa-music" ></i></a>
+								{% endif %}								
+							<!--Social icon-->
+							{% if vendorfindme %}
+							<a href="{{ vendorfindme }}" target="new"><i class="fas fa-map-marker-alt" ></i></a>
+							{% endif %}
+						</li>
+					</ul>
+					{% endif %}
+					{% endif %}
+				</div>
+				<div class="onhover">
+					<img src="{{ logos }}" class="img-fluid" title="logo" alt="logo" />
+				</div>
+			</div>
+        </div>
+        <div class="row">
+		<div class="col-sm-12">
+			<ul class="nav nav-tabs list-inline maintabs">
+				
+				<!--############ 13 02 2021 Update data-sort start ############-->
+				{% if show_profiletab == 1 %}
+					{% if about %}			
+					<li class="nav-item" data-oc-sort="{{ vendor_profilestoresort }}">
+						<a href="#profiles" class="nav-link active" data-bs-toggle="tab" aria-expanded="true"><span><i class="fa fa-user"></i></span>{{ text_profile }}</a>
+					</li>				
+					{% endif %}				
+				{% endif %}
+				{% if show_aboutstoretab == 1 %}
+				<li class="nav-item" data-oc-sort="{{ vendor_aboutstoresort }}">
+					<a href="#about" class="nav-link " data-bs-toggle="tab" aria-expanded="false"><span><i class="fa fa-comment"></i></span>{{ text_about }}</a>
+				</li>
+				{% endif %}
+				{% if show_tabproduct == 1 %}
+				<li class="nav-item" data-oc-sort="{{ vendor_tabproductsort }}">
+					<a href="#products" class="nav-link" data-bs-toggle="tab" aria-expanded="false"><span><i class="fa fa-copy"></i></span> {{ text_products }} ({{ totals }})</a>
+				</li>
+				{% endif %}
+				{% if show_reviewtab == 1 %}
+				<li class="nav-item" data-oc-sort="{{ vendor_reviewsort }}">
+					<a href="#review" class="nav-link" data-bs-toggle="tab" aria-expanded="false"><span><i class="fa fa-comment"></i></span>{{ text_reviews }} {{ sellertotal }}</a>
+				</li>
+				{% endif %}
+				{% if show_productreview == 1 %}
+				<li class="nav-item" data-oc-sort="{{ vendor_productreviewsort }}">
+					<a href="#reviews" class="nav-link" data-bs-toggle="tab" aria-expanded="false"><span><i class="fa fa-archive"></i></span>{{ text_pro_reviews }} {{ producttotal }}</a>
+				</li>
+				{% endif %}
+				<!--############ 13 02 2021 Update data-sort eND ############-->
+				
+			</ul>
+			<div class="tab-content">
+			
+			<!--############  13 02 2021 Update active Dynamic code start ############ -->
+			{% if show_profiletab == 1 %}
+			 <div class="tab-pane active" id="profiles" >
+			
+				<div class="row"><p>{{ about }}</p></div>
+			
+			</div>
+			{% endif %}
+			
+			{% if show_aboutstoretab == 1 %}
+			<div class="tab-pane" id="about">
+			<!-- new code 13-06-2019  -->
+			<div class="aboutmodule">
+				<div class="tab-content">
+				<ul class="nav nav-tabs list-inline">
+					<!-- new code 14-06-2019  -->
+					{% if store_about %}
+					<li class="nav-item">
+						<a href="#aboutstore" class="nav-link active"  data-bs-toggle="tab" aria-expanded="true">{{ text_aboutstore }}</a>
+					</li>
+					{% endif %}
+
+					{% if storedescription %}
+						<li class="nav-item">
+						{% if store_about =='' %}
+							<a href="#storedesc" class="nav-link active" data-bs-toggle="tab" aria-expanded="false">
+						{% else %}
+							<a href="#storedesc" class="nav-link" data-bs-toggle="tab" aria-expanded="false">
+						{% endif %}
+						{{ text_storedescrption }}</a></li>
+					{% endif %}
+
+						{% if shipping_policy %}
+						<li class="nav-item">
+						<a href="#shippingpolicy" class="nav-link" data-bs-toggle="tab" aria-expanded="false">{{ text_storeshipingpolicy }}</a>
+						</li>
+						{% endif %}
+						{% if return_policy %}
+						<li class="nav-item">
+						<a href="#returnpolicy" class="nav-link" data-bs-toggle="tab" aria-expanded="false">{{ text_storereturnpolicy }}</a>
+						</li>
+					{% endif %}
+				</ul>
+			</div>
+				<div class="tab-content">
+				<div class="tab-pane active" id="aboutstore">
+				<p>{{ store_about }}</p>
+				</div>
+				<!-- new code 14-06-2019  -->
+				{% if store_about =='' %}
+					<div class="tab-pane{% if loop.first %} active{% endif %}" id="storedesc">
+					{% else %}
+					<div class="tab-pane" id="storedesc">
+					{% endif %}
+					<p>{{ storedescription }}</p>
+					{% if store_about =='' %}
+					</div>
+					{% else %}
+					</div>
+					{% endif %}
+					
+					<div class="tab-pane" id="shippingpolicy">
+					<p>{{ shipping_policy }}</p>
+					</div>
+					<div class="tab-pane" id="returnpolicy">
+					<p>{{ return_policy }}</p>
+					</div>
+					</div>
+				</div>
+			</div>
+			{% endif %}
+			
+			{% if show_tabproduct == 1 %}
+			<!-- 29-1-2019 new code end-->
+			<div class="tab-pane" id="products">
+				<div class="row paddleft">
+					<aside id="column-left" class="col-sm-3 hidden-xs">
+						<div class="list-group">
+							<ul class="treeview-list treeview">
+								{% if categories %}
+									{% for category in categories %}
+										{% if category.category_id %}
+										<li class="active">
+										{% if category.category_id == category_id %}
+										<a style="cursor:pointer" rel="{{ catevendor_id }}" class=" active load-category" rel1="{{ category.category_id }}">{{ category.categoryname }} </a>
+										 {% else %}
+										 <a style="cursor:pointer" rel="{{ catevendor_id }}"  class="active load-category" rel1="{{ category.category_id }}">{{ category.categoryname }} </a>
+										  {% endif %}
+											{% if category.children %}
+												<ul>
+												  {% for child in category.children %}
+												  <!-- 29-1-2020 new code-->
+												  <li class="collapsable">
+												  <!-- 29-1-2020 new code-->
+													{% if child.category_id == child_id %}
+															<a style="cursor:pointer" class="active load-subcategory" rel="{{ catevendor_id }}" subcatrel="{{ child.category_id }}" >{{ child.name }}</a>
+														{% else %}
+															<a style="cursor:pointer" class="load-subcategory" rel="{{ catevendor_id }}" subcatrel="{{ child.category_id }}">{{ child.name }}</a>
+													{% endif %}
+														<!-- 29-1-2020 new code-->
+														{% if child.children1 %}
+															<ul class="sub3">
+															  {% for child1 in child.children1 %}
+															  <li >
+																{% if child1.category_id == child_id1 %}
+																<a style="cursor:pointer" class="active load-subcategory" rel="{{ catevendor_id }}" subcatrel="{{ child1.category_id }}" >{{ child1.name }}</a>
+																{% else %}
+																<a style="cursor:pointer" class="load-subcategory" rel="{{ catevendor_id }}" subcatrel="{{ child1.category_id }}">{{ child1.name }}</a>
+																{% endif %}
+															  </li>
+															  {% endfor %}
+															</ul>
+														{% endif %}
+													</li>
+												  <!-- 29-1-2020 new code-->
+												  {% endfor %}
+												</ul>
+											{% endif %}
+											</li>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+							</ul>
+						</div>
+					</aside>
+					<!-- 26 06 2019 replace div-->
+					{% if categories %}
+					<div class="col-sm-9">
+					{% else %}
+					<div class="col-sm-12">
+					{% endif %}
+					<!-- 26 06 2019 -->
+				<div id="display-control" class="row">
+          <div class="col-lg-3">
+            <div class="mb-3">
+              <a href="{{ compare }}" id="compare-total" class="btn btn-primary d-block"><i class="fas fa-exchange-alt"></i> <span class="d-none d-xl-inline">{{ text_compare }}</span></a>
+            </div>
+          </div>
+          <div class="col-lg-1 d-none d-lg-block">
+            <div class="btn-group hidden-xs">
+              <button type="button" id="button-list" class="btn btn-light" data-bs-toggle="tooltip" title="{{ button_list }}"><i class="fas fa-th-list"></i></button>
+              <button type="button" id="button-grid" class="btn btn-light" data-bs-toggle="tooltip" title="{{ button_grid }}"><i class="fas fa-th"></i></button>
+            </div>
+          </div>
+          <div class="col-lg-4 offset-lg-1 col-6">
+            <div class="input-group mb-3">
+              <div class="input-group">
+                <label for="input-sort" class="input-group-text">{{ text_sortby }}</label> 
+                <select id="input-sort" class="form-select" name="sortorder" >
+                {% for sorts in sorts %}
+									<option value="{{ sorts.value }}">{{ sorts.text }}</option>
+								{% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-3 col-6">
+            <div class="input-group mb-3">
+              <div class="input-group">
+                <label for="input-limit" class="input-group-text">{{ text_limit }}</label> 
+                <select id="input-limit" class="form-control" name="showlimit">
+                {% for limits in limits %}
+									<option value="{{ limits.value }}">{{ limits.text }}</option>
+								{% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+					<div class="loadcate">
+					
+						<div id="vendorproduct"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endif %}
+			
+		{% if show_reviewtab == 1 %}
+		<div class="tab-pane" id="review">
+			<p>{{ text_loginplz }}</p>
+			{% if customerloggin %}
+			<div class="text-right">
+				{% if (customerloggin != ids) and (vendorids != vids) %}
+				<button type="button" data-bs-toggle="modal" data-bs-target="#myModal">{{ text_write }}</button>
+				{% endif %}
+			</div>
+			{% endif %}
+
+		{% if field_infos %}
+			{% for field_info in field_infos %}
+				<div class="review-box row">
+					<div class="col-sm-8 col-xs-12">
+						<ul class="list-inline link">
+							<li class="list-inline-item"><i class="fas fa-user"></i> {{ field_info.cnames }}</li>
+							<li class="list-inline-item"><i class="fas fa-calendar"></i> {{ field_info.date_added }}</li>
+						</ul>
+						 <p>{{ field_info.reviewtext }}</p>
+					 </div>
+					 <div class="col-sm-4 col-xs-12">
+						<ul class="list-unstyled value">
+							<li>
+								{% if field_info.ratings %}
+								{% for sellerrating in field_info.ratings %}
+								<div class="rating">
+								  <span class="filedrating">{{ sellerrating.field_name }} :</span>
+									{% for i in 1..5 %}
+									{% if sellerrating.value < i %}
+									<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+									{% else %}
+									<span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+									{% endif %}
+									{% endfor %}
+								</div>
+								{% endfor %}
+								{% endif %}
+							</li>
+						</ul>
+					  </div>
+				  </div>
+			  {% endfor %}
+		 {% endif %}
+		</div>
+		{% endif %}
+			
+		{% if show_productreview == 1 %}
+			<div class="tab-pane " id="reviews">
+			<!--############ 03 02 2021 end############ -->
+				{% if sellerreviews %}
+					{% for sellerreview in sellerreviews %}
+						<div class="review-box row">
+							<div class="col-sm-8 col-xs-12">
+								<ul class="list-inline link">
+									<li class="list-inline-item"><i class="fas fa-user"></i> {{ sellerreview.author }}</li>
+									<li class="list-inline-item"><i class="fas fa-calendar"></i> {{ sellerreview.date_added }}</li>
+								</ul>
+								<h4><a href="{{ sellerreview.href }}">{{ sellerreview.names }}</a></h4>
+								<p>{{ sellerreview.text }}</p>
+							</div>
+							<div class="col-sm-4 col-xs-12">
+								<ul class="list-unstyled value">
+									<li>
+										<div class="rating">
+											{{ text_rating }}
+											{% for i in 1..5 %}
+												{% if sellerreview.rating < i %}
+														<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+													{% else %}
+														<span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+												{% endif %}
+											{% endfor %}
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					{% endfor %}
+				{% else %}
+				<p>{{ text_proreview }}</p>
+				{% endif %}
+			</div>
+		{% endif %}	
+			
+		</div>
+	</div>
+</div>
+{{ content_bottom }}</div>
+{{ column_right }}</div>
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		  <div class="modal-content">
+			<div class="modal-header" style="display:block;">
+			  <h4 class="modal-title text-center">{{ text_write }}</h4>
+			</div>
+			<div class="modal-body">
+			  <form class="form-horizontal" id="form-review">
+				  <input type="hidden" value="{{ customer_id }}" name="customer_id" class="form-control"/>
+				  <input type="hidden" value="{{ vendor_id }}" name="vendor_id" class="form-control"/>
+					<div class="row mb-3 required">
+						<div class="col-sm-12">
+							<label class="col-form-label" for="input-name">{{ text_name }}</label>
+							<input value="{{ customername }}" disabled class="form-control"/>
+						</div>
+					</div>
+					<div class="row mb-3 required">
+						<div class="col-sm-12">
+							<label class="col-form-label" for="input-review">{{ text_comment }}</label>
+							<textarea type="text" name="text" rows="4" id="input-review" class="form-control"></textarea>
+							<div class="help-block">
+								<span class="text-danger">Note:</span> HTML is not translated!</div>
+						</div>
+					</div>
+					{% if review_fields %}
+						{% for field in review_fields %}
+						<div class="row mb-3 required">
+							<div class="col-sm-12">
+								<label class="col-form-label">{{ field['field_name'] }}:</label>
+								&nbsp;&nbsp;&nbsp; Bad&nbsp;
+								<input name="reviewfield[{{ field['rf_id'] }}]" value="1" type="radio">
+								&nbsp;
+								<input name="reviewfield[{{ field['rf_id'] }}]" value="2" type="radio">
+								&nbsp;
+								<input name="reviewfield[{{ field['rf_id'] }}]" value="3" type="radio">
+								&nbsp;
+								<input name="reviewfield[{{ field['rf_id'] }}]" value="4" type="radio">
+								&nbsp;
+								<input name="reviewfield[{{ field['rf_id'] }}]" value="5" type="radio">
+								&nbsp;Good
+							</div>
+						</div>
+					{% endfor %}
+					{% endif %}
+			   </form>
+			</div>
+			<div class="modal-footer">
+			  <button type="button" class="btn btn-default" data-bs-dismiss="modal">{{ button_close }}</button>
+			  <button type="button" class="btn btn-primary reviews" rel="{{ vendor_id }}" data-loading-text="{{ text_loading }}">{{ button_send }}</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+ <input type="hidden" value="0" name="category_id" id="category_id"/>
+	<script>
+	$('.reviews').click(function(){
+		var vendor_id = $(this).attr('rel');
+		// alert(vendor_id);
+		$.ajax({
+		url: 'index.php?route=extension/tmdmultivendor/vendor/vendor_profile|review&vendor_id='+vendor_id,
+		data: $('#form-review input[type=\'text\'], #form-review input[type=\'hidden\'], #form-review input[type=\'radio\']:checked, #form-review textarea'),
+		type:'post',
+
+		beforeSend: function() {
+				$('.reviews').button('loading');
+			},
+			complete: function() {
+				$('.reviews').button('reset');
+			},
+
+		success: function(json) {
+			$('.alert, .text-danger1').remove();
+
+			if (json['error']) {
+				$('#input-review').after('<div class="alert text-danger1">' + json['error'] + '</div>');
+
+			$('.warning').fadeIn('slow');
+			}
+
+			if (json['success']) {
+				if (json['success']) {
+					setTimeout(function(e){ $('.close').trigger('click');location.reload();},500);
+					$('input[name=text]').val('');
+					$('input[name=\'rating\']:checked').prop('checked', false);
+				}
+			}
+		}
+	});
+});
+// Load category
+	$(document).on('click', '.load-category',function(){
+		category_id=$(this).attr('rel1');
+
+		vendor_id=$(this).attr('rel');
+		$('#category_id').val(category_id);
+		$('.loadcate').load('index.php?route=extension/tmdmultivendor/vendor/vendor_profile|loadcategory&vendor_id='+vendor_id+'&category_id='+category_id);
+
+		});
+	$(document).on('click', '.load-subcategory',function(){
+		category_id=$(this).attr('subcatrel');
+		vendor_id=$(this).attr('rel');
+		$('#category_id').val(category_id);
+		$('.loadcate').load('index.php?route=extension/tmdmultivendor/vendor/vendor_profile|loadcategory&vendor_id='+vendor_id+'&category_id='+category_id);
+
+		});
+
+	// Load Sort Order
+	$('select[name=\'sortorder\']').on('change', function() {
+		sortrel=$('#input-sort').val();
+		relcate=$('#category_id').val();
+		$('.loadcate').load('index.php?route=extension/tmdmultivendor/vendor/vendor_profile|loadcategory&category_id='+relcate+'&'+sortrel);
+		});
+
+
+	// Load Show Limit
+	$('select[name=\'showlimit\']').on('change', function() {
+		limitrel=$('#input-limit').val();
+		alert(limitrel);
+		relcate=$('#category_id').val();
+		$('.loadcate').load('index.php?route=extension/tmdmultivendor/vendor/vendor_profile|loadcategory&category_id='+relcate+'&'+limitrel);
+		});
+
+		$('.loadcate').delegate('.pagination a', 'click', function(e) {
+		e.preventDefault();
+
+		$('.loadcate').fadeOut('slow');
+
+		$('.loadcate').load(this.href);
+
+		$('.loadcate').fadeIn('slow');
+	});
+
+</script>
+<script>
+	$('#follows').click(function(){
+		$.ajax({
+			url: 'index.php?route=extension/tmdmultivendor/vendor/vendor_profile|follow',
+			type:'post',
+			dataType:'json',
+			data: $('.addfollow input[type=\'hidden\']'),
+			beforeSend: function() {
+
+			},
+			success: function(json) {
+				if (json['success']) {
+
+				}
+			setTimeout(function(e){ $('.close').trigger('click');location.reload();},500);
+			}
+		});
+	});
+</script>
+
+<script>
+	// img delete
+$('#delfollow').click(function(){
+	var vendor_id = $(this).attr('rel');
+	$.ajax({
+	url: 'index.php?route=extension/tmdmultivendor/vendor/vendor_profile|delfollow&vendor_id='+vendor_id,
+	type:'post',
+	dataType:'json',
+		beforeSend: function() {
+	},
+	success: function(json) {
+		if (json['success']) {
+
+		}
+		setTimeout(function(e){ $('.close').trigger('click');location.reload();},500);
+	}
+});
+});
+</script>
+
+<script type="text/javascript"><!--
+$('#vendorproduct').delegate('.pagination a', 'click', function(e) {
+    e.preventDefault();
+
+    $('#vendorproduct').fadeOut('slow');
+
+    $('#vendorproduct').load(this.href);
+
+    $('#vendorproduct').fadeIn('slow');
+});
+
+$('#vendorproduct').load('index.php?route=extension/tmdmultivendor/vendor/vendor_profile|vendorproduct&vendor_id={{ vendor_id }}');
+
+//--></script>
+
+<!--03 10 2019-->
+{% if vendorchat_id %}
+	<script type="text/javascript">
+		var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+		(function(){
+		var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+		s1.async=true;
+		s1.src='https://embed.tawk.to/{{vendorchat_id}}';
+		s1.charset='UTF-8';
+		s1.setAttribute('crossorigin','*');
+		s0.parentNode.insertBefore(s1,s0);
+		})();
+	</script>
+{% endif %}
+<!--03 10 2019-->
+<!--############ 03 02 2021############ -->
+<script type="text/javascript"><!--
+	var $sorted_items,
+getSorted = function(selector, attrName) {
+    return $(
+      $(selector).toArray().sort(function(a, b){
+          var aVal = parseInt(a.getAttribute(attrName)),
+              bVal = parseInt(b.getAttribute(attrName));
+          return aVal - bVal;
+      })
+    );
+};
+
+$sorted_items = getSorted('.maintabs > li', 'data-sort').clone();
+$('.maintabs').html($sorted_items);
+// $('.maintabs a:first').tab('show');
+</script>
+
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+(function(){
+var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+s1.async=true;
+s1.src='https://embed.tawk.to/5c6501881f6f7f1f609b1db6/default';
+s1.charset='UTF-8';
+s1.setAttribute('crossorigin','*');
+s0.parentNode.insertBefore(s1,s0);
+})();
+</script>
+<!--End of Tawk.to Script-->
+<!--############ 03 02 2021############ -->
+{{ footer }}

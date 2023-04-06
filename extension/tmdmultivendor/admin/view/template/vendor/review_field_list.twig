@@ -1,0 +1,36 @@
+<form id="form-review_field" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#review_field">
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<td class="text-center" style="width: 1px;"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', $(this).prop('checked'));" class="form-check-input"/></td>
+					<td class="text-start"><a href="{{ sort_field_name }}"{% if sort == 'field_name' %} class="{{ order|lower }}"{% endif %}>{{ column_name }}</a></td>
+					<td class="text-start"><a href="{{ sort_sort_order }}"{% if sort == 'sort_order' %} class="{{ order|lower }}"{% endif %}>{{ column_sort_order }}</a></td>
+					<td class="text-start"><a href="{{ sort_status }}"{% if sort == 'r.status' %} class="{{ order|lower }}"{% endif %}>{{ column_status }}</a></td>
+					<td class="text-end">{{ column_action }}</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% if review_fields %}
+					{% for review_field in review_fields %}
+						<tr>
+							<td class="text-center"><input type="checkbox" name="selected[]" value="{{ review_field.rf_id }}" class="form-check-input"/></td>
+							<td class="text-start">{{ review_field.field_name }}</td>
+							<td class="text-start">{{ review_field.sort_order }}</td>
+							<td class="text-start">{{ review_field.status }}</td>
+							<td class="text-end"><a href="{{ review_field.edit }}" data-bs-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a></td>
+						</tr>
+					{% endfor %}
+				{% else %}
+					<tr>
+						<td class="text-center" colspan="7">{{ text_no_results }}</td>
+					</tr>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<div class="col-sm-6 text-start">{{ pagination }}</div>
+		<div class="col-sm-6 text-end">{{ results }}</div>
+	</div>
+</form>

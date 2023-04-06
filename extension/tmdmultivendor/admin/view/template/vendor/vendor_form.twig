@@ -1,0 +1,620 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="float-end">
+        <button type="submit" form="form-vender" formaction="{{ save }}" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fas fa-save"></i></button>
+        <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fas fa-reply"></i></a>
+	  </div>
+      <h1>{{ heading_title }}</h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header"><i class="fas fa-pencil-alt"></i> {{ text_form }}</div>
+      <div class="card-body">
+        <form id="form-vender" action="{{ save }}" method="post" data-oc-toggle="ajax">
+			<ul class="nav nav-tabs">
+				<li class="nav-item"><a href="#tab-seller" data-bs-toggle="tab" class="nav-link active">{{ tab_seller }}</a></li>
+				<li class="nav-item"><a href="#tab-generalstore" data-bs-toggle="tab" class="nav-link">{{ tab_generalstore }}</a></li>
+				<li class="nav-item"><a href="#tab-datastore" data-bs-toggle="tab" class="nav-link">{{ tab_datastore }}</a></li>
+				<li class="nav-item"><a href="#tab-commission" data-bs-toggle="tab" class="nav-link">{{ tab_commission }}</a></li>
+				<li class="nav-item"><a href="#tab-seo" data-bs-toggle="tab" class="nav-link">{{ tab_seo }}</a></li>
+				<li class="nav-item"><a href="#tab-chat" data-bs-toggle="tab" class="nav-link">{{ tab_chat }}</a></li>
+				<!--Social icon-->
+				<li class="nav-item"><a href="#tab-socialicon" data-bs-toggle="tab" class="nav-link">{{ tab_socialicon }}</a></li>
+				<!--Social icon-->
+			</ul>
+			<div class="tab-content">
+				<div class="tab-pane active" id="tab-seller">
+					
+					<div class="row mb-3 required">
+						<label class="col-sm-2 col-form-label" for="input-display-name">{{ entry_display_name }}</label>
+						<div class="col-sm-10">
+							<input type="text" name="display_name" value="{{ display_name }}" placeholder="{{ entry_display_name }}" id="input-display-name" class="form-control" />
+							 <div id="error-display-name" class="invalid-feedback"></div>
+						</div>
+					</div>
+					<div class="row mb-3 required">
+						<label class="col-sm-2 col-form-label" for="input-firstname">{{ entry_firstname }}</label>
+						<div class="col-sm-10">
+							<input type="text" name="firstname" value="{{ firstname }}" placeholder="{{ entry_firstname }}" id="input-firstname" class="form-control" />
+							 <div id="error-firstname" class="invalid-feedback"></div>
+						</div>
+					</div>
+					<div class="row mb-3 required">
+						<label class="col-sm-2 col-form-label" for="input-lastname">{{ entry_lastname }}</label>
+						<div class="col-sm-10">
+						  <input type="text" name="lastname" value="{{ lastname }}" placeholder="{{ entry_lastname }}" id="input-lastname" class="form-control" />
+						   <div id="error-lastname" class="invalid-feedback"></div>
+						</div>
+					</div>
+					<div class="row mb-3 required">
+						<label class="col-sm-2 col-form-label" for="input-email">{{ entry_email }}</label>
+						<div class="col-sm-10">
+						  <input type="text" name="email" value="{{ email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control" />
+						   <div id="error-email" class="invalid-feedback"></div>
+						</div>
+					</div>
+					<div class="row mb-3 required">
+						<label class="col-sm-2 col-form-label" for="input-telephone">{{ entry_telephone }}</label>
+						<div class="col-sm-10">
+						  <input type="text" name="telephone" value="{{ telephone }}" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control" />
+						   <div id="error-telephone" class="invalid-feedback"></div>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label" for="input-fax">{{ entry_fax }}</label>
+						<div class="col-sm-10">
+						  <input type="text" name="fax" value="{{ fax }}" placeholder="{{ entry_fax }}" id="input-fax" class="form-control" />
+						</div>
+					</div>
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label" for="input-company">{{ entry_company }}</label>
+						<div class="col-sm-10">
+						  <input type="text" name="company" value="{{ company }}" placeholder="{{ entry_company }}" id="input-company" class="form-control" />
+						  
+						</div>
+					</div>
+					<div class="row mb-3 required">
+						<label class="col-sm-2 col-form-label" for="input-address-1">{{ entry_address_1 }}</label>
+						<div class="col-sm-10">
+						  <input type="text" name="address_1" value="{{ address_1 }}" placeholder="{{ entry_address_1 }}" id="input-address-1" class="form-control" />
+						   <div id="error-address-1" class="invalid-feedback"></div>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label" for="input-address_2">{{ entry_address_2 }}</label>
+						<div class="col-sm-10">
+						  <input type="text" name="address_2" value="{{ address_2 }}" placeholder="{{ entry_address_2 }}" id="input-address_2" class="form-control" />
+						</div>
+					</div>
+					<div class="row mb-3 ">
+						<label class="col-sm-2 col-form-label" for="input-status">{{ entry_status }}</label>
+						<div class="col-sm-10">
+							<select name="status" id="input-status" class="form-control">
+								{% if status %}
+								<option value="1" selected="selected">{{ text_enable }}</option>
+								<option value="0">{{ text_disable }}</option>
+								{% else %}
+								<option value="1">{{ text_enable }}</option>
+								<option value="0" selected="selected">{{ text_disable }}</option>
+								{% endif %}
+							</select>
+						</div>
+					</div>
+					<div class="row mb-3 ">
+						<label class="col-sm-2 col-form-label" for="input-product_status">{{ entry_productstatus }}</label>
+						<div class="col-sm-10">
+							<select name="product_status" id="input-product_status" class="form-control">
+								{% if product_status %}
+								<option value="1" selected="selected">{{ text_autoapprove }}</option>
+								<option value="0">{{ text_pending }}</option>
+								{% else %}
+								<option value="1">{{ text_autoapprove }}</option>
+								<option value="0" selected="selected">{{ text_pending }}</option>
+								{% endif %}
+							</select>
+						</div>
+					</div>
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label" for="input-about">{{ entry_about }}</label>
+						<div class="col-sm-10">
+						  <textarea type="text" name="about" rows="3" placeholder="{{ entry_about }}" id="input-about" class="form-control">{{ about }}</textarea>
+						</div>
+					</div>
+					<div class="row mb-3 required">
+						<label class="col-sm-2 col-form-label" for="input-city">{{ entry_city }}</label>
+						<div class="col-sm-10">
+						  <input type="text" name="city" value="{{ city }}" placeholder="{{ entry_city }}" id="input-city" class="form-control" />
+						  <div id="error-city" class="invalid-feedback"></div>
+						</div>
+					</div>
+					<div class="row mb-3 required">
+						<label class="col-sm-2 col-form-label" for="input-postcode">{{ entry_postcode }}</label>
+						<div class="col-sm-10">
+						  <input type="text" name="postcode" value="{{ postcode }}" placeholder="{{ entry_postcode }}" id="input-postcode" class="form-control" />
+						  <div id="error-postcode" class="invalid-feedback"></div>
+						</div>
+					</div>
+					<div class="row mb-3 required">
+						<label class="col-sm-2 col-form-label" for="input-country">{{ entry_country }}</label>
+						<div class="col-sm-10">				
+							<select name="country_id" id="input-country" class="form-select">
+		                        <option value="">{{ text_select }}</option>
+		                        {% for country in countries %}
+		                          <option value="{{ country.country_id }}"{% if country.country_id == country_id %} selected{% endif %}>{{ country.name }}</option>
+		                        {% endfor %}
+	                        </select>
+	                        <div id="error-country" class="invalid-feedback"></div>
+						</div>
+					</div>
+					<div class="row mb-3 required">
+						<label class="col-sm-2 col-form-label" for="input-zone">{{ entry_zone }}</label>
+						<div class="col-sm-10">
+						<select name="zone_id" id="input-zone" class="form-select"></select>
+        			<div id="error-zone" class="invalid-feedback"></div>
+						</div>
+					</div>
+					<div class="row mb-3 required">
+						<label class="col-sm-2 col-form-label" for="input-password">{{ entry_password }}</label>
+						<div class="col-sm-10">
+						  <input type="password" name="password" value="" placeholder="{{ entry_password }}" id="input-password" class="form-control" />	
+						  <div id="error-password" class="invalid-feedback"></div>							  
+						</div>
+					</div>
+					<div class="row mb-3 required">
+						<label class="col-sm-2 col-form-label" for="input-confirmpassword">{{ entry_confirmpassword }}</label>
+						<div class="col-sm-10">
+						  <input type="password" name="confirmpassword" value="" placeholder="{{ entry_confirmpassword }}" id="input-confirmpassword" class="form-control" />
+						  <div id="error-confirmpassword" class="invalid-feedback"></div>
+						</div>
+					</div>
+		
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label">{{ entry_image }}</label>
+					    <div id="image" class="card image">
+					      <img src="{{ thumb }}" alt="" title="" id="thumb-image" data-oc-placeholder="{{ placeholder }}" class="card-img-top"/> <input type="hidden" name="image" value="{{ image }}" id="input-image"/>
+					      <div class="card-body">
+					        <button type="button" data-oc-toggle="image" data-oc-target="#input-image" data-oc-thumb="#thumb-image" class="btn btn-primary btn-sm btn-block"><i class="fas fa-pencil-alt"></i> {{ button_edit }}</button>
+					        <button type="button" data-oc-toggle="clear" data-oc-target="#input-image" data-oc-thumb="#thumb-image" class="btn btn-warning btn-sm btn-block"><i class="fas fa-trash-alt"></i> {{ button_clear }}</button>
+					      </div>
+					    </div>
+					</div>
+				</div>
+				<div class="tab-pane" id="tab-generalstore">
+					<ul class="nav nav-tabs" id="language">
+		                {% for language in languages %}
+		                  <li class="nav-item"><a href="#language-{{ language.language_id }}" data-bs-toggle="tab" class="nav-link{% if loop.first %} active{% endif %}"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/> {{ language.name }}</a></li>
+		                {% endfor %}
+	              	</ul>
+					<div class="tab-content">
+					 {% for language in languages %}
+			        <div class="tab-pane{% if loop.first %} active{% endif %}" id="language-{{ language.language_id }}">
+						
+						<div class="row mb-3 required">
+							<label class="col-sm-2 col-form-label" for="input-name{{ language.language_id }}">{{ entry_name }}</label>
+							<div class="col-sm-10">
+							<input type="text" name="store_description[{{ language.language_id }}][name]" value="{{ store_description[language.language_id] ? store_description[language.language_id].name }}" placeholder="{{ entry_name }}" id="input-name-{{ language.language_id }}" class="form-control"/>
+                        	<div id="error-name-{{ language.language_id }}" class="invalid-feedback"></div>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-description{{ language.language_id }}">{{ entry_description }}</label>
+							<div class="col-sm-10">
+								<textarea type="text" name="store_description[{{ language.language_id }}][description]" value="" placeholder="{{ entry_description }}" id="input-description{{ language.language_id }}" data-oc-toggle="ckeditor" data-lang="{{ ckeditor }}" class="form-control">{{ store_description[language.language_id] ? store_description[language.language_id].description }}
+			            		</textarea>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-shipping_policy{{ language.language_id }}">{{ entry_shipping_policy }}</label>
+							<div class="col-sm-10">
+							<textarea type="text" name="store_description[{{ language.language_id }}][shipping_policy]" value="" placeholder="{{ entry_shipping_policy }}" id="input-shipping_policy{{ language.language_id }}" data-oc-toggle="ckeditor" data-lang="{{ ckeditor }}" class="form-control">{{ store_description[language.language_id] ? store_description[language.language_id].shipping_policy }}</textarea>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-return_policy{{ language.language_id }}">{{ entry_return_policy }}</label>
+							<div class="col-sm-10">
+							<textarea type="text" name="store_description[{{ language.language_id }}][return_policy]" value="" placeholder="{{ entry_return_policy }}" id="input-return_policy{{ language.language_id }}" data-oc-toggle="ckeditor" data-lang="{{ ckeditor }}" class="form-control">{{ store_description[language.language_id] ? store_description[language.language_id].return_policy }}</textarea>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-meta_keyword{{ language.language_id }}">{{ entry_meta_keyword }}</label>
+							<div class="col-sm-10">
+							<textarea type="text" name="store_description[{{ language.language_id }}][meta_keyword]" value="" placeholder="{{ entry_meta_keyword }}" id="input-meta_keyword{{ language.language_id }}" class="form-control " >{{ store_description[language.language_id] ? store_description[language.language_id].meta_keyword }}</textarea>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-meta_description{{ language.language_id }}">{{ entry_meta_description }}</label>
+							<div class="col-sm-10">
+							<textarea type="text" name="store_description[{{ language.language_id }}][meta_description]" value="" placeholder="{{ entry_meta_description }}" id="input-meta_description{{ language.language_id }}" class="form-control">{{ store_description[language.language_id] ? store_description[language.language_id].meta_description }}</textarea>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+				
+			</div>	
+				
+				<div class="tab-pane" id="tab-datastore">
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label" for="input-tax_number">{{ entry_tax_number }}</label>
+						<div class="col-sm-10">
+						  <input type="text" name="tax_number" value="{{ tax_number }}" placeholder="{{ entry_tax_number }}" id="input-tax_number" class="form-control" />
+						</div>
+					</div>
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label" for="input-shipping_charge">{{ entry_shipping_charge }}</label>
+						<div class="col-sm-10">
+						  <input type="text" name="shipping_charge" value="{{ shipping_charge }}" placeholder="{{ entry_shipping_charge }}" id="input-shipping_charge" class="form-control" />
+						</div>
+					</div>
+					
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label" for="input-google_url">{{ entry_mapurl }}</label>
+						
+						<div class="col-sm-10">
+							<textarea type="text" name="map_url" placeholder="{{ entry_mapurl }}" id="input-map" class="form-control"  >{{ map_url }}</textarea>
+						</div>
+					</div>
+			
+				<div class="row mb-3">
+				    <label class="col-sm-2 col-form-label">{{ entry_banner }}</label>
+				    <div id="image" class="card image">
+				      <img src="{{ thumb_banner }}" alt="" title="" id="thumb-banner" data-oc-placeholder="{{ placeholder }}" class="card-img-top"/> 
+				      <input type="hidden" name="banner" value="{{ banner }}" id="input-banner"/>
+				      <div class="card-body">
+				        <button type="button" data-oc-toggle="image" data-oc-target="#input-banner" data-oc-thumb="#thumb-banner" class="btn btn-primary btn-sm btn-block"><i class="fas fa-pencil-alt"></i> {{ button_edit }}</button>
+				        <button type="button" data-oc-toggle="clear" data-oc-target="#input-banner" data-oc-thumb="#thumb-banner" class="btn btn-warning btn-sm btn-block"><i class="fas fa-trash-alt"></i> {{ button_clear }}</button>
+				      </div>
+				    </div>
+				</div>
+
+				<div class="row mb-3">
+				    <label class="col-sm-2 col-form-label">{{ entry_banner }}</label>
+				    <div id="image" class="card image">
+				      <img src="{{ thumb_logo }}" alt="" title="" id="thumb-logo" data-oc-placeholder="{{ placeholder }}" class="card-img-top"/> 
+				      <input type="hidden" name="logo" value="{{ logo }}" id="input-logo"/>
+				      <div class="card-body">
+				        <button type="button" data-oc-toggle="image" data-oc-target="#input-logo" data-oc-thumb="#thumb-logo" class="btn btn-primary btn-sm btn-block"><i class="fas fa-pencil-alt"></i> {{ button_edit }}</button>
+				        <button type="button" data-oc-toggle="clear" data-oc-target="#input-logo" data-oc-thumb="#thumb-logo" class="btn btn-warning btn-sm btn-block"><i class="fas fa-trash-alt"></i> {{ button_clear }}</button>
+				      </div>
+				    </div>
+				</div>
+
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label" for="input-store_about">{{ entry_about }}</label>
+						<div class="col-sm-10">
+						  <textarea type="text" name="store_about" rows="3" placeholder="{{ entry_about }}" id="input-store_about" class="form-control">{{ store_about }}</textarea>
+						</div>
+					</div>
+					<!--05 02 2021 Start-->					
+					<div class="row mb-3">
+						<label class="col-sm-2  col-form-label" for="input-bank_detail">{{ entry_bank_detail }}</label>
+						<div class="col-sm-10">
+						<textarea name="bank_detail" rows="5" value="" placeholder="{{ entry_bank_detail }}" id="input-bank_detail" class="form-control" >{{ bank_detail }}</textarea>
+						</div>
+					</div>
+					<!--05 02 2021 END-->
+				</div>
+				<div class="tab-pane" id="tab-commission">
+					<div class="row mb-3">
+						<label class="col-sm-2 col-form-label" for="input-commission">{{ entry_commission }}</label>
+						<div class="col-sm-10">
+							<input type="text" name="commission" value="{{ commission }}" placeholder="{{ entry_commission }}" id="input-commission" class="form-control" />
+						</div>
+					</div>
+					<div class="row mb-3">
+		                <label class="col-sm-2 col-form-label">{{ entry_method }}</label>
+		                <div class="col-sm-10">
+		                  <div class="radio">
+		                    <label>
+		                      {% if payment_method == 'paypal' %}
+		                      <input type="radio" name="payment_method" value="paypal" checked="checked" />
+		                      {% else %}
+		                      <input type="radio" name="payment_method" value="paypal" />
+		                      {% endif %}
+		                      {{ text_paypal }}</label>
+		                  </div>
+		                  <div class="radio">
+		                    <label>
+		                      {% if payment_method == 'banktransfer' %}
+		                      <input type="radio" name="payment_method" value="banktransfer" checked="checked" />
+		                      {% else %}
+		                      <input type="radio" name="payment_method" value="banktransfer" />
+		                      {% endif %}
+		                      {{ text_bank }}</label>
+		                  </div>
+		                </div>
+		            </div>
+					<div class="payment" id="payment-paypal">	
+						<div class="row mb-3 required" id="paypal">	
+							<label class="col-sm-2 col-form-label" for="input-paypal">{{ entry_Emailid }}</label>
+							<div class="col-sm-10">
+								<input type="text" name="paypal" value="{{ paypal }}" placeholder="{{ entry_Emailid }}" id="input-paypal" class="form-control"/>
+              <div id="error-paypal" class="invalid-feedback"></div>
+							</div>
+						</div>
+					</div>
+					<div class="clearfix"></div>
+					<div class="payment" id="payment-banktransfer">
+						<div class="row mb-3 required">
+							<label class="col-sm-2 col-form-label" for="input-bankname">{{ entry_bankname }}</label>
+							<div class="col-sm-10">
+								<input type="text" name="bank_name" value="{{ bank_name }}" placeholder="{{ entry_bankname }}" id="input-bankname" class="form-control" />
+								<div id="error-bankname" class="invalid-feedback"></div>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<label class="col-sm-2 col-form-label" for="input-branch_number">{{ entry_bnumber }}</label>
+							<div class="col-sm-10">
+								<input type="text" name="bank_branch_number" value="{{ bank_branch_number }}" placeholder="{{ entry_bnumber }}" id="input-branch_number" class="form-control" />
+							</div>
+						</div>
+						<div class="row mb-3 ">
+							<label class="col-sm-2 col-form-label" for="input-swift_code">{{ entry_swiftcode }}</label>
+							<div class="col-sm-10">
+								<input type="text" name="bank_swift_code" value="{{ bank_swift_code }}" placeholder="{{ entry_swiftcode }}" id="input-swift_code" class="form-control" />
+							</div>
+						</div>
+						<div class="row mb-3 required">
+							<label class="col-sm-2 col-form-label" for="input-bank-account-name">{{ entry_aname }}</label>
+							<div class="col-sm-10">
+								<input type="text" name="bank_account_name" value="{{ bank_account_name }}" placeholder="{{ entry_aname }}" id="input-bank-account-name" class="form-control" />
+								<div id="error-bank-account-name" class="invalid-feedback"></div>
+							</div>
+						</div>
+						<div class="row mb-3 required">
+							<label class="col-sm-2 col-form-label" for="input-bank-account-number">{{ entry_anumber }}</label>
+							<div class="col-sm-10">
+								<input type="text" name="bank_account_number" value="{{ bank_account_number }}" placeholder="{{ entry_anumber }}" id="input-bank-account-number" class="form-control" />
+								<div id="error-bank-account-number" class="invalid-feedback"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="tab-pane" id="tab-seo">
+					<div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ text_keyword }}</div>
+					  <div class="table-responsive">
+						<table class="table table-bordered table-hover">
+						  <thead>
+							<tr>
+							  <td class="text-left">{{ entry_store }}</td>
+							  <td class="text-left">{{ entry_keyword }}</td>
+							</tr>
+						  </thead>
+						  <tbody>
+						   {% for store in stores %}
+						  <tr>
+							<td class="text-left">{{ store.name }}</td>
+							<td class="text-left">{% for language in languages %}
+							  <div class="input-group"><span class="input-group-text"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}" /> </span>
+								<input type="text" name="vendor_seo_url[{{ store.store_id }}][{{ language.language_id }}]" value="{% if vendor_seo_url[store.store_id][language.language_id] %}{{ vendor_seo_url[store.store_id][language.language_id] }}{% endif %}" placeholder="{{ entry_keyword }}" class="form-control" />
+							  </div>
+							  {% if error_keyword[store.store_id][language.language_id] %}
+							  <div class="text-danger">{{ error_keyword[store.store_id][language.language_id] }}</div>
+							  {% endif %} 
+							  <div id="error-keyword-{{ store.store_id }}-{{ language.language_id }}" class="invalid-feedback"></div>
+							  {% endfor %}</td>
+						  </tr>
+						  {% endfor %}
+						  </tbody>
+						</table>
+					  </div>
+					</div>
+
+		
+				<div class="tab-pane" id="tab-chat">
+					<div class="msgsend">
+						<div class="row mb-3 ">	
+							<label class="col-sm-2 col-form-label" for="input-package-title">{{ entry_status }}</label>
+							<div class="col-sm-10">
+								<select name="chatstatus" id="statuss" class="form-control">
+									{% if chatstatus %}
+									<option value="1" selected="selected">{{ text_yes }}</option>
+									<option value="0">{{ text_no }}</option>
+									{% else %}
+									<option value="1">{{ text_yes }}</option>
+									<option value="0" selected="selected">{{ text_no }}</option>
+									{% endif %}
+								</select>
+							</div>
+						</div>
+						
+						<div class="row mb-3" >
+							<label class="col-sm-2 col-form-label" for="input-package-title"></label>
+							<div class="col-sm-10">
+								<div class="controls chatsystem">
+									<input type="text" name="message" value="{{ message }}" placeholder="Add Here Twak Id" id="responsetext" class="form-control" />
+									
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+				
+				<!--Social icon-->	
+				<div class="tab-pane col-sm-12" id="tab-socialicon">
+					<div class="row">
+						<div class="mb-3 col-sm-4">
+							<div>
+								<label class="col-form-label" for="input-facebook_url">{{ entry_facebookurl }}</label>
+								<input type="text" name="facebook_url" value="{{ facebook_url }}" placeholder="{{ entry_facebookurl }}" id="input-facebook_url" class="form-control" />
+							</div>
+						</div>
+						
+						<div class="mb-3 col-sm-4">
+							<div>
+								<label class="col-form-label" for="input-google_url">{{ entry_googleurl }}</label>						
+								<input type="text" name="google_url" value="{{ google_url }}" placeholder="{{ entry_googleurl }}" id="input-google_url" class="form-control" />
+							</div>
+						</div>	
+
+						<div class="mb-3 col-sm-4">
+							<div>
+								<label class="col-form-label" for="input-whatsapp_url">{{ entry_whatsappurl }}</label>
+								<input type="text" name="whatsapp_url" value="{{ whatsapp_url }}" placeholder="{{ entry_whatsappurl }}" id="input-whatsapp_url" class="form-control" />
+							</div>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="mb-3 col-sm-4">
+							<div>
+								<label class="col-form-label" for="input-instagram_url">{{ entry_instagram_url }}</label>						
+								<input type="text" name="instagram_url" value="{{ instagram_url }}" placeholder="{{ entry_instagram_url }}" id="input-instagram_url" class="form-control" />
+							</div>
+						</div>	
+
+						<div class="mb-3 col-sm-4">
+							<div>
+								<label class="col-form-label" for="input-twitter_url">{{ entry_twitter_url }}</label>						
+								<input type="text" name="twitter_url" value="{{ twitter_url }}" placeholder="{{ entry_twitter_url }}" id="input-twitter_url" class="form-control" />
+							</div>
+						</div>	
+
+						<div class="mb-3 col-sm-4">
+							<div>
+								<label class="col-form-label" for="input-snapchat_url">{{ entry_snapchat_url }}</label>						
+								<input type="text" name="snapchat_url" value="{{ snapchat_url }}" placeholder="{{ entry_snapchat_url }}" id="input-snapchat_url" class="form-control" />
+							</div>
+						</div>					
+					</div>	
+					
+					<div class="row">					
+						<div class="mb-3 col-sm-4">
+							<div>
+								<label class="col-form-label" for="input-pinterest_url">{{ entry_pinterest_url }}</label>						
+								<input type="text" name="pinterest_url" value="{{ pinterest_url }}" placeholder="{{ entry_snapchat_url }}" id="input-pinterest_url" class="form-control" />
+							</div>
+						</div>	
+
+						<div class="mb-3 col-sm-4">
+							<div>
+								<label class="col-form-label" for="input-youtube_url">{{ entry_youtube_url }}</label>						
+								<input type="text" name="youtube_url" value="{{ youtube_url }}" placeholder="{{ entry_youtube_url }}" id="input-youtube_url" class="form-control" />
+							</div>
+						</div>	
+
+						<div class="mb-3 col-sm-4">
+							<div>
+								<label class="col-form-label" for="input-linkedin_url">{{ entry_linkedin_url }}</label>						
+								<input type="text" name="linkedin_url" value="{{ linkedin_url }}" placeholder="{{ entry_linkedin_url }}" id="input-linkedin_url" class="form-control" />
+							</div>
+						</div>	
+					</div>	
+					
+					<div class="row">
+						<div class="mb-3 col-sm-4">
+							<div>
+								<label class="col-form-label" for="input-tiktok_url">{{ entry_tiktok_url }}</label>						
+								<input type="text" name="tiktok_url" value="{{ tiktok_url }}" placeholder="{{ entry_tiktok_url }}" id="input-tiktok_url" class="form-control" />
+							</div>
+						</div>						
+					</div>						
+				</div>
+				<!--Social icon-->		
+
+					<input type="hidden" name="vendor_id" value="{{ vendor_id }}">
+
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</div>
+
+
+
+<script type="text/javascript">
+
+	$('textarea[data-oc-toggle=\'ckeditor\']').ckeditor();
+
+	$(document).ready(function(){
+		$flag = $('#statuss').val();
+		if($flag==1){
+			$(".chatsystem").show();
+		}else{
+			$(".chatsystem").hide();
+		}
+		$("select[name='chatstatus']").on('change', function() {
+	    $flagg = $(this).val();
+	    if($flagg==1){
+			$(".chatsystem").show();
+		}else{
+			$(".chatsystem").hide();
+		}
+	    $(".chatsystem").toggle(flag);
+  })
+
+	})
+</script>
+
+<script type="text/javascript"><!--
+$('input[name=\'payment_method\']').on('change', function() {
+	$('.payment').hide();
+
+	$('#payment-' + this.value).show();
+});
+
+$('input[name=\'payment_method\']:checked').trigger('change');
+//-->
+</script> 
+
+<script type="text/javascript"><!--
+// $('#language a:first').tab('show');
+//--></script>
+<script type="text/javascript"><!--
+$('select[name=\'country_id\']').on('change', function() {
+	$.ajax({
+		url: 'index.php?route=extension/tmdmultivendor/vendor/vendor|country&user_token={{ user_token }}&country_id=' + this.value,
+		dataType: 'json',
+		beforeSend: function() {
+			$('select[name=\'country_id\']').after(' <i class="fa fa-circle-o-notch fa-spin"></i>');
+		},
+		complete: function() {
+			$('.fa-spin').remove();
+		},
+		success: function(json) {
+			if (json['postcode_required'] == '1') {
+				$('input[name=\'postcode\']').parent().parent().addClass('required');
+			} else {
+				$('input[name=\'postcode\']').parent().parent().removeClass('required');
+			}
+
+			html = '<option value="">{{ text_select }}</option>';
+
+			if (json['zone'] && json['zone'] != '') {
+				for (i = 0; i < json['zone'].length; i++) {
+					html += '<option value="' + json['zone'][i]['zone_id'] + '"';
+
+					if (json['zone'][i]['zone_id'] == '{{ zone_id }}') {
+						html += ' selected="selected"';
+					}
+
+					html += '>' + json['zone'][i]['name'] + '</option>';
+				}
+			} else {
+				html += '<option value="0" selected="selected">{{ text_none }}</option>';
+			}
+
+			$('select[name=\'zone_id\']').html(html);
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+
+$('select[name=\'country_id\']').trigger('change');
+//--></script>
+
+
+
+{{ footer }}

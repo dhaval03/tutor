@@ -1,0 +1,88 @@
+<link href="extension/tmdmultivendor/catalog/view/stylesheet/vendor/vendor.css" rel="stylesheet">
+<div class="latest-seller">
+<h3>{{ heading_title }}</h3>
+<div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-xl-3">
+  {% for vendor in vendors %}
+		<div class="product-layout col">
+			<div class="product-thumb transition allseller">
+			  <div class="image">
+				<a href="{{ vendor.href }}"><img src="{{ vendor['thumb'] }}" alt="{{ vendor.firstname }}" title="{{ vendor.firstname }}" class="img-fluid" /></a>
+				<div class="smalimage d-none">
+				  <img src="{{ vendor.smallthumb }}" class="img-fluid" />
+				</div>
+			  </div>
+			  <div class="caption">
+				<h4><i class="fa fa-home"></i> {{ vendor.storename }}</h4>
+				<ul class="list-unstyled user-links">
+				    {% if vendor_hidevname %}
+					<li><i class="fa fa-user"></i> {{ vendor.firstname }}</li>
+					{% endif %}
+					{% if vendor_hidevemail %}
+				  <li><i class="fa fa-envelope"></i> {{ vendor.email }}</li>
+				  {% endif %}
+				  {% if vendor_hidevponeno %}
+				  <li><i class="fa fa-phone"></i> {{ vendor.telephone }}</li>
+				   {% endif %}
+				</ul>
+				<div class="total">
+					{% if vendor_hidevsocialicon %}
+					  <ul class="list-inline social-icons pull-left">
+						<!--Social icon-->
+						 {% if vendor.facebookurl %}	
+						  <li class="facebookicon"><a href="{{ vendor.facebookurl }}" target="new"><i class="fab fa-facebook"></i></a></li>
+						  {% endif %}
+
+						  {% if vendor.googleurl %}
+						  <li class="googleicon"><a href="{{ vendor.googleurl }}" target="new"><i class="fab fa-google"></i></a></li>
+						  {% endif %}
+															 
+						 {% if vendor.whatsapp_url %}
+						 <li class="whatsappicon"><a href="{{ vendor.whatsapp_url }}" target="new">
+							<i class="fab fa-whatsapp"></i>
+						 </a></li>
+						 {% endif %}
+						 
+						 {% if vendor.instagram_url %}
+						 <li class="instagramicon"><a href="{{ vendor.instagram_url }}" target="new">
+						 	<i class="fab fa-instagram"></i></a></li>
+						 {% endif %}
+						 
+						 {% if vendor.twitter_url %}
+						  <li class="twittericon"><a href="{{ vendor.twitter_url }}" target="new">
+						  	<i class="fab fa-twitter"></i>
+						  </a></li>
+						  {% endif %}
+						  
+						  {% if vendor.snapchat_url %}
+						   <li class="snapchaticon"><a href="{{ vendor.snapchat_url }}" target="new"><i class="fab fa-snapchat-ghost"></i></a></li>
+						   {% endif %}
+						   
+						   {% if vendor.pinterest_url %}
+						   <li class="pinteresticon"><a href="{{ vendor.pinterest_url }}" target="new"><i class="fab fa-pinterest"></i></a></li>
+						   {% endif %}
+						   
+						   {% if vendor.youtube_url %}
+						   <li class="youtubeicon"><a href="{{ vendor.youtube_url }}" target="new"><i class="fab fa-youtube"></i></a></li>
+						   {% endif %}
+						   
+						   {% if vendor.linkidin_url %}
+						   <li class="linkidinicon"><a href="{{ vendor.linkidin_url }}" target="new"><i class="fab fa-linkedin-in"></i></a></li>
+						   {% endif %}
+						   
+							{% if vendor.tiktok_url %} 
+						   <li class="musicicon"><a href="{{ vendor.tiktok_url }}" target="new"><i class="fas fa-music"></i></a></li>
+						   {% endif %}
+						  <!--Social icon-->
+					  </ul>
+				    {% endif %}
+				   <p> {{ text_sellertotal }}
+					<span class="label {% if vendor.totalproduct == 0  %} btn-danger {% else %} btn-success {% endif %} countproduct">{{ vendor.totalproduct }}</span>
+					
+					</p>
+				</div>
+			  </div>
+			</div>
+		</div>
+{% endfor %}
+</div>
+</div>

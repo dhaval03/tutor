@@ -1,0 +1,239 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="float-end">
+        <button type="submit" form="form-review" formaction="{{ save }}" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fas fa-save"></i></button>
+        <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fas fa-reply"></i></a></div>
+      <h1>{{ heading_title }}</h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header"><i class="fas fa-pencil-alt"></i> {{ text_form }}</div>
+      <div class="card-body">
+        <form id="form-review" action="{{ save }}" method="post" data-oc-toggle="ajax">
+
+          <div class="row mb-3">
+            <label for="input-customer" class="col-sm-2 col-form-label">{{ entry_customer }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="customer" value="{{ customer }}" placeholder="{{ entry_customer }}" id="input-customer" list="list-customer" class="form-control"/> 
+              <input type="hidden" name="customer_id" value="{{ customer_id }}" id="input-customer-id"/>
+              <datalist id="list-customer"></datalist>
+              <div class="form-text">{{ help_parent }}</div>
+              <div id="error-customer" class="invalid-feedback"></div>
+            </div>
+          </div>
+
+          <div class="row mb-3 required">
+            <label class="col-sm-2 col-form-label">{{ entry_seller }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="vendor" value="{{ vendor }}" placeholder="{{ entry_seller }}" id="input-vendor" list="list-vendor" class="form-control"/>
+              <input type="hidden" name="vendor_id" value="{{ vendor_id }}" id="input-vendor-id"/>
+              <datalist id="list-vendor"></datalist>
+              <div id="error-vendor" class="invalid-feedback"></div>
+            </div>
+          </div>
+          
+          <div class="row mb-3 required">
+            <label for="input-text" class="col-sm-2 col-form-label">{{ entry_text }}</label>
+            <div class="col-sm-10">
+              <textarea name="text" rows="8" placeholder="{{ entry_text }}" id="input-text" class="form-control">{{ text }}</textarea>
+              <div id="error-text" class="invalid-feedback"></div>
+            </div>
+          </div>
+
+        {% if review_fieldselect %}
+      {% for field in review_fieldselect %}
+      <div class="row mb-3">
+        <label class="col-sm-2 col-form-label" for="input-text">{{ field.field_name }}</label>
+        <div class="col-sm-10">
+          <label class="radio-inline">
+            {% if field.value== 1 %}
+            <input type="radio" name="reviewfield[{{ field.rf_id }}]" value="{{ field.value }}" checked="checked" />
+            1
+            {% else %}
+            <input type="radio" name="reviewfield[{{ field.rf_id }}]" value="1" />
+            1
+            {% endif %}
+          </label>
+          <label class="radio-inline">
+            {% if field.value==2 %}
+            
+            <input type="radio" name="reviewfield[{{ field.rf_id }}]" value="{{ field.value }}" checked="checked" />
+            2
+            {% else %}
+            <input type="radio" name="reviewfield[{{ field.rf_id }}]" value="2" />
+            2
+            {% endif %}
+          </label>
+          <label class="radio-inline">
+            {% if field.value==3 %}
+            <input type="radio" name="reviewfield[{{ field.rf_id }}]" value="{{ field.value }}" checked="checked" />
+            3
+            {% else %}
+            <input type="radio" name="reviewfield[{{ field.rf_id }}]" value="3" />
+            3
+            {% endif %}
+          </label>
+          <label class="radio-inline">
+            {% if field.value==4 %}
+            <input type="radio" name="reviewfield[{{ field.rf_id }}]" value="{{ field.value }}" checked="checked" />
+            4
+            {% else %}
+            <input type="radio" name="reviewfield[{{ field.rf_id }}]" value="4" />
+            4
+            {% endif %}
+          </label>
+          <label class="radio-inline">
+            {% if field.value==5 %}
+            <input type="radio" name="reviewfield[{{ field.rf_id }}]" value="{{ field.value }}" checked="checked" />
+            5
+            {% else %}
+            <input type="radio" name="reviewfield[{{ field.rf_id }}]" value="5" />
+            5
+            {% endif %}
+          </label>
+        </div>
+      </div>
+            {% endfor %}
+      {% else %}
+      {% for field in review_fields %}
+      <div class="row mb-3">
+        <label class="col-sm-2 col-form-label" for="input-text">{{ field.field_name }}</label>
+        <div class="col-sm-10">
+          <label class="radio-inline">
+            {% if reviewfield == 1 %}
+            <input type="radio" name="reviewfield[{{ field.rf_id }}]" value="1" checked="checked" />
+            1
+            {% else %}
+            <input type="radio" name="reviewfield[{{ field.rf_id }}]" value="1" />
+            1
+            {% endif %}
+          </label>
+          <label class="radio-inline">
+            {% if reviewfield == 2 %}
+            <input type="radio" name="reviewfield[{{ field.rf_id }}]" value="2" checked="checked" />
+            2
+            {% else %}
+            <input type="radio" name="reviewfield[{{ field.rf_id }}]" value="2" />
+            2
+            {% endif %}
+          </label>
+          <label class="radio-inline">
+            {% if reviewfield == 3 %}
+            <input type="radio" name="reviewfield[{{ field.rf_id }}]" value="3" checked="checked" />
+            3
+            {% else %}
+            <input type="radio" name="reviewfield[{{ field.rf_id }}]" value="3" />
+            3
+            {% endif %}
+          </label>
+          <label class="radio-inline">
+            {% if reviewfield == 4 %}
+            <input type="radio" name="reviewfield[{{ field.rf_id }}]" value="4" checked="checked" />
+            4
+            {% else %}
+            <input type="radio" name="reviewfield[{{ field.rf_id }}]" value="4" />
+            4
+            {% endif %}
+          </label>
+          <label class="radio-inline">
+            {% if reviewfield == 5 %}
+            <input type="radio" name="reviewfield[{{ field.rf_id }}]" value="5" checked="checked" />
+            5
+            {% else %}
+            <input type="radio" name="reviewfield[{{ field.rf_id }}]" value="5" />
+            5
+            {% endif %}
+          </label>
+        </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+
+          <div class="row mb-3">
+            <label for="input-status" class="col-sm-2 col-form-label">{{ entry_status }}</label>
+            <div class="col-sm-10">
+              <select name="status" id="input-status" class="form-select">
+                <option value="1"{% if status %} selected="selected"{% endif %}>{{ text_enabled }}</option>
+                <option value="0"{% if not status %} selected="selected"{% endif %}>{{ text_disabled }}</option>
+              </select>
+            </div>
+          </div>
+          <input type="hidden" name="review_id" value="{{ review_id }}" id="input-review-id"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript"><!--
+$('#input-customer').autocomplete({
+    'source': function (request, response) {
+        $.ajax({
+            url: 'index.php?route=extension/tmdmultivendor/vendor/review|autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+            dataType: 'json',
+            success: function (json) {
+                response($.map(json, function (item) {
+                    return {
+                        label: item['name'],
+                        value: item['customer_id']
+                    }
+                }));
+            }
+        });
+    },
+    'select': function (item) {}
+});
+
+$('#input-customer').autocomplete({
+    'source': function (request, response) {
+        $.ajax({
+            url: 'index.php?route=customer/customer|autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+            dataType: 'json',
+            success: function (json) {
+                json.unshift({
+                    name: '{{ text_none }}',
+                    category_id: 0
+                });
+
+                response($.map(json, function (item) {
+                    return {
+                        label: item['name'],
+                        value: item['customer_id']
+                    }
+                }));
+            }
+        });
+    },
+    'select': function (item) {
+        $('#input-customer-id').val(item['value']);
+    }
+});
+
+$('#input-vendor').autocomplete({
+    'source': function (request, response) {
+        $.ajax({
+            url: 'index.php?route=extension/tmdmultivendor/vendor/vendor|autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+            dataType: 'json',
+            success: function (json) {
+                response($.map(json, function (item) {
+                    return {
+                      label: item['vendorname'],
+                      value: item['vendor_id']
+                    }
+                }));
+            }
+        });
+    },
+    'select': function (item) {
+    	$('#input-vendor-id').val(item['value']);
+ 	}
+});
+//--></script>
+{{ footer }}

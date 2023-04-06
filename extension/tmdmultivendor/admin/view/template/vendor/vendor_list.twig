@@ -1,0 +1,75 @@
+<form id="form-vendor" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#vendor">
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<td class="text-center" style="width: 1px;"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', $(this).prop('checked'));" class="form-check-input"/></td>
+
+					<td class="text-start">
+						<a href="{{ sort_image }}"{% if sort == 'image' %} class="{{ order|lower }}"{% endif %}>{{ column_image }}</a>
+					</td>
+
+					<td class="text-start">
+						<a href="{{ sort_sellername }}"{% if sort == 'vendorname' %} class="{{ order|lower }}"{% endif %}>{{ column_name }}</a>
+					</td>
+
+					<td class="text-end">{{ column_storename }}</td>
+
+					<td class="text-start">
+						<a href="{{ sort_totalproduct }}"{% if sort == 'totalproduct' %} class="{{ order|lower }}"{% endif %}>{{ column_totalproduct }}</a>
+					</td>
+
+					<td class="text-start">
+						<a href="{{ sort_email }}"{% if sort == 'email' %} class="{{ order|lower }}"{% endif %}>{{ column_email }}</a>
+					</td>
+					
+					<td class="text-start"><a href="{{ sort_date_added }}"{% if sort == 'date_added' %} class="{{ order|lower }}"{% endif %}>{{ column_date }}</a></td>
+					
+					<td class="text-start"><a href="{{ sort_status }}"{% if sort == 'status' %} class="{{ order|lower }}"{% endif %}>{{ column_status }}</a></td>
+
+					<td class="text-end">{{ column_approve }}</td>
+					<td class="text-end">{{ column_action }}</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% if vendors %}
+					{% for vendor in vendors %}
+						<tr>
+							<td class="text-center"><input type="checkbox" name="selected[]" value="{{ vendor.vendor_id }}" class="form-check-input"/></td>
+							<td class="text-center"><img src="{{ vendor.image }}" alt="{{ vendor.name }}" class="img-thumbnail"/></td>
+							<td class="text-start">{{ vendor.sellername }}</td>
+							<td class="text-start">{{ vendor.vendorstorename }}</td>
+							<td class="text-start"><span class="label {% if vendor.totalproduct==0 %} label-danger {% else %} label-success {% endif %}">{{ vendor.totalproduct }}</span></td>
+							<td class="text-start">{{ vendor.email }}</td>
+							<td class="text-end d-none d-lg-table-cell"><span style="font-size:12px;" class="label btn-info"> <i class="fas fa-clock-o" aria-hidden="true"></i> {{ vendor.date_added }}</span></td>
+							<td class="text-start"><span class="label {% if vendor.status=='Disable' %} label-danger {% elseif vendor.status=='Waiting for Approved' %} label-warning {% else %} label-success {% endif %}">
+							{{ vendor.status }}</span></td>
+							<td class="text-start">
+								{% if vendor.approve %}
+								<a href="{{ vendor.approve }}" data-oc-toggle="tooltip" title="{{ button_approve }}" class="btn btn-success"><i class="fa fa-thumbs-up"></i></a>
+								{% else %}
+								<button type="button" class="btn btn-danger" disabled><i class="fa fa-thumbs-up"></i></button>
+								{% endif %}
+								
+								{% if vendor.disapproved %}
+								<a href="{{ vendor.disapproved }}" data-oc-toggle="tooltip" title="{{ button_desapprove }}" class="btn btn-success"><i class="fa fa-thumbs-down"></i></a>
+								{% else %}
+								<button type="button" class="btn btn-success" disabled><i class="fa fa-thumbs-down"></i></button>
+								{% endif %}
+							</td>
+							<td class="text-end"><a href="{{ vendor.edit }}" data-bs-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a></td>
+						</tr>
+					{% endfor %}
+				{% else %}
+					<tr>
+						<td class="text-center" colspan="10">{{ text_no_results }}</td>
+					</tr>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<div class="col-sm-6 text-start">{{ pagination }}</div>
+		<div class="col-sm-6 text-end">{{ results }}</div>
+	</div>
+</form>

@@ -1,0 +1,818 @@
+{{ header }}
+<div class="container">
+    <ol class="breadcrumb">
+                {% for breadcrumb in breadcrumbs %}
+                    <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+                {% endfor %}
+            </ol>
+  <!-- {% if filedwarning %}
+  <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ filedwarning }} <button type="button" class="close" data-dismiss="alert">&times;</button></div><br/>
+  {% endif %} -->
+ 
+  
+
+  <!-- {% if success %}
+  <div class="alert alert-success"><i class="fa fa-exclamation-circle"></i> {{ text_success }} <button type="button" class="close" data-bs-dismiss="alert">&times;</button></div>
+  {% endif %} -->
+	<div class="row" id="vendor-signup">
+		{% if column_right %}
+		{% set class = 'col-sm-6' %}
+		{% elseif column_right %}
+		{% set class = 'col-sm-9' %}
+		{% else %}
+		{% set class = 'col-sm-12' %}
+		{% endif %}
+		<div id="content" class="{{ class }}">{{ content_top }}
+			<h1>{{ heading_title }}</h1>
+			<p>{{ text_account_already }}</p>
+
+			<form id="form-vendor" action="{{ save }}" method="post" data-oc-toggle="ajax">
+			<legend><i class="fa fa-user" aria-hidden="true"></i>  {{ tab_seller }}</legend>
+			 
+			   <div class="row">
+					<div class="col-sm-4 {% if not status_displayname %} d-none {% endif %}">
+						<div class="row mb-3 {% if required_displayname %} required {% endif %} "> 
+						   <label for="input-display-name"  class="col-sm-12 form-label">{{ entry_display_name }}</label>
+						   <div class="col-sm-12">
+							   <input type="text" name="display_name" value="{{ display_name }}" placeholder="{{ entry_display_name }}" id="input-display-name" class="form-control" />
+							  <div id="error-display-name" class="invalid-feedback"></div>
+								
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-sm-4">					 
+						<div class="row mb-3 required">
+							<label for="input-email"  class="col-sm-12 form-label">{{ entry_email }}</label>
+							<div class="col-sm-12">
+								<input type="email" name="email" value="{{ email }}" placeholder="{{ entry_email }}" id="input-email" class="form-control" />
+								<div id="error-email" class="invalid-feedback"></div>
+							</div>
+						</div>
+					</div>
+			   
+					<div class="col-sm-4">
+						<div class="row mb-3 required">
+							<label for="input-firstname" class="col-sm-12 form-label">{{ entry_firstname }}</label>
+							<div class="col-sm-12">
+								<input type="text" name="firstname" value="{{ firstname }}" placeholder="{{ entry_firstname }}" id="input-firstname" class="form-control" />
+									<div id="error-firstname" class="invalid-feedback"></div>
+							</div>
+						</div>
+					</div>					 
+				
+					<div class="col-sm-4  {% if not status_lastname %} d-none {% endif %}">
+						<div class="row mb-3 {% if required_lastname %} required {% endif %}">
+						   <label for="input-lastname"  class="col-sm-12 form-label">{{ entry_lastname }}</label>
+						   <div class="col-sm-12">
+							   <input type="text" name="lastname" value="{{ lastname }}" placeholder="{{ entry_lastname }}" id="input-lastname" class="form-control" />
+								<div id="error-lastname" class="invalid-feedback"></div>
+							</div>
+						</div>
+					</div>
+					
+						  
+					<div class="col-sm-4 {% if not status_telephone %} d-none {% endif %}">
+							<div class="row mb-3 {% if required_telephone %} required {% endif %}">
+							   <label for="input-telephone"  class="col-sm-12 form-label">{{ entry_telephone }}</label>
+							   <div class="col-sm-12">
+								   <input type="tel" name="telephone" value="{{ telephone }}" placeholder="{{ entry_telephone }}" id="input-telephone" class="form-control" />
+									<div id="error-telephone" class="invalid-feedback"></div>
+								</div>
+							</div>
+						</div>
+						 
+						<div class="col-sm-4 {% if not status_fax %} d-none {% endif %}">
+							<div class="row mb-3 {% if required_fax %} required {% endif %}">
+								<label for="input-fax" class="col-sm-12 form-label">{{ entry_fax }}</label>
+								<div class="col-sm-12">
+									<input type="text" name="fax" value="{{ fax }}" placeholder="{{ entry_fax }}" id="input-fax" class="form-control"/>
+									<div id="error-fax" class="invalid-feedback"></div>
+								</div> 
+							</div> 
+						</div> 						
+				  
+					<div class="col-sm-4 {% if not status_company %} d-none {% endif %}">
+						<div class="row mb-3 {% if required_company %} required {% endif %} ">
+							<label for="input-company" class="col-sm-12 form-label">{{ entry_company }}</label>
+							<div class="col-sm-12">
+								<input type="text" name="company" value="{{ company }}" placeholder="{{ entry_company }}" id="input-company" class="form-control" />
+								<div id="error-company" class="invalid-feedback"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-sm-4 {% if not status_address_1 %} d-none {% endif %}">
+						<div class="row mb-3 {% if required_address_1 %} required {% endif %} ">
+							<label for="input-address-1" class="col-sm-12 form-label">{{ entry_address_1 }}</label>
+							<div class="col-sm-12">
+								<input type="text" name="address_1" value="{{ address_1 }}" placeholder="{{ entry_address_1 }}" id="input-address-1" class="form-control" />
+
+									<div id="error-address_1" class="invalid-feedback"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-sm-4 {% if not status_address_2 %} d-none {% endif %}">	  
+					  	<div class="row mb-3 {% if required_address_2 %} required {% endif %} ">
+							<label for="input-address-2" class="col-sm-12 form-label">{{ entry_address_2 }}</label>
+							<div class="col-sm-12">
+								<input type="text" name="address_2" value="{{ address_2 }}" placeholder="{{ entry_address_2 }}" id="input-address-2" class="form-control" />
+								<div id="error-address_2" class="invalid-feedback"></div>
+							</div>
+						</div>
+					</div>
+				 
+				    <div class="col-sm-4 {% if not status_city %} d-none {% endif %}">	  
+						<div class="row mb-3 {% if required_city %} required {% endif %} ">
+						   <label for="input-city" class="col-sm-12 form-label">{{ entry_city }}</label>
+						   <div class="col-sm-12">
+							   <input type="text" name="city" value="{{ city }}" placeholder="{{ entry_city }}" id="input-city" class="form-control" />
+							   <div id="error-city" class="invalid-feedback"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-sm-4  {% if not status_country %} d-none {% endif %}">
+						<div class="row mb-3 {% if required_country %} required {% endif %}">
+						   <label for="input-country" class="col-sm-12 form-label">{{ entry_country }}</label>
+						   <div class="col-sm-12">
+							    <select name="country_id" id="input-country" class="form-control">
+							 <option value="">{{ text_select }}</option>
+							 {% for country in countries %}
+							 {% if country.country_id == country_id %}
+							 <option value="{{ country.country_id }}" selected="selected">{{ country.name }}</option>
+							 {% else %}
+							 <option value="{{ country.country_id }}">{{ country.name }}</option>
+							 {% endif %}
+							 {% endfor %}
+							  </select>
+								 <div id="error-country" class="invalid-feedback"></div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="col-sm-4 {% if not status_zone %} d-none {% endif %}">			
+						<div class="row mb-3 {% if required_zone %} required {% endif %}">
+						    <label for="input-zone" class="col-sm-12 form-label">{{ entry_zone }}</label>
+						    <div class="col-sm-12">
+							   <select name="zone_id" id="input-zone" class="form-control">
+							   </select>
+							   <div id="error-zone" class="invalid-feedback"></div>
+							</div>
+						</div>
+					</div>					  
+				  
+				    <div class="col-sm-4 {% if not status_postcode %} d-none {% endif %}">
+						<div class="row mb-3 {% if chkpostcode==1 %} required {% endif %}">		
+						   <label for="input-postcode" class="col-sm-12 form-label">{{ entry_postcode }}</label>
+						   <div class="col-sm-12">
+							   <input type="text" name="postcode" value="{{ postcode }}" placeholder="{{ entry_postcode }}" id="input-postcode" class="form-control" />
+								{% if chkpostcode==1 %}
+									 <div id="error-postcode" class="invalid-feedback"></div>
+								{% endif %}
+							</div>  
+						</div>  
+					</div>  
+
+					<div class="col-sm-4">
+						<div class="row mb-3 required">
+						   <label for="input-password" class="col-sm-12 form-label">{{ entry_password }}</label>
+						   <div class="col-sm-12">
+							   <input type="password" name="password" value="{{ password }}" placeholder="{{ entry_password }}" id="input-password" class="form-control" />
+							   <div id="error-password" class="invalid-feedback"></div>
+							</div>
+						</div>
+					 </div>
+					
+					<div class="col-sm-4">
+						<div class="row mb-3 required">
+						   <label for="input-confirm" class="col-sm-12  form-label">{{ entry_confirm }}</label>
+						   <div class="col-sm-12">
+							   <input type="password" name="confirm" value="{{ confirm }}" placeholder="{{ entry_confirm }}" id="input-confirm" class="form-control" />
+								<div id="error-confirm" class="invalid-feedback"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			
+			<div class="row">					
+				<div class="col-sm-12 {% if not status_about %} d-none {% endif %}">
+					<div class="row mb-3 {% if required_about %} required {% endif %}">
+					   <label for="input-about" class="col-sm-12 form-label">{{ entry_about }}</label>
+					   <div class="col-sm-12">
+						   <textarea type="text" rows="6" name="about" placeholder="{{ entry_about }}" id="input-about" class="form-control" >{{ about }}</textarea>
+						   <div id="error-about" class="invalid-feedback"></div>
+						</div>
+					</div>
+				</div>
+				
+				
+			</div>
+				
+				
+			<legend><i class="fa fa-building" aria-hidden="true"></i> {{ tab_generalstore }}</legend>
+				<ul class="nav nav-tabs" id="language">
+                {% for language in languages %}
+                  <li class="nav-item"><a href="#language-{{ language.language_id }}" data-bs-toggle="tab" class="nav-link{% if loop.first %} active{% endif %}"><img src="catalog/language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/> {{ language.name }}</a></li>
+                {% endfor %}
+              </ul>
+
+				<div class="tab-content">
+				{% for language in languages %}
+				<div id="language-{{ language.language_id }}" class="tab-pane{% if loop.first %} active{% endif %}">
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="row mb-3 required ">
+								<label class="col-sm-12 form-label" for="input-name-{{ language.language_id }}">{{ entry_storename }}</label>	
+								<div class="col-sm-12">
+									<input type="text" name="store_description[{{ language.language_id }}][name]" value="{{ store_description[language.language_id] ? store_description[language.language_id].name }}" placeholder="{{ entry_storename }}" id="input-name-{{ language.language_id }}" class="form-control" />
+									
+
+									  <div id="error-name-{{ language.language_id }}" class="invalid-feedback"></div>						
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 {% if not status_metadesc %} d-none {% endif %}">
+						    <div class="row mb-3 {% if required_metadesc %} required {% endif %}">
+								<label class="col-sm-12 form-label" for="input-meta-description-{{ language.language_id }}">{{ entry_metadescription }}</label>
+								<div class="col-sm-12">							
+									<textarea type="text" name="store_description[{{ language.language_id }}][meta_description]" value="" rows="3" placeholder="{{ entry_metadescription }}" id="input-meta-description-{{ language.language_id }}" class="form-control " >{{ store_description[language.language_id] ? store_description[language.language_id].meta_description }}</textarea>	
+
+									
+
+									 <div id="error-meta-description-{{ language.language_id }}" class="invalid-feedback"></div>	
+								</div> 
+							</div> 
+						</div> 
+					      
+						<div class="col-sm-6 {% if not status_description %} d-none {% endif %}">
+							<div class="row mb-3 {% if required_description %} required {% endif %}">
+						  
+							  <label for="input-description-{{ language.language_id }}" class="col-sm-12 form-label">{{ entry_description }}</label>
+							  <div class="col-sm-12">	
+								  <textarea type="text" name="store_description[{{ language.language_id }}][description]" value="" placeholder="" id="input-description-{{ language.language_id }}" data-oc-toggle="ckeditor" data-lang="{{ ckeditor }}" class="form-control">{{ store_description[language.language_id] ? store_description[language.language_id].description }}</textarea>
+
+
+								 
+								  
+								  <div id="error-description-{{ language.language_id }}" class="invalid-feedback"></div>	
+							  </div>
+							</div>
+						</div>
+						<div class="col-sm-6 {% if not status_shipping_policy %} d-none {% endif %}">
+							<div class="row mb-3 {% if required_shipping_policy %} required {% endif %} ">
+								<label class="col-sm-12 form-label" for="input-shipping_policy-{{ language.language_id }}">{{ entry_shippingpolicy }}</label>
+								<div class="col-sm-12">	
+									 <textarea type="text" name="store_description[{{ language.language_id }}][shipping_policy]" value="" placeholder="{{ entry_shippingpolicy }}" id="input-shipping_policy-{{ language.language_id }}" data-oc-toggle="ckeditor" data-lang="{{ ckeditor }}" class="form-control">{{ store_description[language.language_id] ? store_description[language.language_id].shipping_policy }}</textarea>
+
+
+									 <div id="error-shipping-policy-{{ language.language_id }}" class="invalid-feedback"></div>	
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-6 {% if not status_return_policy %} d-none {% endif %}">
+							<div class="row mb-3 {% if required_return_policy %} required {% endif %} ">
+								<label class="col-sm-12 form-label" for="input-return_policy-{{ language.language_id }}">{{ entry_returnpolicy }}</label>
+								<div class="col-sm-12">	
+									 <textarea type="text" name="store_description[{{ language.language_id }}][return_policy]" value="" placeholder="{{ entry_returnpolicy }}" id="input-return_policy-{{ language.language_id }}" data-oc-toggle="ckeditor" data-lang="{{ ckeditor }}" class="form-control">{{ store_description[language.language_id] ? store_description[language.language_id].return_policy }}</textarea>
+
+
+									 
+									<div id="error-return-policy-{{ language.language_id }}" class="invalid-feedback"></div>	
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-6 {% if not status_meta_keyword %} d-none {% endif %}">
+							<div class="row mb-3 {% if required_meta_keyword %} required {% endif %} ">
+								<label class="col-sm-12 form-label" for="input-meta-keyword-{{ language.language_id }}">{{ entry_metakeyword }}</label>
+								<div class="col-sm-12">	
+									 <textarea type="text" name="store_description[{{ language.language_id }}][meta_keyword]" value="" rows="3" placeholder="{{ entry_metakeyword }}" id="input-meta-keyword-{{ language.language_id }}" data-oc-toggle="ckeditor" data-lang="{{ ckeditor }}" class="form-control">{{ store_description[language.language_id] ? store_description[language.language_id].meta_keyword }}</textarea>
+
+									
+									 <div id="error-meta-keyword-{{ language.language_id }}" class="invalid-feedback"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			  {% endfor %}
+			   </div>
+			   
+			   
+			{% if status_bank_detail==1 or status_storeabout==1 or status_mapurl==1 or status_tax_number==1 or status_shipping_charge==1 or status_url==1 or status_logo==1 or status_banner==1  %}
+			  <legend><i class="fa fa-archive" aria-hidden="true"></i> {{ tab_datastore }}</legend>
+			{% endif %}
+			<div class="row">  
+			    <div class="col-sm-4 {% if not status_bank_detail %} d-none {% endif %}">
+				    <div class="row mb-3 {% if required_bank_detail %} required {% endif %}">
+						<label for="input-bank-detail" class="col-sm-12 form-label">{{ entry_detail }}</label>
+						<div class="col-sm-12">	
+							<textarea type="text" name="bank_detail" value="" placeholder="{{ entry_detail }}" id="input-bank-detail" class="form-control" rows="6">{{ bank_detail }}</textarea>
+							<div id="error-bank-detail" class="invalid-feedback"></div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-sm-4 {% if not status_storeabout %} d-none {% endif %}">
+				    <div class="row mb-3 {% if required_storeabout %} required {% endif %}">
+						<label for="input-store-about" class="col-sm-12 form-label">{{ entry_store_about }}</label>
+						<div class="col-sm-12">	
+							<textarea type="text" name="store_about" value="{{ store_about }}" placeholder="{{ entry_store_about }}" id="input-store-about" class="form-control" rows="6">{{ store_about }}</textarea>
+							<div id="error-store-about" class="invalid-feedback"></div>
+						</div>
+					</div>
+				</div>
+					
+				<div class="col-sm-4 {% if not status_mapurl %} d-none {% endif %}">
+				    <div class="row mb-3 {% if required_mapurl %} required {% endif %}">
+						<label for="input-map-url" class="col-sm-12 form-label">{{ entry_mapurl }}<a href="https://maps.google.com" target="_blank" data-toggle="tooltip" title="{{ help_mapfindcode }}"><i class="fa fa-globe" aria-hidden="true"></i></a></label>
+						<div class="col-sm-12">	
+							<textarea type="text" name="map_url" placeholder="{{ entry_mapurl }}" id="input-map-url" class="form-control" rows="6"> {{ map_url }}</textarea>
+							<div id="error-map-url" class="invalid-feedback"></div>
+						</div>
+					</div>
+				</div>
+				
+				
+				<div class="col-sm-4 {% if not status_tax_number %} d-none {% endif %}">
+				    <div class="row mb-3 {% if required_tax_number %} required {% endif %}">
+						<label for="input-tax-number" class="col-sm-12 form-label">{{ entry_tax }}</label>
+						<div class="col-sm-12">	
+							<input type="text" name="tax_number" value="{{ tax_number }}" placeholder="{{ entry_tax }}" id="input-tax-number" class="form-control" />
+							<div id="error-tax-number" class="invalid-feedback"></div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-sm-4 {% if not status_shipping_charge %} d-none {% endif %}">
+				    <div class="row mb-3 {% if required_shipping %} required {% endif %}">
+						<label for="input-shipping-charge" class="col-sm-12 form-label">{{ entry_charges }}</label>
+						<div class="col-sm-12">	
+							<input type="text" name="shipping_charge" value="{{ shipping_charge }}" placeholder="{{ entry_charges }}" id="input-shipping-charge" class="form-control" />
+							<div id="error-shipping-charge" class="invalid-feedback"></div>
+						</div>
+					</div>
+				</div>
+				 
+				
+			  	
+					<!--05 02 2021-- Update code-->
+				<div class="col-sm-4 {% if not status_url %} d-none {% endif %}">
+					<div class="row mb-3  {% if required_url %} required {% endif %}">
+					<div class="col-sm-12">	
+					<table class="table table-bordered table-hover">
+						  <thead>
+							<tr>
+							  <td class="text-left"><label for="input-charges" class="form-label">{{ entry_store }}</label></td>
+							  <td class="text-left">{{ entry_keyword }}</td>
+							</tr>
+						  </thead>
+						  <tbody>
+							 {% for store in stores %}
+							  <tr>
+								<td class="text-start">{{ store.name }}</td>
+								<td class="text-start">
+								  {% for language in languages %}
+									<div class="input-group">
+									  <div class="input-group-text"><img src="catalog/language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/></div>
+									  <input type="text" name="vendor_seo_url[{{ store.store_id }}][{{ language.language_id }}]" value="" id="input-keyword-{{ store.store_id }}-{{ language.language_id }}" placeholder="{{ entry_keyword }}" class="form-control"/>
+									</div>
+									<div id="error-keyword-{{ store.store_id }}-{{ language.language_id }}" class="invalid-feedback"></div>
+								  {% endfor %}</td>
+							  </tr>
+							{% endfor %}
+						  
+						  
+						  
+						  </tbody>
+						</table>
+					</div>
+					</div>
+				</div>
+					<!--05 02 2021-- Update code-->		  
+			
+				<div class="col-sm-4 {% if not status_logo %} d-none {% endif %}">
+				    <div class="row mb-3">
+						<label for="input-logo" class="col-sm-12 form-label">{{ entry_logo }}</label>
+						<div class="col-sm-12">	
+							<div class="imagebox">
+							  <span id="thumb-logo"><img src="{{ thumb_logo }}" alt="" title="" height="120" width="120" class="thumb"/></span>
+							  <button type="button" id="button-logo" data-loading-text="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-upload"></i> {{ button_upload }}</button>
+							  <input type="hidden" name="logo" value="{{ logo }}" id="input-logo" />
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-sm-4 {% if not status_banner %} d-none {% endif %}">
+				    <div class="row mb-3">
+						<label for="input-logo" class="col-sm-12 form-label">{{ entry_banner }}</label>
+						<div class="col-sm-12">	
+							<div class="imagebox">
+								  <span id="thumb-banner"><img src="{{ thumb_banner }}" alt="" title="" height="120" width="120" class="thumb"/></span>
+								  <button type="button" id="upload-banner" data-loading-text="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-upload"></i> {{ button_banner }}</button>
+								  <input type="hidden" name="banner" value="{{ banner }}" id="input-banner" />
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-sm-4 {% if not status_image %} d-none {% endif %}">
+					<div class="row mb-3">
+					   <label for="input-logo" class="col-sm-12 form-label">{{ entry_image }}</label>
+					   <div class="col-sm-12 imagebox">
+							<span id="thumb-image"><img src="{{ thumb }}" alt="" title="" height="120" width="120" class="thumb"/></span>
+							<button type="button" id="button-upload" data-loading-text="{{ text_loading }}" class="btn btn-primary"><i class="fa fa-upload"></i> {{ button_upload }}</button>
+							<input type="hidden" name="image" value="{{ image }}" id="input-image" />
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			
+			   			
+			{% if status_paypal==1 or status_bank==1 %}
+			<legend><i class="fa fa-money" aria-hidden="true"></i> {{ tab_payment }}</legend>
+			{% endif %}
+
+				<div class="row">      
+					<div class="col-sm-4">
+					 {% if status_paypal==1 or status_bank==1 %}<label class="form-label">{{ entry_method }}</label>{% endif %}
+					 <div>
+					   <div class="form-check form-check-inline {% if not status_paypal %} d-none {% endif %}">{% if payment_method == 'paypal' %}<input type="radio" name="payment_method" value="paypal" checked="checked" />
+					   {% else %}
+					   <input type="radio" name="payment_method" value="paypal" />
+					   {% endif %}
+					   {{ text_paypal }}  
+					  </div>
+					  <div class="form-check form-check-inline {% if not status_bank %} d-none {% endif %}">
+						{% if payment_method == 'banktransfer' %}
+						  <input type="radio" name="payment_method" value="banktransfer" checked="checked" />
+						{% else %}
+						   <input type="radio" name="payment_method" value="banktransfer" />
+						 {% endif %}
+						  {{ text_bank }}
+					  </div>
+					 </div>
+				    </div>
+					 
+					<div class="payment col {% if not status_paypal %} d-none {% endif %}" id="payment-paypal">	
+					 <div id="paypal">
+					   <div class="row mb-3 required">    
+						 <div class="col-sm-4">
+							<label for="input-paypal" class="col-sm-12 form-label">{{ entry_Emailid }}</label>
+							 <input type="text" name="paypal" value="{{ paypal }}" placeholder="{{ entry_Emailid }}" id="input-paypal" class="form-control"/>
+							
+								<div id="error-paypal" class="invalid-feedback"></div>
+						
+						 </div>
+					   </div>
+					  </div>
+					</div>
+			    </div>
+				 
+			    <div class="payment {% if not status_bank %} d-none {% endif %}" id="payment-banktransfer">
+				
+					<div class="row">
+						<div class="col-sm-4">
+							<div class="row mb-3">
+							   <label for="input-bankname" class="col-sm-12 form-label">{{ entry_bankname }}</label>
+							   <div class="col-sm-12">
+								   <input type="text" name="bank_name" value="{{ bank_name }}" placeholder="{{ entry_bankname }}" id="input-bankname" class="form-control" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="row mb-3 ">
+							   <label for="input-branch_number" class="col-sm-12 form-label">{{ entry_bnumber }}</label>
+							   <div class="col-sm-12">
+								   <input type="text" name="bank_branch_number" value="{{ bank_branch_number }}" placeholder="{{ entry_bnumber }}" id="input-branch_number" class="form-control" />
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-sm-4">
+							<div class="row mb-3 ">
+							   <label for="input-swift_code" class="col-sm-12 form-label">{{ entry_swiftcode }}</label>
+							   <div class="col-sm-12">
+								   <input type="text" name="bank_swift_code" value="{{ bank_swift_code }}" placeholder="{{ entry_swiftcode }}" id="input-swift_code" class="form-control" />
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-4">
+							<div class="row mb-3 required">
+							   <label for="input-bank-account-name" class="col-sm-12 form-label">{{ entry_aname }}</label>
+							   <div class="col-sm-12">
+								   <input type="text" name="bank_account_name" value="{{ bank_account_name }}" placeholder="{{ entry_aname }}" id="input-bank-account-name" class="form-control" />
+								 <div id="error-bank-account-name" class="invalid-feedback"></div>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-sm-4">
+							<div class="row mb-3 required">
+							   <label for="input-bank-account-number" class="col-sm-12 form-label">{{ entry_anumber }}</label>
+							   <div class="col-sm-12">
+								   <input type="text" name="bank_account_number" value="{{ bank_account_number }}" placeholder="{{ entry_anumber }}" id="input-bank-account-number" class="form-control" />
+									 <div id="error-bank-account-number" class="invalid-feedback"></div>
+								</div>
+							</div>
+						</div>
+			
+				    </div>
+				</div>
+		
+		 
+			<!--10-04-2020-->
+			{% if vendor_vprivacy!=0 %} 
+				{% if text_agree %}
+				<div class="buttons">
+				  <div class="pull-right">{{ text_agree }}
+					{% if agree %}
+					<input type="checkbox" name="agree" value="1" checked="checked" />
+					{% else %}
+					<input type="checkbox" name="agree" value="1" />
+					{% endif %}
+					&nbsp;
+					<input type="submit" value="{{ button_continue }}" class="btn-submit btn btn-primary" />
+				  </div>
+				</div>
+				{% else %}
+				
+					<div class="buttons row">
+						<div class="pull-right">
+							<input type="submit" value="{{ button_continue }}" class="btn-submit btn btn-primary" />
+						</div>
+					</div>	
+				{% endif %}
+			{% else %}
+			<div class="buttons row">
+				<div class="pull-right">
+					<input type="submit" value="{{ button_continue }}" class="btn-submit btn btn-primary" />
+				</div>
+			</div>
+			{% endif %}
+			<!--10-04-2020-->
+		
+		</form>
+		{{ content_bottom }}</div>
+		{{ column_right }}</div>
+	</div>
+</div>
+  
+  <style>
+  button.note-btn.btn.btn-default.btn-sm:nth-child(2) {
+    display: none;
+	}
+  </style>
+<script type="text/javascript"><!--
+$('input[name=\'payment_method\']').on('change', function() {
+	$('.payment').hide();
+
+	$('#payment-' + this.value).show();
+});
+
+$('input[name=\'payment_method\']:checked').trigger('change');
+//--></script>
+
+<script type="text/javascript"><!--
+
+$('textarea[data-oc-toggle=\'ckeditor\']').ckeditor();
+$('select[name=\'country_id\']').on('change', function() {
+	$.ajax({
+		url: 'index.php?route=extension/tmdmultivendor/vendor/edit|country&country_id=' + this.value,
+		dataType: 'json',
+		beforeSend: function() {
+			$('select[name=\'country_id\']').after(' <i class="fa fa-circle-o-notch fa-spin"></i>');
+		},
+		complete: function() {
+			$('.fa-spin').remove();
+		},
+		success: function(json) {
+			if (json['postcode_required'] == '1') {
+				$('input[name=\'postcode\']').parent().parent().addClass('required');
+			} else {
+				$('input[name=\'postcode\']').parent().parent().removeClass('required');
+			}
+
+			html = '<option value="">{{ text_select }}</option>';
+
+			if (json['zone'] && json['zone'] != '') {
+				for (i = 0; i < json['zone'].length; i++) {
+					html += '<option value="' + json['zone'][i]['zone_id'] + '"';
+
+					if (json['zone'][i]['zone_id'] == '{{ zone_id }}') {
+						html += ' selected="selected"';
+					}
+
+					html += '>' + json['zone'][i]['name'] + '</option>';
+				}
+			} else {
+				html += '<option value="0" selected="selected">{{ text_none }}</option>';
+			}
+
+			$('select[name=\'zone_id\']').html(html);
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+
+
+
+$('select[name=\'country_id\']').trigger('change');
+//--></script>
+
+
+<script type="text/javascript"><!--
+$('button[id^=\'button-upload\']').on('click', function() {
+	var node = this;
+
+	$('#form-upload').remove();
+
+	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file" /></form>');
+
+	$('#form-upload input[name=\'file\']').trigger('click');
+
+	if (typeof timer != 'undefined') {
+    	clearInterval(timer);
+	}
+
+	timer = setInterval(function() {
+		if ($('#form-upload input[name=\'file\']').val() != '') {
+			clearInterval(timer);
+         	$.ajax({
+				url: 'index.php?route=extension/tmdmultivendor/vendor/vendor|upload',
+				type: 'post',
+				dataType: 'json',
+				data: new FormData($('#form-upload')[0]),
+				cache: false,
+				contentType: false,
+				processData: false,
+				beforeSend: function() {
+					$(node).button('loading');
+				},
+				
+				complete: function() {
+					$(node).button('reset');
+				},
+				success: function(json) {
+					$('.text-danger').remove();
+
+					if (json['error']) {
+						$(node).parent().find('input').after('<div class="text-danger">' + json['error'] + '</div>');
+					}
+
+					if (json['success']) {
+            $("#thumb-image").html('<img src="'+json['location2']+'" alt="" title="" width="100" class="thumb"/>');
+            $("#input-image").val(json['location1']);
+            
+          }
+				},
+				error: function(xhr, ajaxOptions, thrownError) {
+					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+				}
+			});
+
+		
+		}
+	}, 500);
+});
+//--></script>
+
+<script type="text/javascript"><!--
+$('button[id^=\'button-logo\']').on('click', function() {
+	var node = this;
+
+	$('#form-upload').remove();
+
+	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file" /></form>');
+
+	$('#form-upload input[name=\'file\']').trigger('click');
+
+	if (typeof timer != 'undefined') {
+    	clearInterval(timer);
+	}
+
+	timer = setInterval(function() {
+		if ($('#form-upload input[name=\'file\']').val() != '') {
+			clearInterval(timer);
+         	$.ajax({
+				url: 'index.php?route=extension/tmdmultivendor/vendor/vendor|upload',
+				type: 'post',
+				dataType: 'json',
+				data: new FormData($('#form-upload')[0]),
+				cache: false,
+				contentType: false,
+				processData: false,
+				beforeSend: function() {
+					$(node).button('loading');
+				},
+				
+				complete: function() {
+					$(node).button('reset');
+				},
+				success: function(json) {
+					$('.text-danger').remove();
+
+					if (json['error']) {
+						$(node).parent().find('input').after('<div class="text-danger">' + json['error'] + '</div>');
+					}
+
+					if (json['success']) {
+            $("#thumb-logo").html('<img src="'+json['location2']+'" alt="" title="" width="100" class="thumb"/>');
+            $("#input-logo").val(json['location1']);
+            
+          }
+				},
+				error: function(xhr, ajaxOptions, thrownError) {
+					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+				}
+			});
+
+		
+		}
+	}, 500);
+});
+//--></script>
+
+<script type="text/javascript"><!--
+$('button[id^=\'upload-banner\']').on('click', function() {
+	var node = this;
+
+	$('#form-upload').remove();
+
+	$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file" /></form>');
+
+	$('#form-upload input[name=\'file\']').trigger('click');
+
+	if (typeof timer != 'undefined') {
+    	clearInterval(timer);
+	}
+
+	timer = setInterval(function() {
+		if ($('#form-upload input[name=\'file\']').val() != '') {
+			clearInterval(timer);
+         	$.ajax({
+				url: 'index.php?route=extension/tmdmultivendor/vendor/vendor|upload',
+				type: 'post',
+				dataType: 'json',
+				data: new FormData($('#form-upload')[0]),
+				cache: false,
+				contentType: false,
+				processData: false,
+				beforeSend: function() {
+					$(node).button('loading');
+				},
+				
+				complete: function() {
+					$(node).button('reset');
+				},
+				success: function(json) {
+					$('.text-danger').remove();
+
+					if (json['error']) {
+						$(node).parent().find('input').after('<div class="text-danger">' + json['error'] + '</div>');
+					}
+
+					if (json['success']) {
+						$("#thumb-banner").html('<img src="'+json['location2']+'" alt="" title="" width="100" class="thumb"/>');
+            $("#input-banner").val(json['location1']);
+						
+					}
+				},
+				error: function(xhr, ajaxOptions, thrownError) {
+					alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+				}
+			});	
+		}
+	}, 500);
+});
+//--></script>
+
+<style>
+.btn-submit{padding: 10px 25px;font-size: 16px;text-transform: uppercase;}
+.imagebox .thumb{border:solid 2px #62CBF2;padding:5px;}
+</style>
+<script type="text/javascript"><!--
+var $sorted_items,
+getSorted = function(selector, attrName) {
+    return $(
+      $(selector).toArray().sort(function(a, b){
+          var aVal = parseInt(a.getAttribute(attrName)),
+              bVal = parseInt(b.getAttribute(attrName));
+          return aVal - bVal;
+      })
+    );
+};
+
+$sorted_items = getSorted('.signupsort .form-group', 'data-sort').clone();
+$('.signupsort').html($sorted_items);
+</script>
+{{ footer }}

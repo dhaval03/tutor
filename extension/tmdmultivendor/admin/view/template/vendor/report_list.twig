@@ -1,0 +1,88 @@
+<form id="form-report" method="post" enctype="application/x-www-form-urlencoded" data-load="{{ action }}">
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<td class="text-center" style="width: 1px;"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', $(this).prop('checked'));" class="form-check-input"/></td>
+					
+					<td class="text-start">
+						<a href="{{ sort_order_id }}"{% if sort == 'o.order_id' %} class="{{ order|lower }}"{% endif %}>{{ column_order_id }}</a>
+					</td>
+
+					<td class="text-start">
+						<a href="{{ sort_customer }}"{% if sort == 'o.customer_id' %} class="{{ order|lower }}"{% endif %}>{{ column_customer }}</a>
+					</td>
+
+
+					<td class="text-center">{{ column_product }}</td>
+
+					<td class="text-start">
+						<a href="{{ sort_total }}"{% if sort == 'vop.total' %} class="{{ order|lower }}"{% endif %}>{{ column_total }}</a>
+					</td>
+
+					<td class="text-start">
+						<a href="{{ sort_status }}"{% if sort == 'o.status' %} class="{{ order|lower }}"{% endif %}>{{ column_adminstatus }}</a>
+					</td>
+
+					<td class="text-start">
+						<a href="{{ sort_date }}"{% if sort == 'vop.date' %} class="{{ order|lower }}"{% endif %}>{{ column_date }}</a>
+					</td>					
+					<td class="text-end">{{ column_action }}</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% if reports %}
+					{% for report in reports %}
+						<tr>
+							<td class="text-center"><input type="checkbox" name="selected[]" value="{{ report.order_id }}" class="form-check-input"/><input type="hidden" name="shipping_code[]" value="{{ report.shipping_code }}" /></td>
+							<td class="text-start">{{ report.order_id }}</td>
+							<!--19-02-2020 remove code-->
+											<td class="text-start">{{ report.firstname }}</td>
+												<td class="text-start">
+													<table class="table table-bordered table-hover">
+														<thead>
+															<tr>
+																<td class="text-start">{{ column_prouctname }}</td>
+																<td class="text-start">{{ column_storename }}</td>
+																<td class="text-start">{{ column_sellername }}</td>		
+																<td class="text-start">{{ column_status }}</td>
+															</tr>
+														</thead>
+														<tbody>	 
+														   {% for productnam in report.productname %}
+															<tr>
+																<td class="text-start">{{ productnam.productname }}</td>	
+																<td class="text-start">{{ productnam.storename }}</td>
+																<td class="text-start">{{ productnam.sellername }}</td>	
+																<td class="text-start">
+																	<span class="label{% if productnam.vstatus=='Pending' %} label-danger {% elseif productnam.vstatus=='Complete' %} label-success {% else %} label-warning {% endif %}">
+																	{{ productnam.vstatus }}</span>						
+																</td>
+															</tr>
+															{% endfor %}
+														</tbody>
+													</table>
+												</td>									
+												<td class="text-start">{{ report.total }}</td>
+												<td class="text-start">
+													<span style="font-size:12px;" class="label{% if report.statusname=='Pending' %} label-danger {% elseif report.statusname=='Complete' %} label-success {% else %} label-warning {% endif %}">
+												{{ report.statusname }}</span>
+												</td>
+												<td class="text-start"><span style="font-size:12px;" class="label btn-info"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ report.date_added }} </span></td>
+												<td class="text-end"><a href="{{ report.view }}" data-toggle="tooltip" title="{{ button_view }}" class="btn btn-primary"><i class="fa fa-eye"></i></a></td>
+											</tr>
+										{% endfor %}
+									{% else %}
+								<tr>
+						<td class="text-center" colspan="9">{{ text_no_results }}</td>
+					</tr>
+					</tr>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<div class="col-sm-6 text-start">{{ pagination }}</div>
+		<div class="col-sm-6 text-end">{{ results }}</div>
+	</div>
+</form>

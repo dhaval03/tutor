@@ -1,0 +1,47 @@
+<form id="form-enquiry" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#enquiry">
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<td class="text-center" style="width: 1px;"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', $(this).prop('checked'));" class="form-check-input"/></td>
+
+					<td class="text-start"><a href="{{ sort_name }}"{% if sort == 'name' %} class="{{ order|lower }}"{% endif %}>{{ column_name }}</a></td>
+					<td class="text-start"><a href="{{ sort_email }}"{% if sort == 'email' %} class="{{ order|lower }}"{% endif %}>{{ column_email }}</a></td>					
+					<td class="text-start"><a href="{{ sort_product }}"{% if sort == 'product' %} class="{{ order|lower }}"{% endif %}>{{ column_product }}</a></td>
+
+					<td class="text-start"><a href="{{ sort_seller }}"{% if sort == 'seller' %} class="{{ order|lower }}"{% endif %}>{{ column_seller }}</a></td>
+					<td class="text-start"><a href="{{ sort_customer }}"{% if sort == 'customer' %} class="{{ order|lower }}"{% endif %}>{{ column_customer }}</a></td>
+					<td class="text-start"><a href="{{ sort_status }}"{% if sort == 'status' %} class="{{ order|lower }}"{% endif %}>{{ column_status }}</a></td>
+					<td class="text-start">{{ column_description }}</td>
+					<td class="text-start"><a href="{{ sort_date }}"{% if sort == 'date' %} class="{{ order|lower }}"{% endif %}>{{ column_date }}</a></td>
+				</tr>
+			</thead>
+			<tbody>
+				{% if enquirys %}
+					{% for enquiry in enquirys %}
+						<tr>
+							<td class="text-center"><input type="checkbox" name="selected[]" value="{{ enquiry.inquiry_id }}" class="form-check-input"/></td>
+							<td class="text-start">{{ enquiry.name }}</td>
+							<td class="text-start">{{ enquiry.email }}</td>
+							<td class="text-start"><a href="{{ enquiry.producturl }}" target="_blank">{{ enquiry.pname }}</a></td>
+							<td class="text-start">{{ enquiry.sname }}</td>
+							<td class="text-start">{{ enquiry.cname }}</td>
+							<td class="text-start">{{ enquiry.status }}</td>
+							<td class="text-start">{{ enquiry.description }}</td>
+							<td class="text-start"><span style="font-size:12px;" class="label btn-info"><i class="fas fa-clock"></i>
+							{{ enquiry.date_added }}</span></td>
+						</tr>
+					{% endfor %}
+				{% else %}
+					<tr>
+						<td class="text-center" colspan="9">{{ text_no_results }}</td>
+					</tr>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<div class="col-sm-6 text-start">{{ pagination }}</div>
+		<div class="col-sm-6 text-end">{{ results }}</div>
+	</div>
+</form>

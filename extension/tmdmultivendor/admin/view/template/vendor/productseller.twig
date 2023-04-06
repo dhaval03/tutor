@@ -1,0 +1,40 @@
+<div class="row mb-3">
+				<label class="col-sm-2 col-form-label" for="input-vendor"><span data-toggle="tooltip" title="{{ help_vendor }}">{{ entry_vendor }}</label>
+				<div class="col-sm-10">
+					<div class="input-group">
+                    <input type="text" name="vendor" value="{{ vendor }}" placeholder="{{ entry_vendor }}" id="input-vendor" list="list-vendor" class="form-control"/>
+                  </div>
+                  <input type="hidden" name="vendor_id" value="{{ vendor_id }}" id="input-vendor-id"/>
+                  <datalist id="list-vendor"></datalist>        
+					       
+				</div>
+			</div>
+<script>
+// Seller
+			$('input[name=\'vendor\']').autocomplete({
+				'source': function(request, response) {
+					$.ajax({
+						url: 'index.php?route=extension/tmdmultivendor/vendor/vendor|autocomplete&user_token={{ user_token }}&filter_name=' +  encodeURIComponent(request),
+						dataType: 'json',
+						success: function(json) {
+							json.unshift({
+								vendor_id: 0,
+								/* 13 02 2020 vendorname */
+								vendorname: '{{ text_none }}'
+							});
+
+							response($.map(json, function(item) {
+								return {
+									label: item['vendorname'],
+									value: item['vendor_id']
+								}
+							}));
+						}
+					});
+				},
+				'select': function(item) {
+					$('input[name=\'vendor\']').val(item['label']);
+					 $('#input-vendor-id').val(item['value']);
+				}
+			});	
+			</script>

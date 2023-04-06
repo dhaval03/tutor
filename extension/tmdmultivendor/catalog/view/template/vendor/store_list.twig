@@ -1,0 +1,54 @@
+<form id="form-store" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#store">
+
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+				<thead>
+				  <tr>
+					<td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
+					
+
+					
+				 <td class="text-start"><a href="{{ sort_vendor }}"{% if sort == 'vd.name' %} class="{{ order|lower }}"{% endif %}>{{ column_vendor }}</a></td>
+
+					<td class="text-start"><a href="{{ sort_name }}"{% if sort == 'name' %} class="{{ order|lower }}"{% endif %}>{{ column_name }}</a></td>					
+
+						<td class="text-start"><a href="{{ sort_country }}"{% if sort == 'country' %} class="{{ order|lower }}"{% endif %}>{{ column_country }}</a></td>
+					
+				
+						<td class="text-start"><a href="{{ sort_zone }}"{% if sort == 'zone' %} class="{{ order|lower }}"{% endif %}>{{ column_zone }}</a></td>
+						
+					
+					<td class="text-right">{{ column_action }}</td>
+				   </tr>
+				</thead>
+				<tbody>
+					{% if stores %}
+						{% for store in stores %}
+					<tr>
+						 <td class="text-center">{% if store.vendor_id in selected %}
+									<input type="checkbox" name="selected[]" value="{{ store.vendor_id }}" checked="checked" />
+									{% else %}
+									<input type="checkbox" name="selected[]" value="{{ store.vendor_id }}" />
+									{% endif %}</td>
+						
+						<td class="text-left">{{ store.display_name }}</td>
+						<td class="text-left">{{ store.name }}</td>
+						<td class="text-left">{{ store.cnames }}</td>
+						<td class="text-left">{{ store.znames }}</td>
+						<td class="text-right">
+						<a href="{{ store.view }}" title="{{ button_view }}" class="btn btn-default"><i class="fa fa-eye"></i></a></td>
+					</tr>
+					{% endfor %} 
+					{% else %}
+					<tr>
+						<td class="text-center" colspan="4">{{ text_no_results }}</td>
+					</tr>
+					{% endif %}
+				</tbody>
+			</table>
+          </div>
+          <div class="row">
+      <div class="col-sm-6 text-start">{{ pagination }}</div>
+      <div class="col-sm-6 text-end">{{ results }}</div>
+    </div>
+        </form>    

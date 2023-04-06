@@ -1,0 +1,37 @@
+<form id="form-income" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#income">
+
+  <div class="table-responsive">
+
+    <table class="table table-bordered table-hover">
+
+      <h3 class="panel-title btn btn-default"><B>{{ entry_myblance }}</B> : {{ remaining_amounts }}</h3>
+
+      <thead>
+        <tr>
+            <td class="text-left">{{ column_payment_method }}</td>
+            <td class="text-left">{{ column_amount }}</td>
+            <td class="text-left">{{ column_date }}</td>
+            </tr>
+      </thead>
+      <tbody>
+        {% if incomes %}
+          {% for income in incomes %}
+          <tr>
+            <td class="text-left">{{ income.payment_method }}</td>
+                        <td class="text-left">{{ income.amount }}</td>
+            <td class="text-left"><span class="label btn-info"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ income.date_added }}</span></td>
+                    </tr>
+          {% endfor %} 
+          {% else %}
+          <tr>
+            <td class="text-center" colspan="7">{{ text_no_results }}</td>
+          </tr>
+          {% endif %}
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 text-start">{{ pagination }}</div>
+    <div class="col-sm-6 text-end">{{ results }}</div>
+  </div>
+</form>

@@ -1,0 +1,110 @@
+<form id="form-product" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#product">
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <td class="text-center" style="width: 1px;"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', $(this).prop('checked'));" class="form-check-input"/>
+          <td class="text-center">{{ column_image }}</td>
+          <td class="text-start"><a href="{{ sort_name }}"{% if sort == 'pd.name' %} class="{{ order|lower }}"{% endif %}>{{ column_name }}</a></td>
+          <td class="text-start d-none d-lg-table-cell"><a href="{{ sort_model }}"{% if sort == 'p.model' %} class="{{ order|lower }}"{% endif %}>{{ column_model }}</a></td>
+          <td class="text-end"><a href="{{ sort_price }}"{% if sort == 'p.price' %} class="{{ order|lower }}"{% endif %}>{{ column_price }}</a></td>
+          <td class="text-end"><a href="{{ sort_quantity }}"{% if sort == 'p.quantity' %} class="{{ order|lower }}"{% endif %}>{{ column_quantity }}</a></td>
+
+          <td class="text-end">
+            <a href="{{ sort_status }}"{% if sort == 'p.status' %} class="{{ order|lower }}"{% endif %}>{{ column_status }}</a>
+          </td>
+
+          <td class="text-end">{{ column_action }}</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% if products %}
+                {% for product in products %}
+                <tr>
+                  <td class="text-center"><input type="checkbox" name="selected[]" value="{{ product.product_id }}" class="form-check-input"/></td>
+                     <td class="text-center">{% if product.image %} <img src="{{ product.image }}" alt="{{ product.name }}" class="img-thumbnail" /> {% else %} <span class="img-thumbnail list"><i class="fa fa-camera fa-2x"></i></span> {% endif %}</td>
+                  <td class="text-left">{{ product.name }}</td>
+                  <td class="text-right">{{ product.model }}</td>
+                  <td class="text-end">{% if product.special %} <span style="text-decoration: line-through;">{{ product.price }}</span><br/>
+                      <div class="text-danger">{{ product.special }}</div>
+                      {% else %}
+                      {{ product.price }}
+                      {% endif %}</td>
+                      <td class="text-end">{% if product.quantity <= 0 %} <span class="label label-warning">{{ product.quantity }}</span> {% elseif product.quantity <= 5 %} <span class="label label-danger">{{ product.quantity }}</span> {% else %} <span class="label label-success">{{ product.quantity }}</span> {% endif %}</td>
+
+
+
+                      
+                       {% if chkautoapprovedproduct ==1 %}     
+                  <td class="text-center" width="170px">
+                    <div class="form-group">
+                      <label class="col-sm-2 control-label"></label>
+                      <div class="col-sm-10">
+                        <label class="switch inputbundle{{ product.product_id }}" >
+                          <input type="checkbox" value="1" name="status" class="quick-status" rel="{{ product.product_id }}" {% if product.chkstatus %} checked="checked" {% endif %}>
+            
+                          <span class="slider round {% if product.statusvalue ==2 %} chkaproval{% endif %}"></span>
+                          <span class="absolute-no {% if product.statusvalue ==2 %} chkaproval{% endif %}">{{ text_disabled }}</span>
+                        </label>
+            
+                      </div>
+            {% if product.statusvalue ==2 %}  
+            <span class="approval">{{ text_approvepending }}</span>
+            {% endif %}
+          </div>
+                  </td>
+          {% else %}
+          <td class="text-left"><span class="label{% if product.status=='Disabled' %} label-danger  {% elseif product.status=='Approval Pending' %} label-warning {% else %} label-success {% endif %}">{{ product.status }}</span></td>
+          
+          {% endif %}  
+                  <td class="text-end"><a href="{{ product.edit }}" data-bs-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil-alt"></i></a></td>
+                </tr>
+                {% endfor %}
+                {% else %}
+          <tr>
+            <td class="text-center" colspan="4">{{ text_no_results }}</td>
+          </tr>
+        {% endif %}
+      </tbody>
+    </table>
+    </div>
+    <div class="row">
+      <div class="col-sm-6 text-start">{{ pagination }}</div>
+      <div class="col-sm-6 text-end">{{ results }}</div>
+    </div>
+</form>
+<script type="text/javascript">
+$(document).on('click','.quick-status',function() {
+  rel=$(this).attr('rel');
+  val=$(this).prop("checked");
+  if(val ==true){
+    status =1;
+  }else{
+    status =0;
+  }
+  $.ajax({
+    url: 'index.php?route=extension/tmdmultivendor/vendor/product|quickStatus&product_id='+rel+'&status='+status,
+    type: 'post',
+    data: '',
+    dataType: 'json',
+    beforeSend: function() {
+    },
+    complete: function() {
+    },
+    success: function(json) {
+      $('.alert, .text-danger').remove();      
+      if (json['success']) {
+        $('.breadcrumb').after('<div class="alert alert-success alert-dismissible"> <i style="font-size:14px; " class="fa fa-thumbs-up" aria-hidden="true"></i>' + json['success'] + '<button type="button" class="btn-close" data-bs-dismiss="modal"></button>');
+    $('html, body').animate({ scrollTop: 0 }, 'slow');
+  window.setTimeout( function() {
+  window.location.reload();
+}, 1500);
+      }
+    },
+  });
+});
+
+</script>
+<style>
+.slider:after {content: "{{ text_enable }}";}  
+</style>

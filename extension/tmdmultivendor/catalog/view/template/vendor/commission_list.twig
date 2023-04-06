@@ -1,0 +1,109 @@
+<form id="form-commission" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#commission">
+
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+				<thead>
+				  <tr>
+					
+					
+			    <td class="text-left">{% if sort == 'vendor' %}
+						<a href="{{ sort_vendor }}" class="{{ order|lower }}">{{ column_vendor }}</a>
+					{% else %}
+						<a href="{{ sort_vendor }}">{{ column_vendor }}</a>
+					{% endif %}
+					</td>
+					
+					<td class="text-left">{% if sort == 'name' %}
+						<a href="{{ sort_name }}" class="{{ order|lower }}">{{ column_name }}</a>
+					{% else %}
+						<a href="{{ sort_name }}">{{ column_name }}</a>
+					{% endif %}
+					</td>
+					
+					<td class="text-left">{% if sort == 'model' %}
+						<a href="{{ sort_model }}" class="{{ order|lower }}">{{ column_model }}</a>
+					{% else %}
+						<a href="{{ sort_model }}">{{ column_model }}</a>
+					{% endif %}
+					</td>
+					
+					<td class="text-left">{% if sort == 'quantity' %}
+						<a href="{{ sort_quantity }}" class="{{ order|lower }}">{{ column_quantity }}</a>
+					{% else %}
+						<a href="{{ sort_quantity }}">{{ column_quantity }}</a>
+					{% endif %}
+					</td>
+
+					<td class="text-left">{% if sort == 'price' %}
+						<a href="{{ sort_price }}" class="{{ order|lower }}">{{ column_price }}</a>
+					{% else %}
+						<a href="{{ sort_price }}">{{ column_price }}</a>
+					{% endif %}
+					</td>
+
+					<td class="text-left">{% if sort == 'commission' %}
+						<a href="{{ sort_commission }}" class="{{ order|lower }}">{{ column_commission }}</a>
+					{% else %}
+						<a href="{{ sort_commission }}">{{ column_commission }}</a>
+					{% endif %}
+					</td>
+						
+					<td class="text-left">{% if sort == 'commissionfixed' %}
+						<a href="{{ sort_commissionfixed }}" class="{{ order|lower }}">{{ column_commissionfixed }}</a>
+					{% else %}
+						<a href="{{ sort_commissionfixed }}">{{ column_commissionfixed }}</a>
+					{% endif %}
+					</td>
+
+					<td class="text-left">{% if sort == 'commissiontotal' %}
+						<a href="{{ sort_commissiontotal }}" class="{{ order|lower }}">{{ column_commissiontotal }}</a>
+					{% else %}
+						<a href="{{ sort_commissiontotal }}">{{ column_commissiontotal }}</a>
+					{% endif %}
+					</td>
+
+					<td class="text-center">{% if sort == 'date' %}
+						<a href="{{ sort_date }}" class="{{ order|lower }}">{{ column_date }}</a>
+					{% else %}
+						<a href="{{ sort_date }}">{{ column_date }}</a>
+					{% endif %}
+					</td>
+						
+					
+				
+				   </tr>
+				</thead>
+				<tbody>
+				{% if commissions %}
+					{% for commission in commissions %}
+					<tr>
+						<td class="text-left">{{ commission.sellername }}</td>
+						<td class="text-left">{{ commission.name }}</td>
+						<td class="text-left">{{ commission.model }}</td>
+						<td class="text-left">
+							{% if commission.quantity == 1  %}
+							<span class="label label-warning">{{ commission.quantity }}</span>					
+							{% else %}
+							<span class="label label-success">{{ commission.quantity }}</span>
+							{% endif %}
+						</td>
+						<td class="text-left">{{ commission.price }}</td>
+						<td class="text-left">{{ commission.commissionper }}</td>
+						<td class="text-left">{{ commission.commissionfix }}</td>
+						<td class="text-left">{{ commission.totalcommission }}</td>
+						<td class="text-left"><span class="label btn-info"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ commission.date_added }}</span></td>
+					</tr>
+					{% endfor %} 
+					{% else %}
+					<tr>
+						<td class="text-center" colspan="10">{{ text_no_results }}</td>
+					</tr>
+					{% endif %}
+				</tbody>
+			</table>
+          </div>
+          <div class="row">
+      <div class="col-sm-6 text-start">{{ pagination }}</div>
+      <div class="col-sm-6 text-end">{{ results }}</div>
+    </div>
+        </form>    

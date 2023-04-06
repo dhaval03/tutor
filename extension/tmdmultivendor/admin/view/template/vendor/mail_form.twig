@@ -1,0 +1,261 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="float-end">
+        <button type="submit" form="form-mail" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fas fa-save"></i></button>
+	        <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fas fa-reply"></i></a>
+	        <button type="button" title="Shortcut" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".bs-example-modal-lg">Shortcut</button>
+    	</div>
+
+      <h1>{{ heading_title }}</h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header"><i class="fas fa-pencil-alt"></i> {{ text_form }}</div>
+      <div class="card-body">
+        <form id="form-mail" action="{{ save }}" method="post" data-oc-toggle="ajax">
+          <ul class="nav nav-tabs">
+            <li class="nav-item"><a href="#tab-general" data-bs-toggle="tab" class="nav-link active">{{ tab_general }}</a></li>
+
+          </ul>
+          <div class="tab-content">
+            <div id="tab-general" class="tab-pane active">
+              <ul class="nav nav-tabs" id="language">
+                {% for language in languages %}
+                  <li class="nav-item"><a href="#language-{{ language.language_id }}" data-bs-toggle="tab" class="nav-link{% if loop.first %} active{% endif %}"><img src="language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/> {{ language.name }}</a></li>
+                {% endfor %}
+              </ul>
+              <div class="tab-content">
+              	<div class="row mb-3">
+					<label class="col-sm-2 col-form-label" for="input-sellertype">{{ entry_type }}</label>
+					<div class="col-sm-10">
+						<select name="sellertype" class="form-control">
+							<option value="">{{ text_select }}</option>
+							{% for result in sellertypes %}
+			                {% if sellertype == result.sellertype %}
+							<option value="{{ result['sellertype'] }}" selected="selected">{{ result.value }}</option> 
+		                    {% else %}
+		                    <option value="{{ result['sellertype'] }}">{{ result.value }}</option> 
+		                    {% endif %}
+		                    {% endfor %}
+						</select>	
+					</div>
+				</div>
+                {% for language in languages %}
+                  <div id="language-{{ language.language_id }}" class="tab-pane{% if loop.first %} active{% endif %}">
+                    <div class="row mb-3 required">
+                      <label for="input-name-{{ language.language_id }}" class="col-sm-2 col-form-label">{{ entry_name }}</label>
+                      <div class="col-sm-10">
+                        <input type="text" name="seller_mail[{{ language.language_id }}][name]" value="{{ seller_mail[language.language_id] ? seller_mail[language.language_id].name }}" placeholder="{{ entry_name }}" id="input-name-{{ language.language_id }}" class="form-control"/>
+                        <div id="error-name-{{ language.language_id }}" class="invalid-feedback"></div>
+                      </div>
+                    </div>
+                    
+                    <div class="row mb-3 ">
+                      <label for="input-subject-{{ language.language_id }}" class="col-sm-2 col-form-label">{{ entry_subject }}</label>
+                      <div class="col-sm-10">
+                        <input type="text" name="seller_mail[{{ language.language_id }}][subject]" value="{{ seller_mail[language.language_id] ? seller_mail[language.language_id].subject }}" placeholder="{{ entry_subject }}" id="input-subject-{{ language.language_id }}" class="form-control"/>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3 ">
+                      <label for="input-message-{{ language.language_id }}" class="col-sm-2 col-form-label">{{ entry_subject }}</label>
+                      <div class="col-sm-10">
+                        <div id="input-message-{{ language.language_id }}">
+                          <textarea name="seller_mail[{{ language.language_id }}][message]" placeholder="{{ entry_subject }}" data-oc-toggle="ckeditor" data-lang="{{ ckeditor }}" class="form-control">{{ seller_mail[language.language_id] ? seller_mail[language.language_id].message }}</textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                {% endfor %}
+
+                <div class="row mb-3">
+					<label class="col-sm-2 col-form-label" for="input-status">{{ entry_status }}</label>
+	                <div class="col-sm-10">
+		            <select name="status" id="input-status" class="form-control">
+	 	            {% if status %}
+		            <option value="1" selected="selected">{{ text_enable }}</option>
+		            <option value="0">{{ text_disable }}</option>
+		            {% else %}
+		            <option value="1">{{ text_enable }}</option>
+		            <option value="0" selected="selected">{{ text_disable }}</option>
+		            {% endif %}
+						</select>
+					</div>
+				</div>
+
+              </div>
+            </div>
+            </div>
+          <input type="hidden" name="mail_id" value="{{ mail_id }}" id="input-mail-id"/>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript"><!--
+$('textarea[data-oc-toggle=\'ckeditor\']').ckeditor();
+//--></script>
+<script type="text/javascript"><!--
+// $('#language a:first').tab('show');
+//--></script>
+<!-- Popup -->
+<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+		<div class="heading">Email Shortcut For Adding New Product 
+			<button type="button" class="float-end close" data-bs-dismiss="modal">&times;</button></div>
+		<div class="modal-body">
+			<div class="row">
+			
+			
+			<div id="inline1" class="col-sm-4">
+				<h4> Seller order status update email</h4> 
+				<ul>
+					<li>{emails}     = Emails</li>
+					<li>{statusname} =   Status Name</li>
+					<li>{trackingno} =   Customer Mail in Show Tracking number </li>
+					<li>{sellername} =   Seller name </li>
+					<li>{order_id}   =   Order Id </li>
+				</ul>
+			</div>
+					
+			<div id="inline1" class="col-sm-4">
+				<h4> Seller Add New Product</h4>
+					<ul>					
+						<li>{vendorname}  = Vendor Name</li>
+						<li>{productname} = Product Name</li>
+						<li>{model}  	  = Product Model</li>
+						<li>{emails}      = Vendor Email</li>			
+						<li>{loginlink}   = Vendor Product Link</li>			
+					</ul>
+				</div>
+				
+			<div id="inline1" class="col-sm-4">
+			<h4> New Seller Signup</h4> 
+				<ul>					
+					<li>{vendorname}    = Vendor Name</li>
+					<li>{email}         = Email</li>
+					<li>{telephone}  	= Telephone</li>
+					<li>{address_1}     = Address 1</li>			
+					<li>{company}       = Company</li>			
+					<li>{countryname}   = Country Name</li>			
+					<li>{zonename}      = Zone Name</li>			
+					<li>{city}          = City</li>			
+					<li>{loginlink}     = Login Link</li>			
+				</ul>
+			</div>
+				<div id="inline1" class="col-sm-4">
+				<h4> Seller Account approved email</h4> 
+					<ul>					
+						<li>{vendorname} = Vendor Name</li>
+						<li>{emails}     = Emails</li>
+						<li>{loginlink}  = Login Link</li>		
+					</ul>
+				</div>
+				
+				<div id="inline1" class="col-sm-4">
+					<h4> Seller Account disapproved email</h4> 
+					<ul>					
+						<li>{vendorname}    = Seller Display Name</li>
+						<li>{email}      = Email</li>
+						<li>{loginlink}  = Login Link</li>		
+					</ul>
+				</div>
+				
+				<div id="inline1" class="col-sm-4">
+				<h4> Seller product approved email</h4> 
+					<ul>
+						<li>{vendorname}      = Seller Display Name</li>
+						<li>{productname} = Seller Display Name</li>
+						<li>{emails}     = Emails</li>
+						<li>{loginlink}  = Login Link</li>
+					</ul>
+				</div>
+				</div>
+				<div class="row">
+				
+				<div id="inline1" class="col-sm-4">
+			<h4> Customer Order Seller product Mail to Seller</h4>
+				<ul>
+					<li>{order_id}         = Order Id</li>
+					<li>{display_name}     = Seller Display Name</li>
+					<li>{email}            = Seller Email</li>
+					<li>{seller_telephone} = Seller Telephone</li>
+					<li>{address_1}        = Seller Address 1</li>
+					<li>{seller_lastname}  = Seller Lastname</li>
+					<li>{seller_firstname} = Seller Firstname</li>
+					<li>{product_info}     = Product Info</li>
+					<br/>
+					<li>{customername}     = Customer Name</li>
+					<li>{customeremail}    = Customer Email</li>
+					<li>{customertelephone}= Customer Telephone</li>
+					<li>{customer_id}      = Customer ID</li>
+				</ul>
+			</div>
+			
+			<div id="inline1" class="col-sm-4">
+			<h4> Enquiry on Seller Product</h4> 
+				<ul>
+					
+					<li>{name}          = Name</li>
+					<li>{productname}   = Product Name</li>
+					<li>{email}         = Email</li>
+					<li>{telephone}     = Telephone</li>
+					<li>{customername}  = Customer Name</li>
+					<li>{customeremail} = Customer Email</li>
+					<li>{message}       = Message</li>
+					<br/><div style="background:#D3E456;color:#F90037;padding:10px;">NOTE: If Customer is Logged then {customername} and {customeremail} can get seller</div>
+				</ul>
+			</div>
+				</div>			
+			</div>
+		</div>
+	</div>
+</div>
+<style>
+#inline1{
+	padding-bottom:15px;
+}
+#inline1 ul{
+	margin:0px;
+	padding:0px!important;
+}
+#inline1 ul li{
+	line-height: 25px;
+	list-style: outside none none;
+	padding-left:15px;
+}
+#inline1 ul li:hover{
+	background:#238EB5;
+	color: #fff;
+}
+.heading{
+	padding: 10px;
+    background: #238EB5;
+    color: #fff;
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.bs-example-modal-lg h4{
+   	background:#238EB5;
+	color: #fff;
+	padding:8px 10px;
+	font-size:15px;
+}
+.heading button {opacity:1}
+.bs-example-modal-lg ::selection {
+    color: red;
+    background: yellow;
+}
+</style>
+<!-- popup -->
+{{ footer }}

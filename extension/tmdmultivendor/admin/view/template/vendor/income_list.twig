@@ -1,0 +1,59 @@
+<form id="form-income" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#income">
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<td class="text-start">
+						<a href="{{ sort_seller }}"{% if sort == 'seller' %} class="{{ order|lower }}"{% endif %}>{{ column_seller }}</a>
+					</td>
+
+					<td class="text-start">
+						<a href="{{ sort_tamount }}"{% if sort == 'tamount' %} class="{{ order|lower }}"{% endif %}>{{ column_tamount }}</a>
+					</td>
+
+					<td class="text-start">
+						<a href="{{ sort_admin_amount }}"{% if sort == 'admin_amount' %} class="{{ order|lower }}"{% endif %}>{{ column_admin_amount }}</a>
+					</td>
+
+					<td class="text-start">{{ column_shipingamount }}</td>
+					<td class="text-start">
+						<a href="{{ sort_samount }}"{% if sort == 'income' %} class="{{ order|lower }}"{% endif %}>{{ column_samount }}</a>
+					</td>					
+					<td class="text-end">{{ column_paid }}</td>
+					<td class="text-end">{{ column_remaining }}</td>
+					<td class="text-end">{{ column_date_added }}</td>
+					<td class="text-end">{{ column_action }}</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% if incomes %}
+					{% for income in incomes %}
+						<tr>
+							<td class="text-start">{{ income.sellername }}</td>
+							<td class="text-start">{{ income.total }}</td>
+							<td class="text-start">{{ income.totalcommission }}</td>
+							<td class="text-start">{{ income.tmdshippingcost }}</td>
+							<td class="text-start">{{ income.totalamount }}</td>
+							<td class="text-start">{{ income.payamount }}</td>
+							<td class="text-start">{{ income.remaining_amount }}</td>
+							<td class="text-start">{{ income.date_added }}</td>
+							<td class="text-start">
+								{% if income.remaining_amount %}
+								<a href="{{ income.payment }}" target="new" data-bs-toggle="tooltip" title="{{ button_pay }}"><button type="button" tagetnew class="btn btn-primary"> {{ button_pay }}{{ income.remaining_amount }}</button></a>
+								{% endif %}  
+							</td>
+						</tr>
+					{% endfor %}
+				{% else %}
+					<tr>
+						<td class="text-center" colspan="10">{{ text_no_results }}</td>
+					</tr>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<div class="col-sm-6 text-start">{{ pagination }}</div>
+		<div class="col-sm-6 text-end">{{ results }}</div>
+	</div>
+</form>

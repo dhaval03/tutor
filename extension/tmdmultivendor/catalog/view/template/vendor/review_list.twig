@@ -1,0 +1,89 @@
+<form id="form-review" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#review">
+
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+         <thead>
+                <tr>
+          <!--  tmd vendor2 customer condtion  -->
+          {% if customer2vendor==1 %}
+                  <td class="text-left">{{ column_customer }}</td>
+           {% endif %}
+          <!--  tmd vendor2 customer condtion  -->
+                  <td class="text-left">{{ column_text }}</td>                 
+                  <td class="text-left">{{ column_status }}</td>
+                  <td class="text-left">{{ column_date_added }}</td>
+                  <td class="text-right">{{ column_action }}</td>
+                </tr>  
+              </thead>
+        <tbody>
+          {% if reviews %}
+                {% for review in reviews %}
+               <tr>
+          <!--  tmd vendor2 customer condtion  -->
+          {% if customer2vendor==1 %}
+                    <td class="text-left">{{ review.cname }}</td>
+            {% endif %}
+            <!--  tmd vendor2 customer condtion  -->
+           <td class="text-start">
+                      <p>{{ review.fulltext }}</p>
+                      <p>{{ review.text }}</p>
+                      </td>  
+          <td class="text-left">
+          <!--19 02 2020-->
+          <span class="label{% if review.status=='Disabled' %} label-danger {% else %} label-success {% endif %}">{{ review.status }}</span>
+          <!--19 02 2020-->
+          </td>
+          <td class="text-left">{{ review.date_added }}</td>
+          <!--28-01-2020 start-->
+          <td class="text-right">{{ review.view }}</td>
+          <!--28-01-2020 start-->
+                </tr>
+        <!--28-01-2020 start-->
+          <div class="modal fade" id="viewfullreview{{ review.review_id }}" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header col-sm-12">
+                 <h4 class="modal-title col-sm-6">{{ review.cname }}</h4>
+                  <div class="rating col-sm-6 text-right">
+                    <ul class="list-unstyled value">
+                      <li>
+                        {% for sellerrating in review.reviewvalue %}
+                          <div class="rating">
+                            <span class="filedrating">{{ sellerrating.field_name }} :</span>
+                            {% for i in 1..5 %}
+                            {% if sellerrating.value < i %}
+                            <span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+                            {% else %}
+                            <span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+                            {% endif %}
+                            {% endfor %}
+                          </div>
+                        {% endfor %}
+                      </li>
+                    </ul>
+                  </div>
+                </div><div class="clearfix"></div>
+                <div class="modal-body">
+                  {{ review.fulltext }}
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-bs-dismiss="modal">{{ text_close }}</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!--28-01-2020 end-->
+                {% endfor %}
+                {% else %}
+                <tr>
+                  <td class="text-center" colspan="7">{{ text_no_results }}</td>
+                </tr>
+                {% endif %}
+        </tbody>
+      </table>
+          </div>
+          <div class="row">
+      <div class="col-sm-6 text-start">{{ pagination }}</div>
+      <div class="col-sm-6 text-end">{{ results }}</div>
+    </div>
+        </form>    

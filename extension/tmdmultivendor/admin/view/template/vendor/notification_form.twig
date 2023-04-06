@@ -1,0 +1,209 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="float-end">
+        <button type="submit" form="form-manufacturer" data-bs-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary"><i class="fas fa-save"></i></button>
+          <a href="{{ back }}" data-bs-toggle="tooltip" title="{{ button_back }}" class="btn btn-light"><i class="fas fa-reply"></i></a>
+      </div>
+
+      <h1>{{ heading_title }}</h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  <div class="container-fluid">
+    <div class="card">
+      <div class="card-header"><i class="fas fa-pencil-alt"></i> {{ text_form }}</div>
+      <div class="card-body">
+        <form id="form-manufacturer" action="{{ save }}" method="post" data-oc-toggle="ajax">
+          <div class="row mb-3">
+            <label class="col-sm-2 col-form-label" for="input-type">{{ entry_name }}</label>
+            <div class="col-sm-10">
+            <select type="text" name="type" id="dbType" class="form-control">
+                {% for type in notifications %}
+                {% if type == type.value %}
+                  <option value="{{ type.value }}" selected="selected">{{ type.type }}</option> 
+               {% else %}
+                  <option value="{{ type.value }}">{{ type.type }}</option> 
+                {% endif %}
+                {% endfor %}
+                </select>
+            </div>
+          </div>
+
+
+      <div class="row mb-3">
+        <label class="col-sm-2 col-form-label">{{ entry_customer }}</label>
+        <div class="col-sm-10">
+          <input type="text" name="customer" value="" placeholder="{{ entry_customer }}" id="input-customer" list="list-customer" class="form-control"/>
+          <datalist id="list-customer"></datalist>
+          <div class="input-group">
+            <div class="form-control p-0" style="height: 150px; overflow: auto;">
+              <table id="notify" class="table table-sm m-0">
+                <tbody>
+                  {% for notification_customer in notification_customers %}
+                    <tr id="notify-{{ notification_customer.customer_id }}">
+                      <td>
+                      {{ notification_customer.firstname }}
+                      <input type="hidden" name="notification_customer[]" value="{{ notification_customer.customer_id }}"/></td>
+                      <td class="text-end"><button type="button" class="btn btn-danger btn-sm"><i class="fas fa-minus-circle"></i></button></td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="form-text">{{ help_customer }}</div>
+        </div>
+      </div>  
+          
+        <!-- <div class="seller" id="Seller" {% if type == 'select_seller' %} style="display:none" {% else %} style="display:block" {% endif %}>
+          <div class="row mb-3">
+           <label class="col-sm-2 col-form-label" for="input-sellers">{{ entry_seller }}</label>
+            <div class="col-sm-10">
+              <input type="text" name="sellers" value="" placeholder="{{ entry_seller }}" id="input-sellers" class="form-control" />
+              <div id="vendor" class="well well-sm" style="height: 150px; overflow: auto;">
+              {% for notification_seller in notification_sellers %}
+                <div id="vendor{{ notification_seller.vendor_id }}"><i class="fa fa-minus-circle"></i> {{ notification_seller.firstname }}
+                  <input type="hidden" name="notification_seller[]" value="{{ notification_seller.vendor_id }}" />
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+        <div class="row mb-3">
+          <label class="col-sm-2 col-form-label">{{ entry_seller }}</label>
+          <div class="col-sm-10">
+            <input type="text" name="seller" value="" placeholder="{{ entry_seller }}" id="input-seller" list="list-seller" class="form-control"/>
+            <datalist id="list-seller"></datalist>
+            <div class="input-group">
+              <div class="form-control p-0" style="height: 150px; overflow: auto;">
+                <table id="vendor" class="table table-sm m-0">
+                  <tbody>
+                    {% for notification_seller in notification_sellers %}
+                      <tr id="vendor-{{ notification_seller.vendor_id }}">
+                        <td>
+                        {{ notification_seller.firstname }}
+                        <input type="hidden" name="notification_seller[]" value="{{ notification_seller.vendor_id }}"/></td>
+                        <td class="text-end"><button type="button" class="btn btn-danger btn-sm"><i class="fas fa-minus-circle"></i></button></td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div class="form-text">{{ help_seller }}</div>
+          </div>
+        </div>
+
+        {% for language in languages %}
+          <div class="row mb-3 required">
+            <label class="col-sm-2 col-form-label" for="input-message[{{ language.language_id }}]">{{ entry_message }}</label>
+            <div class="col-sm-10">
+                <textarea type="text" name="notification_message[{{ language.language_id }}][message]" value="{{ vendor_review_field_description[language.language_id] ? vendor_review_field_description[language.language_id].message }}" id="input-message[{{ language.language_id }}]" placeholder="{{ entry_message }}" data-toggle="summernote" data-lang="{{ summernote }}" class="form-control">{{ notification_message[language.language_id] ? notification_message[language.language_id].message }}</textarea>
+              </div>
+             
+          </div> 
+        {% endfor %}                                     
+
+          <div class="row mb-3">
+            <label for="input-date" class="col-sm-2 col-form-label">{{ entry_date }}</label>
+            <div class="col-sm-10 col-md-4">
+              <div class="input-group">
+                <input type="text" name="date" value="{{ date }}" placeholder="{{ entry_date }}" id="input-date" class="form-control date"/>
+                <div class="input-group-text"><i class="fas fa-calendar"></i></div>
+              </div>
+            </div>
+          </div>
+          <input type="hidden" name="notification_id" value="{{ notification_id }}" id="notification_id">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+$('#input-customer').autocomplete({
+    'source': function (request, response) {
+        $.ajax({
+            url: 'index.php?route=extension/tmdmultivendor/vendor/notification|autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+            dataType: 'json',
+            success: function (json) {
+                response($.map(json, function (item) {
+                    return {
+                        label: item['firstname'],
+                        value: item['customer_id']
+                    }
+                }));
+            }
+        });
+    },
+    'select': function (item) {
+        $('#input-customer').val('');
+
+        $('#notify' + item['value']).remove();
+
+        html = '<tr id="notify' + item['value'] + '">';
+        html += '  <td>' + item['label'] + '<input type="hidden" name="notification_customer[]" value="' + item['value'] + '"/></td>';
+        html += '  <td class="text-end"><button type="button" class="btn btn-danger btn-sm"><i class="fas fa-minus-circle"></i></button></td>';
+        html += '</tr>';
+
+        $('#notify tbody').append(html);
+    }
+});
+</script>
+
+<script>
+// Sellers
+$('#input-seller').autocomplete({
+    'source': function (request, response) {
+        $.ajax({
+            url: 'index.php?route=extension/tmdmultivendor/vendor/vendor|autocomplete&user_token={{ user_token }}&filter_name=' + encodeURIComponent(request),
+            dataType: 'json',
+            success: function (json) {
+                response($.map(json, function (item) {
+                    return {
+                        label: item['vendorname'],
+                        value: item['vendor_id']
+                    }
+                }));
+            }
+        });
+    },
+    'select': function (item) {
+        $('#input-seller').val('');
+
+        $('#vendor' + item['value']).remove();
+
+        html = '<tr id="vendor' + item['value'] + '">';
+        html += '  <td>' + item['label'] + '<input type="hidden" name="notification_seller[]" value="' + item['value'] + '"/></td>';
+        html += '  <td class="text-end"><button type="button" class="btn btn-danger btn-sm"><i class="fas fa-minus-circle"></i></button></td>';
+        html += '</tr>';
+
+        $('#vendor tbody').append(html);
+    }
+});
+</script>
+
+<script>
+$('#dbType').on('change',function(){
+
+    if( $(this).val()==="select_customer"){
+     $("#Customer").show()
+    $("#Seller").hide()
+    }
+    else{
+    $("#Customer").hide()
+   $("#Seller").show()
+  
+    }
+});
+</script>
+
+{{ footer }}

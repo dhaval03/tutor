@@ -1,0 +1,93 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      
+      <h1>{{ heading_title }}</h1>
+      <ol class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+          <li class="breadcrumb-item"><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ol>
+    </div>
+  </div>
+  <div class="container-fluid">
+  <div class="container-fluid">
+	{% if error_warning %}
+    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+    </div>
+   {% endif %}
+   {% if warning %}
+    <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ warning }}
+    </div>
+   {% endif %}
+   {% if success %}
+    <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{ success }}
+    </div>
+   {% endif %}
+	<div class="card">
+		
+		 <div class="card-header">
+			<h3 class="panel-title"><i class="fa fa-pencil"></i> {{ heading_title }}</h3>
+      </div>
+    <div class="card-body">
+
+	  
+	  <form action="" method="post" enctype="multipart/form-data" >
+		 <div class="row mb-3 col-sm-12">
+			<label class="col-sm-4 control-label">{{ entry_import }}</label>
+            <div class="col-sm-8"><input type="file" name="import" /></div>
+        </div>
+		
+		<div class="row mb-3 col-sm-12">
+			<label class="col-sm-4 control-label">{{ entry_stores }}</label>
+			<div class="col-sm-8">
+				  <select name="store_id" class="form-control" >
+				 <option value="">{{ text_all_stores }}</option>
+				 {% for  store in stores %}
+				 <option value="{{ store.store_id }}">{{ store.name }}</option>
+				{% endfor %}
+				 </select>
+				</div>
+		</div>
+			<div class="row mb-3 col-sm-12">
+			<label class="col-sm-4 control-label">{{ entry_language }}</label>
+			<div class="col-sm-8">
+				<select name="language_id" class="form-control">
+			 {% for language in languages%} 
+			 <option value="{{ language.language_id}}">{{ language.name }}</option>
+			 {% endfor %}
+			 </select>
+				</div>
+			</div>
+			<div class="row mb-3 col-sm-12">
+			<label class="col-sm-4 control-label">{{ entry_importby }}</label>
+			<div class="col-sm-8">
+				<select name="importby" class="form-control">
+				<option value="1">{{ entry_productid }}</option>
+			 <option value="2">{{ entry_model }}</option>
+			
+			 </select>
+				</div>
+			</div>
+			
+			<div class="row mb-3  col-sm-12">
+			<label class="col-sm-4 control-label">{{ entry_extrafiled }}</label>
+			<div class="col-sm-8" style="padding-left:0px" >
+                {% if cfiled %}
+               {% for filed in cfiled %}
+               <label class="col-sm-6 control-label" style="text-align:left"><input type="text" name="{{ filed }}" class="form-control" placeholder="{{ filed }} excel filed name"></label> {% endfor %}  {% else %}
+               No custome filed present
+
+               {% endif %}
+              </div>
+			</div>
+	   <input type="submit" class="btn btn-primary col-sm-12" value="{{ button_import }}">
+	  </form>
+	  
+      
+    </div>
+  </div>
+  </div>
+</div>
+{{ footer }}

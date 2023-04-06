@@ -1,0 +1,8 @@
+<link href="extension/tmdmultivendor/catalog/view/stylesheet/vendor/vendor.css" rel="stylesheet">
+<h3>{{ heading_title }}</h3>
+<div class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-xl-4">
+  {% for product in products %}
+    <div class="col">{{ product }}
+	</div>
+  {% endfor %}
+</div>

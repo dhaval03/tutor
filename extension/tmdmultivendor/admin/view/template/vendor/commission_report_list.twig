@@ -1,0 +1,46 @@
+<form id="form-commission_report" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#commission_report">
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<td class="text-start"><a href="{{ sort_seller }}"{% if sort == 'seller' %} class="{{ order|lower }}"{% endif %}>{{ column_seller }}</a></td>
+					<td class="text-start"><a href="{{ sort_name }}"{% if sort == 'name' %} class="{{ order|lower }}"{% endif %}>{{ column_name }}</a></td>
+					<td class="text-start"><a href="{{ sort_model }}"{% if sort == 'model' %} class="{{ order|lower }}"{% endif %}>{{ column_model }}</a></td>
+					
+					<td class="text-start"><a href="{{ sort_qty }}"{% if sort == 'qty' %} class="{{ order|lower }}"{% endif %}>{{ column_qty }}</a></td>
+					<td class="text-start"><a href="{{ sort_price }}"{% if sort == 'price' %} class="{{ order|lower }}"{% endif %}>{{ column_price }}</a></td>
+					<td class="text-start"><a href="{{ sort_percentage }}"{% if sort == 'percentage' %} class="{{ order|lower }}"{% endif %}>{{ column_percentage }}</a></td>
+					<td class="text-start"><a href="{{ sort_fixed }}"{% if sort == 'fixed' %} class="{{ order|lower }}"{% endif %}>{{ column_fixed }}</a></td>
+					
+					<td class="text-start"><a href="{{ sort_fixed }}"{% if sort == 'fixed' %} class="{{ order|lower }}"{% endif %}>{{ column_total }}</a></td>
+					<td class="text-start"><a href="{{ sort_date }}"{% if sort == 'date' %} class="{{ order|lower }}"{% endif %}>{{ column_date }}</a></td>
+				</tr>
+			</thead>
+			<tbody>
+				{% if commissionreports %}
+					{% for commission_report in commissionreports %}
+					<tr>
+						<td class="text-start">{{ commission_report.sellername }}</td>
+						<td class="text-start">{{ commission_report.name }}</td>
+						<td class="text-start">{{ commission_report.model }}</td>
+						<td class="text-start">{{ commission_report.quantity }}</td>
+						<td class="text-start">{{ commission_report.price }}</td>
+						<td class="text-start">{{ commission_report.commissionper }}</td>
+						<td class="text-start">{{ commission_report.commissionfix }}</td>
+						<td class="text-start">{{ commission_report.totalcommission }}</td>
+						<td class="text-start">{{ commission_report.date_added }}</td>
+					</tr>
+					{% endfor %}
+				{% else %}
+					<tr>
+						<td class="text-center" colspan="8">{{ text_no_results }}</td>
+					</tr>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<div class="col-sm-6 text-start">{{ pagination }}</div>
+		<div class="col-sm-6 text-end">{{ results }}</div>
+	</div>
+</form>

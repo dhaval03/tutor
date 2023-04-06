@@ -1,0 +1,42 @@
+<form id="form-commission" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#commission">
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<td class="text-center" style="width: 1px;"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', $(this).prop('checked'));" class="form-check-input"/></td>
+					<td class="text-start">
+						<a href="{{ sort_commission_id }}"{% if sort == 'commission_id' %} class="{{ order|lower }}"{% endif %}>{{ column_id }}</a>
+					</td>
+					<td class="text-start">
+						<a href="{{ sort_name }}"{% if sort == 'cd.name' %} class="{{ order|lower }}"{% endif %}>{{ column_category }}</a>
+					</td>
+					<td class="text-start">
+						<a href="{{ sort_commission }}"{% if sort == 'commission' %} class="{{ order|lower }}"{% endif %}>{{ column_commission }}</a>
+					</td>					
+					<td class="text-end">{{ column_action }}</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% if categories %}
+					{% for commission in categories %}
+						<tr>
+							<td class="text-center"><input type="checkbox" name="selected[]" value="{{ commission.commission_id }}" class="form-check-input"/></td>
+							<td class="text-start">{{ commission.commission_id }}</td>
+							<td class="text-start">{{ commission.catnames }}</td>
+							<td class="text-start">Fixed - {{ commission.fixed }} + Percentage {{ commission.percentage }} - %</td>
+							<td class="text-end"><a href="{{ commission.edit }}" data-bs-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a></td>
+						</tr>
+					{% endfor %}
+				{% else %}
+					<tr>
+						<td class="text-center" colspan="5">{{ text_no_results }}</td>
+					</tr>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<div class="col-sm-6 text-start">{{ pagination }}</div>
+		<div class="col-sm-6 text-end">{{ results }}</div>
+	</div>
+</form>

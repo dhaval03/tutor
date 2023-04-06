@@ -1,0 +1,37 @@
+
+<div id="product-category">
+  <div class="row">
+    <div id="content" class="col">
+      <h2>{{ heading_title }}</h2>
+      {% if thumb or description %}
+        <div class="row">
+          {% if thumb %}
+            <div class="col-sm-2"><img src="{{ thumb }}" alt="{{ heading_title }}" title="{{ heading_title }}" class="img-thumbnail"/></div>
+          {% endif %}
+          {% if description %}
+            <div class="col-sm-10">{{ description }}</div>
+          {% endif %}
+        </div>
+        <hr/>
+      {% endif %}
+
+      {% if products %}         
+        <div id="product-list" class="row row-cols-2 row-cols-sm-2 row-cols-md-3 row-cols-xl-3">
+          {% for product in products %}
+            <div class="col">{{ product }}</div>
+          {% endfor %}
+        </div>
+        <div class="row">
+          <div class="col-sm-6 text-start">{{ pagination }}</div>
+          <div class="col-sm-6 text-end">{{ results }}</div>
+        </div>
+      {% endif %}
+      {% if not categories and not products %}
+        <p>{{ text_no_results }}</p>
+        <div class="d-inline-block pt-2 pd-2 w-100">
+          <div class="float-end"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>

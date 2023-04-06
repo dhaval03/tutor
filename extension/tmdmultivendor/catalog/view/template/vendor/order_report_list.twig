@@ -1,0 +1,86 @@
+<form id="form-order-report" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#order-report">
+
+          <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+				<thead>
+				  <tr>
+					<td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
+					
+								<td class="text-left">{% if sort == 'o.order_id' %}
+									<a href="{{ sort_order_id }}" class="{{ order|lower }}">{{ column_order_id }}</a>
+									{% else %}
+									<a href="{{ sort_order_id }}">{{ column_order_id }}</a>
+									{% endif %}
+								</td>
+								<!--03 10 2019-->
+								<td class="text-center">{{ column_noofproduct }}</td>
+								<!--03 10 2019-->
+
+								<td class="text-left">{% if sort == 'o.customer' %}
+									<a href="{{ sort_customer }}" class="{{ order|lower }}">{{ column_customer }}</a>
+									{% else %}
+									<a href="{{ sort_customer }}">{{ column_customer }}</a>
+									{% endif %}
+								</td>
+
+								<td class="text-left">{% if sort == 'o.status' %}
+									<a href="{{ sort_status }}" class="{{ order|lower }}">{{ column_status }}</a>
+									{% else %}
+									<a href="{{ sort_status }}">{{ column_status }}</a>
+									{% endif %}
+								</td>
+
+								<td class="text-left">{% if sort == 'vop.date' %}
+									<a href="{{ sort_date }}" class="{{ order|lower }}">{{ text_date }}</a>
+									{% else %}
+									<a href="{{ sort_date }}">{{ text_date }}</a>
+									{% endif %}
+								</td>
+								<td class="text-left">{{ column_total }}</td>
+								<td class="text-center">{{ column_action }}</td>
+				   </tr>
+				</thead>
+				<tbody>
+					{% if reports %}
+						  {% for report in reports %}
+							<tr>
+								<!--19 02 2020-->
+								<td class="text-center"> {% if report.order_id in selected %}
+									<input type="checkbox" name="selected[]" value="{{ report.order_id }}" checked="checked" />
+									{% else %}
+									<input type="checkbox" name="selected[]" value="{{ report.order_id }}" />
+									{% endif %}
+									<input type="hidden" name="shipping_code[]" value="{{ report.shipping_code }}" /></td>
+								
+								<!--19 02 2020-->
+								<td class="text-left">{{ report.order_id }}</td>
+								<td class="text-center">
+								{% if report.noofproduct == 1  %}						
+									<span class="label label-info">{{ report.noofproduct }}</span>
+								{% else %}
+									<span class="label label-success">{{ report.noofproduct }}</span>
+								{% endif %}
+								</td>
+								
+								<td class="text-left">{{ report.firstname }}</td>
+								<!--27 04 2020 update order_status_id-->
+								<td class="text-left"><span class="label{% if report.order_status_id=='1' %} label-danger {% elseif report.order_status_id=='5' %} label-success {% else %} label-warning {% endif %}">{{ report.statusname }}</span></td>
+								<td class="text-left"><span style="font-size:12px;" class="label btn-info"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ report.date_added }}</span></td>
+								<td class="text-left">{{ report.total }}</td>
+								
+								<td class="text-center"><a href="{{ report.view }}" data-toggle="tooltip" title="{{ button_view }}" class="btn btn-primary"><i class="fa fa-eye"></i></a></td>
+								</tr>
+								{% endfor %}
+								{% else %}
+							<tr>
+								<td class="text-center" colspan="9">{{ text_no_results }}</td>
+							</tr>
+							{% endif %}
+				</tbody>
+			</table>
+          </div>
+          <div class="row">
+      <div class="col-sm-6 text-start">{{ pagination }}</div>
+      <div class="col-sm-6 text-end">{{ results }}</div>
+    </div>
+        </form>    

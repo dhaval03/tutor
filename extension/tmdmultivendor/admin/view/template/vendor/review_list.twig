@@ -1,0 +1,93 @@
+<form id="form-review" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#review">
+	<div class="table-responsive">
+		<table class="table table-bordered table-hover">
+			<thead>
+				<tr>
+					<td class="text-center" style="width: 1px;"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', $(this).prop('checked'));" class="form-check-input"/></td>
+					<td class="text-start"><a href="{{ sort_seller }}"{% if sort == 'seller' %} class="{{ order|lower }}"{% endif %}>{{ column_seller }}</a></td>
+					<td class="text-start">{{ column_reviewinfo }}</td>
+
+					<td class="text-start"><a href="{{ sort_date }}"{% if sort == 'date' %} class="{{ order|lower }}"{% endif %}>{{ column_date }}</a></td>
+					
+					<td class="text-start"><a href="{{ sort_status }}"{% if sort == 'status' %} class="{{ order|lower }}"{% endif %}>{{ column_status }}</a></td>
+					
+					<td class="text-end">{{ column_action }}</td>
+				</tr>
+			</thead>
+			<tbody>
+				{% if reviews %}
+					{% for review in reviews %}
+						<tr>
+							<td class="text-center"><input type="checkbox" name="selected[]" value="{{ review.review_id }}" class="form-check-input"/></td>
+							 <td class="text-start">{{ review.sname }}</td>
+				              <td class="text-start">
+				              <p><b>{{ review.cname }}</b></p>
+				              <p>{{ review.text }}</p>
+				              </td>           
+				              <td class="text-start"><span class="label btn-info"><i class="fa fa-clock-o" aria-hidden="true"></i> {{ review.date_added }}</span></td>
+				              
+				              <td class="text-start"><span class="label {% if review.status=='Disable' %} label-danger {% else %} label-success {% endif %}">{{ review.status }}</span></td>
+				              
+							<td class="text-end"><a href="{{ review.edit }}" data-bs-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fas fa-pencil-alt"></i></a></td>
+						</tr>
+							<div class="modal fade" id="viewfullreview{{ review.review_id }}" role="dialog">
+									<div class="modal-dialog">
+										<div class="modal-content">
+											<div class="modal-header col-sm-12">
+											 <h4 class="modal-title col-sm-6">{{ review.cname }}</h4>
+												<div class="rating col-sm-6 text-right">
+													<ul class="list-unstyled value">
+														<li>
+															{% for sellerrating in review.reviewvalue %}
+																<div class="rating">
+																  <span class="filedrating">{{ sellerrating.field_name }} :</span>
+																	{% for i in 1..5 %}
+																	{% if sellerrating.value < i %}
+																	<span class="fa fa-stack"><i class="fa fa-star-o fa-stack-2x"></i></span>
+																	{% else %}
+																	<span class="fa fa-stack"><i class="fa fa-star fa-stack-2x"></i><i class="fa fa-star-o fa-stack-2x"></i></span>
+																	{% endif %}
+																	{% endfor %}
+																</div>
+															{% endfor %}
+														</li>
+													</ul>
+												</div>
+											</div><div class="clearfix"></div>
+											<div class="modal-body">
+											  {{ review.fulltext }}
+											</div>
+											<div class="modal-footer">
+											  <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+											</div>
+										</div>
+									</div>
+								</div>
+
+						
+					{% endfor %}
+				{% else %}
+					<tr>
+						<td class="text-center" colspan="6">{{ text_no_results }}</td>
+					</tr>
+				{% endif %}
+			</tbody>
+		</table>
+	</div>
+	<div class="row">
+		<div class="col-sm-6 text-start">{{ pagination }}</div>
+		<div class="col-sm-6 text-end">{{ results }}</div>
+	</div>
+
+<style>
+.label{font-size:12px;}
+.modal-content .rating .fa {
+    color: #EE7439;
+    font-size: 15px;
+    margin: 0px;
+    height: 20px;
+    width: 20px;
+}
+.readmore{cursor:pointer;font-weight:bold;}
+</style>
+</form>

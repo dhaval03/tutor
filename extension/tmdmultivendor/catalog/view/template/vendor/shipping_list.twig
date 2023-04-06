@@ -1,0 +1,100 @@
+<form id="form-shippings" method="post" data-oc-toggle="ajax" data-oc-load="{{ action }}" data-oc-target="#shippings">
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          
+                 <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
+                 <td class="text-start">{% if sort == 'store_name' %}
+                  <a href="{{ sort_store_name }}" class="{{ order|lower }}">{{ column_sellerstore }}</a>
+                  {% else %}
+                  <a href="{{ sort_store_name }}">{{ column_sellerstore }}</a>
+                  {% endif %}
+                </td>
+                <td class="text-start">{% if sort == 'country' %}
+                  <a href="{{ sort_country }}" class="{{ order|lower }}">{{ column_country }}</a>
+                  {% else %}
+                  <a href="{{ sort_country }}">{{ column_country }}</a>
+                  {% endif %}
+                </td>
+                <td class="text-start">{% if sort == 'zipfrom' %}
+                  <a href="{{ sort_zipfrom }}" class="{{ order|lower }}">{{ column_zipfrom }}</a>
+                  {% else %}
+                  <a href="{{ sort_zipfrom }}">{{ column_zipfrom }}</a>
+                  {% endif %}
+                </td>
+              
+                <td class="text-start">{% if sort == 'weightfrom' %}
+                  <a href="{{ sort_weightfrom }}" class="{{ order|lower }}">{{ column_weightfrom }}</a>
+                  {% else %}
+                  <a href="{{ sort_weightfrom }}">{{ column_weightfrom }}</a>
+                  {% endif %}
+                </td>
+                <td class="text-start">{% if sort == 'weightto' %}
+                  <a href="{{ sort_weightto }}" class="{{ order|lower }}">{{ column_weightto }}</a>
+                  {% else %}
+                  <a href="{{ sort_weightto }}">{{ column_weightto }}</a>
+                  {% endif %}
+                </td>
+                <td class="text-start">{% if sort == 'price' %}
+                  <a href="{{ sort_price }}" class="{{ order|lower }}">{{ column_price }}</a>
+                  {% else %}
+                  <a href="{{ sort_price }}">{{ column_price }}</a>
+                  {% endif %}
+                </td>
+                  <td class="text-end">{{ column_action }}</td>
+        </tr>
+      </thead>
+      <tbody>
+        {% if shippings %}
+              {% for shipping in shippings %}
+              <tr>
+                <td class="text-center">{% if shipping.shipping_id in selected %}
+                  <input type="checkbox" name="selected[]" value="{{ shipping.shipping_id }}" checked="checked" />
+                  {% else %}
+                  <input type="checkbox" name="selected[]" value="{{ shipping.shipping_id }}" />
+                  {% endif %}
+                </td>
+                <td class="text-start">{{ shipping.store_name }}</td>
+                <td class="text-start">{{ shipping.country_id }}</td>
+                <td class="text-start">{{ shipping.zip_from }}</td>
+              
+                <td class="text-start">{{ shipping.weight_from }}</td>
+                <td class="text-start">{{ shipping.weight_to }}</td>
+                <td class="text-start">{{ shipping.price }}</td>
+                <td class="text-end"><button rel="{{ shipping.shipping_id }}" class="btn btn-danger docdelete"><i class="fas fa-trash-alt"></i></button></td>
+              </tr>
+              {% endfor %}
+              {% else %}
+              <tr>
+                <td class="text-center" colspan="9">{{ text_no_results }}</td>
+              </tr>
+              {% endif %}
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 text-start">{{ pagination }}</div>
+    <div class="col-sm-6 text-end">{{ results }}</div>
+  </div>
+</form>
+
+<script>
+  $(document).on('click', '.docdelete',function(){
+  var shipping_id = $(this).attr('rel');
+  $.ajax({
+  url: 'index.php?route=extension/tmdmultivendor/vendor/shipping|shippingdelete&shipping_id='+shipping_id,
+  type:'post',
+  dataType:'json',
+  beforeSend: function() {
+  },
+  success: function(json) {
+    if (json.success) {
+      $('.tab-first').after('<div class="alert alert-success">' + json.success + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+      $('.payeehide'+shipping_id).remove();                 
+    }
+  }
+});
+});
+  
+</script>

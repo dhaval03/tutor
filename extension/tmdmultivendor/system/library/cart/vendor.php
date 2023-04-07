@@ -14,14 +14,14 @@ class Vendor {
 		$this->session = $registry->get('session');
 		/* 07-02-2019 update  approved code*/
 		if (isset($this->session->data['vendor_id'])) {
-			$vendor_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "vendor WHERE vendor_id = '" . (int)$this->session->data['vendor_id'] . "' AND status = '1' AND approved = '1'");
+			$vendor_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "multivendor WHERE vendor_id = '" . (int)$this->session->data['vendor_id'] . "' AND status = '1' AND approved = '1'");
 
 			if ($vendor_query->num_rows) {
 				$this->vendor_id = $vendor_query->row['vendor_id'];
 				$this->firstname = $vendor_query->row['firstname'];
 				$this->email = $vendor_query->row['email'];
 				
-				$this->db->query("UPDATE " . DB_PREFIX . "vendor SET language_id = '" . (int)$this->config->get('config_language_id') . "' WHERE vendor_id = '" . (int)$this->vendor_id . "'");
+				$this->db->query("UPDATE " . DB_PREFIX . "multivendor SET language_id = '" . (int)$this->config->get('config_language_id') . "' WHERE vendor_id = '" . (int)$this->vendor_id . "'");
 			} else {
 				$this->logout();
 			}
@@ -29,7 +29,7 @@ class Vendor {
 	}
 	
 	public function login(string $email, string $password, bool $override = false): bool {
-		$vendor_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "vendor` WHERE LOWER(`email`) = '" . $this->db->escape(Helper\Utf8\strtolower($email)) . "' AND `status` = '1'");
+		$vendor_query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "multivendor` WHERE LOWER(`email`) = '" . $this->db->escape(Helper\Utf8\strtolower($email)) . "' AND `status` = '1'");
 
 		if ($vendor_query->row) {
 			if (!$override) {
@@ -44,7 +44,7 @@ class Vendor {
 				}
 
 				if ($rehash) {
-					$this->db->query("UPDATE `" . DB_PREFIX . "vendor` SET `password` = '" . $this->db->escape(password_hash($password, PASSWORD_DEFAULT)) . "' WHERE `vendor_id` = '" . (int)$vendor_query->row['vendor_id'] . "'");
+					$this->db->query("UPDATE `" . DB_PREFIX . "multivendor` SET `password` = '" . $this->db->escape(password_hash($password, PASSWORD_DEFAULT)) . "' WHERE `vendor_id` = '" . (int)$vendor_query->row['vendor_id'] . "'");
 				}
 			}
 
@@ -54,7 +54,7 @@ class Vendor {
 			$this->firstname = $vendor_query->row['firstname'];
 			$this->email = $vendor_query->row['email'];
 
-			$this->db->query("UPDATE `" . DB_PREFIX . "vendor` SET `language_id` = '" . (int)$this->config->get('config_language_id') . "' WHERE `vendor_id` = '" . (int)$this->vendor_id . "'");
+			$this->db->query("UPDATE `" . DB_PREFIX . "multivendor` SET `language_id` = '" . (int)$this->config->get('config_language_id') . "' WHERE `vendor_id` = '" . (int)$this->vendor_id . "'");
 
 			return true;
 		} else {
@@ -64,9 +64,9 @@ class Vendor {
 
 	/* public function login(string $email, string $password, bool $override = false): bool {
 		if ($override) {
-			$vendor_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "vendor WHERE LOWER(email) = '" . $this->db->escape(Helper\Utf8\strtolower($email)) . "' AND status = '1' AND approved = '1'");
+			$vendor_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "multivendor WHERE LOWER(email) = '" . $this->db->escape(Helper\Utf8\strtolower($email)) . "' AND status = '1' AND approved = '1'");
 		} else {
-			$vendor_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "vendor WHERE LOWER(email) = '" . $this->db->escape(Helper\Utf8\strtolower($email)) . "' AND (password = SHA1(CONCAT(salt, SHA1(CONCAT(salt, SHA1('" . $this->db->escape($password) . "'))))) OR password = '" . $this->db->escape(md5($password)) . "') AND status = '1' AND approved = '1'");
+			$vendor_query = $this->db->query("SELECT * FROM " . DB_PREFIX . "multivendor WHERE LOWER(email) = '" . $this->db->escape(Helper\Utf8\strtolower($email)) . "' AND (password = SHA1(CONCAT(salt, SHA1(CONCAT(salt, SHA1('" . $this->db->escape($password) . "'))))) OR password = '" . $this->db->escape(md5($password)) . "') AND status = '1' AND approved = '1'");
 		}
 
 		if ($vendor_query->num_rows) {
@@ -76,7 +76,7 @@ class Vendor {
 			$this->firstname = $vendor_query->row['firstname'];
 			$this->email = $vendor_query->row['email'];
 			
-			$this->db->query("UPDATE " . DB_PREFIX . "vendor SET language_id = '" . (int)$this->config->get('config_language_id') . "' WHERE vendor_id = '" . (int)$this->vendor_id . "'");
+			$this->db->query("UPDATE " . DB_PREFIX . "multivendor SET language_id = '" . (int)$this->config->get('config_language_id') . "' WHERE vendor_id = '" . (int)$this->vendor_id . "'");
 
 			return true;
 		} else {

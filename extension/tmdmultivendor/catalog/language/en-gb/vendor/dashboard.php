@@ -1,7 +1,7 @@
 <?php
 // Heading
-$_['heading_title1']               = 'Vendor Dashboard';
-$_['heading_title']               = '<span class="latestorder1">Vendor </span> <span class="latestorder2">Dashboard </span>  ';
+$_['heading_title1']               = 'Tutor Dashboard';
+$_['heading_title']               = '<span class="latestorder1">Tutor</span> <span class="latestorder2">Dashboard </span>  ';
 
 // Text
 $_['text_order_total']            = 'Total Orders';

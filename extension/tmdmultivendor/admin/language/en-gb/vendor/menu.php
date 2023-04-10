@@ -1,13 +1,13 @@
 <?php
-$_['text_filter']           	 = 'Filter';
-$_['text_seller']                      = 'Vendor';
-$_['text_manageseller']                = 'Manage Vendor';
+$_['text_filter']           	       = 'Filter';
+$_['text_seller']                      = 'Tutor';
+$_['text_manageseller']                = 'Manage Tutor';
 $_['text_store']                       = 'Manage Store';
 $_['text_commission']                  = 'Commission';
 $_['text_commission_report']           = 'Commission Report';
-$_['text_sellerproduct']               = 'Vendor Product';
+$_['text_sellerproduct']               = 'Tutor Product';
 $_['text_sellerorder']                 = 'Order Report';
-$_['text_sellerreview']                = 'Vendor Review';
+$_['text_sellerreview']                = 'Tutor Review';
 $_['text_reviewfield']                 = 'Review Field';
 $_['text_sellermail']                  = 'Mail';
 $_['text_income']                      = 'Income';
@@ -16,5 +16,5 @@ $_['text_shippingrate']                = 'Shipping Rates';
 $_['text_enquire']                     = 'Enquire';
 $_['text_import']                      = 'Import';
 $_['text_export']                      = 'Export';
-$_['text_vendorsetting']			   = 'Vendor Setting';
+$_['text_vendorsetting']			   = 'Tutor Setting';
 $_['text_shiftproduct']			       = 'Shift Product';

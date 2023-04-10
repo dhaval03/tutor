@@ -1,13 +1,13 @@
 <?php
 // Heading
-$_['heading_title']          = 'Vendor Products';
+$_['heading_title']          = 'Tutor Courses';
 
 // Text
-$_['text_filter']           	 = 'Filter';
+$_['text_filter']            = 'Filter';
 $_['text_success']           = 'Success: You have modified products!';
-$_['text_list']              = 'Vendor Product List';
-$_['text_add']               = 'Add Vendor Product';
-$_['text_edit']              = 'Edit Vendor Product';
+$_['text_list']              = 'Tutor Course List';
+$_['text_add']               = 'Add Tutor Course';
+$_['text_edit']              = 'Edit Tutor Course';
 $_['text_plus']              = '+';
 $_['text_minus']             = '-';
 $_['text_default']           = 'Default';
@@ -23,13 +23,13 @@ $_['text_approvepending']    = 'Approve Pending';
 $_['tab_recurring']          = 'Recurring';
 
 // Column
-$_['column_name']            = 'Product Name';
+$_['column_name']            = 'Course Name';
 $_['column_model']           = 'Model';
 $_['column_image']           = 'Image';
 $_['column_price']           = 'Price';
 $_['column_quantity']        = 'Quantity';
 $_['column_status']          = 'Status Action';
-$_['column_vendor']          = 'Vendor';
+$_['column_vendor']          = 'Tutor';
 /* 18 02 2020 */
 $_['column_storename']       = 'Store Name';
 /* 18 02 2020 */
@@ -37,7 +37,7 @@ $_['column_cstatus']         = 'Status';
 $_['column_action']          = 'Action';
 
 // Entry
-$_['entry_name']             = 'Product Name';
+$_['entry_name']             = 'Course Name';
 $_['entry_description']      = 'Description';
 $_['entry_meta_title'] 	     = 'Meta Tag Title';
 $_['entry_meta_keyword'] 	 = 'Meta Tag Keywords';
@@ -53,7 +53,7 @@ $_['entry_mpn']              = 'MPN';
 $_['entry_location']         = 'Location';
 $_['entry_shipping']         = 'Requires Shipping';
 $_['entry_manufacturer']     = 'Manufacturer';
-$_['entry_vendor']           = 'Vendor';
+$_['entry_vendor']           = 'Tutor';
 $_['entry_store']            = 'Stores';
 $_['entry_date_available']   = 'Date Available';
 $_['entry_quantity']         = 'Quantity';
@@ -89,7 +89,7 @@ $_['entry_category']         = 'Categories';
 $_['entry_filter']           = 'Filters';
 $_['entry_download']         = 'Downloads';
 $_['entry_related']          = 'Related Products';
-$_['entry_tag']          	 = 'Product Tags';
+$_['entry_tag']          	 = 'Course Tags';
 $_['entry_reward']           = 'Reward Points';
 $_['entry_layout']           = 'Layout Override';
 $_['entry_recurring']        = 'Recurring Profile';
@@ -99,7 +99,7 @@ $_['entry_subscription']     = 'Subscritpion Plans';
 // Help
 $_['help_keyword']           = 'Do not use spaces, instead replace spaces with - and make sure the SEO URL is globally unique.';
 $_['help_sku']               = 'Stock Keeping Unit';
-$_['help_upc']               = 'Universal Product Code';
+$_['help_upc']               = 'Universal Course Code';
 $_['help_ean']               = 'European Article Number';
 $_['help_jan']               = 'Japanese Article Number';
 $_['help_isbn']              = 'International Standard Book Number';
@@ -107,24 +107,24 @@ $_['help_mpn']               = 'Manufacturer Part Number';
 $_['help_manufacturer']      = '(Autocomplete)';
 $_['help_vendor']            = '(Autocomplete)';
 $_['help_minimum']           = 'Force a minimum ordered amount';
-$_['help_stock_status']      = 'Status shown when a product is out of stock';
-$_['help_points']            = 'Number of points needed to buy this item. If you don\'t want this product to be purchased with points leave as 0.';
+$_['help_stock_status']      = 'Status shown when a course is out of stock';
+$_['help_points']            = 'Number of points needed to buy this item. If you don\'t want this course to be purchased with points leave as 0.';
 $_['help_category']          = '(Autocomplete)';
 $_['help_filter']            = '(Autocomplete)';
 $_['help_download']          = '(Autocomplete)';
 $_['help_related']           = '(Autocomplete)';
-$_['help_tag']              = 'Comma separated';
+$_['help_tag']               = 'Comma separated';
 
 // Error
 $_['error_warning']          = 'Warning: Please check the form carefully for errors!';
 $_['error_permission']       = 'Warning: You do not have permission to modify products!';
-$_['error_name']             = 'Product Name must be greater than 3 and less than 255 characters!';
+$_['error_name']             = 'Course Name must be greater than 3 and less than 255 characters!';
 $_['error_meta_title']       = 'Meta Title must be greater than 3 and less than 255 characters!';
-$_['error_model']            = 'Product Model must be greater than 1 and less than 64 characters!';
+$_['error_model']            = 'Course Model must be greater than 1 and less than 64 characters!';
 $_['error_seo']              = 'SEO URL keyword required!';
 $_['error_keyword']          = 'SEO URL must be unique!';
 /* 25-10-2018 new code */
-$_['error_vendor']          = 'Warning: Vendor Must Select!';
+$_['error_vendor']           = 'Warning: Tutor Must Select!';
 
 $_['error_required']         = '%s required!';
 

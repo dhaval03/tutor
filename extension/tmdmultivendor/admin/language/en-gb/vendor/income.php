@@ -17,7 +17,7 @@ $_['text_add']          	 = 'Add Income Reports';
 $_['text_edit']         	 = 'Edit Income Reports';
 
 // Entry
-$_['entry_seller']	         = 'Vendor';
+$_['entry_seller']	         = 'Tutor';
 $_['entry_amount']	         = 'Amount';
 $_['entry_payment']	         = 'Payment Method';
 $_['entry_comment']	         = 'Comment';
@@ -33,16 +33,16 @@ $_['entry_google_url']       = 'Google Url';
 $_['entry_from']	         = 'From';
 $_['entry_to']	             = 'To';
 $_['entry_t_amount']	     = 'Total Amount';
-$_['entry_s_amount']	     = 'Vendor Amount';
+$_['entry_s_amount']	     = 'Tutor Amount';
 $_['entry_a_amount']	     = 'Admin Amount';
 // Column
 
-$_['column_seller']	         = 'Vendor Name';
+$_['column_seller']	         = 'Tutor Name';
 $_['column_date']	     	 = 'Date Added';
 $_['column_tamount']	     = 'Total Amount';
-$_['column_samount']	     = 'Vendor Amount';
+$_['column_samount']	     = 'Tutor Amount';
 $_['column_admin_amount']	 = 'Admin Amount';
-$_['column_paid']	 		 = 'Paid To Vendor';
+$_['column_paid']	 		 = 'Paid To Tutor';
 $_['column_remaining']	     = 'Remaining Amount';
 $_['column_action']	         = 'Action';
 $_['column_date_added']	     = 'Date Added';

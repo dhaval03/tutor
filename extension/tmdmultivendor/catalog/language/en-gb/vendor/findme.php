@@ -3,8 +3,8 @@
 $_['heading_title']               = 'Find Me';
 
 // Text
-$_['text_register']               = 'Vendor Profile';
-$_['text_account']                = 'Vendor Profile';
+$_['text_register']               = 'Tutor Profile';
+$_['text_account']                = 'Tutor Profile';
 
 $_['text_companyname']        	  = 'Company Name';
 $_['text_rating']        	 	  = 'Rating';
@@ -18,7 +18,7 @@ $_['text_city']  		          = 'City';
 $_['text_country']    		      = 'Country';
 $_['text_zone']   		          = 'Zone';
 $_['text_postcode']   		      = 'Postcode';
-/* tmd vendor2 customer condtion start */
+/* tmd tutor2 customer condtion start */
 $_['heading_titleseler'] = 'Oops! 404 Page Not Found';
 $_['text_error1']        = 'The Page you were looking for does not exist. ';
-/* tmd vendor2 customer condtion start */
+/* tmd tutor2 customer condtion start */

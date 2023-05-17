@@ -1,14 +1,14 @@
 <?php
 // Heading
-$_['heading_title']          = 'Vendor Commission';
+$_['heading_title']          = 'Tutor Commission';
 
 // Text
 $_['text_success']           = 'Success: You have modified information!';
-$_['text_list']              = 'Vendor Commission List';
+$_['text_list']              = 'Tutor Commission List';
 
 // Column
-$_['column_vendor']          = 'Vendor Name';
-$_['column_name']            = 'Product Name';
+$_['column_vendor']          = 'Tutor Name';
+$_['column_name']            = 'Course Name';
 $_['column_model']           = 'Model';
 $_['column_quantity']        = 'Quantity';
 $_['column_price']           = 'Price';

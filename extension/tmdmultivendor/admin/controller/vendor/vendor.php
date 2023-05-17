@@ -376,6 +376,7 @@ class Vendor extends \Opencart\System\Engine\Controller {
 			$this->load->model('extension/tmdmultivendor/vendor/vendor');
 
 			$vendor_info = $this->model_extension_tmdmultivendor_vendor_vendor->getVendor($this->request->get['vendor_id']);
+			
 		}
 
 		if (isset($this->request->get['vendor_id'])) {

@@ -3,7 +3,7 @@
 $_['text_dashboard']                   = 'Dashboard';
 $_['text_attribute']                   = 'Attributes';
 $_['text_attribute_group']             = 'Attribute Groups';
-$_['text_download']                    = 'Materials';
+$_['text_download']                    = 'Material';
 $_['text_information']                 = 'Information';
 $_['text_manufacturer']                = 'Author';
 $_['text_product']                     = 'Courses';
@@ -16,7 +16,7 @@ $_['text_store']                	   = 'Manage Store';
 $_['text_profile']                	   = 'Tutor Profile';
 $_['text_change']                	   = 'Change Password';
 $_['text_income']                	   = 'Tutor Payments';
-$_['text_commission']                  = 'Product Commissions';
+$_['text_commission']                  = 'Course Commissions';
 $_['text_orders']                      = 'My Orders';
 /* 28-2-2019 */
 $_['text_enquiry']                     = 'Enquiry';

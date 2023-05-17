@@ -5,7 +5,7 @@ $_['text_received']     	= 'You have received an order.';
 $_['text_order_id']     	= 'Order ID:';
 $_['text_date_added']   	= 'Date Added:';
 $_['text_order_status'] 	= 'Order Status:';
-$_['text_product']      	= 'Products';
+$_['text_product']      	= 'Courses';
 $_['text_total']            = 'Totals';
 $_['text_model']            = 'Model';
 $_['text_quantity']         = 'Quantity';
@@ -22,7 +22,7 @@ $_['text_ip']               = 'IP Address:';
 $_['text_website']          = 'Web Site:';
 $_['text_firstname']        = 'First Name:';
 $_['text_lastname']         = 'Last Name:';
-$_['text_signup1']          = 'New Vendor has signed up';
+$_['text_signup1']          = 'New Tutor has signed up';
 
 
 

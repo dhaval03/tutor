@@ -1,14 +1,14 @@
 <?php
 // Heading
-$_['heading_title']                = 'Vendor Login';
+$_['heading_title']                = 'Tutor Login';
 // Text
-$_['text_account']                 = 'Vendor';
+$_['text_account']                 = 'Tutor';
 $_['text_login']                   = 'Login';
-$_['text_new_customer']            = 'New Vendor';
-$_['text_register']                = 'Register Vendor';
+$_['text_new_customer']            = 'New Tutor';
+$_['text_register']                = 'Register Tutor';
 $_['text_register_account']        = 'By creating an account you will be able to shop faster, be up to date on an order\'s status, and keep track of the orders you have previously made.';
-$_['text_returning_customer']      = 'Returning Vendor';
-$_['text_i_am_returning_customer'] = 'I am a returning Vendor';
+$_['text_returning_customer']      = 'Returning Tutor';
+$_['text_i_am_returning_customer'] = 'I am a returning Tutor';
 $_['text_forgotten']               = 'Forgotten Password';
 $_['text_donot']              	   = 'Do not have an account?';
 $_['text_remember']                   = 'Remember me';

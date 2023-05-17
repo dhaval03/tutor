@@ -3,7 +3,7 @@
 $_['heading_title']     = 'Author';
 
 // Text
-$_['text_success']      = 'Success: You have modified manufacturers!';
+$_['text_success']      = 'Success: You have modified authors!';
 $_['text_list']         = 'Author List';
 $_['text_add']          = 'Add Author';
 $_['text_edit']         = 'Edit Author';
@@ -32,11 +32,11 @@ $_['entry_sort_order']  = 'Sort Order';
 $_['entry_type']        = 'Type';
 
 // Error
-$_['error_permission']  = 'Warning: You do not have permission to modify manufacturers!';
+$_['error_permission']  = 'Warning: You do not have permission to modify authors!';
 $_['error_name']        = 'Author Name must be between 1 and 64 characters!';
 $_['error_keyword']     = 'SEO URL already in use!';
 $_['error_unique']      = 'SEO URL must be unique!';
-$_['error_product']     = 'Warning: This author cannot be deleted as it is currently assigned to %s products!';
+$_['error_product']     = 'Warning: This author cannot be deleted as it is currently assigned to %s courses!';
 $_['error_seo']         = 'SEO URL keyword required!';
 $_['error_keyword']     = 'SEO URL must be unique!';
 $_['error_warning']          = 'Warning: Please check the form carefully for errors!';

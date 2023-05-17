@@ -622,7 +622,16 @@ class Setting extends \Opencart\System\Engine\Controller {
 		$data['footer'] = $this->load->controller('common/footer');
 
 		$this->response->setOutput($this->load->view('setting/setting', $data));
+namespace Opencart\Admin\Model\Setting;
+class Setting extends \Opencart\System\Engine\Model {
+	//add
+	public function setOauthClient($clientid, $clientsecret) {
+		$this->db->query("DELETE FROM `oauth_clients` WHERE api_version = 'shopping_cart' OR api_version IS NULL");
+		$this->db->query("INSERT INTO `oauth_clients` SET api_version = 'shopping_cart', client_id = '" . $this->db->escape($clientid) . "', client_secret = '" . $this->db->escape($clientsecret)."'");
 	}
+				
+	public function getSettings(int $store_id = 0): array {
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$store_id . "' OR `store_id` = '0' ORDER BY `store_id` ASC");
 
 	public function save(): void {
 		$this->load->language('setting/setting');
@@ -754,14 +763,24 @@ class Setting extends \Opencart\System\Engine\Controller {
 			'php4',
 			'php3'
 		];
+		return $query->rows;
+	}
 
 		$extensions = explode("\n", $this->request->post['config_file_ext_allowed']);
+	public function getSetting(string $code, int $store_id = 0): array {
+		$setting_data = [];
 
 		foreach ($extensions as $extension) {
 			if (in_array(trim($extension), $disallowed)) {
 				$json['error']['file_ext_allowed'] = $this->language->get('error_extension');
+		$query = $this->db->query("SELECT * FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$store_id . "' AND `code` = '" . $this->db->escape($code) . "'");
 
 				break;
+		foreach ($query->rows as $result) {
+			if (!$result['serialized']) {
+				$setting_data[$result['key']] = $result['value'];
+			} else {
+				$setting_data[$result['key']] = json_decode($result['value'], true);
 			}
 		}
 
@@ -772,12 +791,23 @@ class Setting extends \Opencart\System\Engine\Controller {
 		];
 
 		$mimes = explode("\n", $this->request->post['config_file_mime_allowed']);
+		return $setting_data;
+	}
 
 		foreach ($mimes as $mime) {
 			if (in_array(trim($mime), $disallowed)) {
 				$json['error']['file_mime_allowed'] = $this->language->get('error_mime');
+	public function editSetting(string $code, array $data, int $store_id = 0): void {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$store_id . "' AND `code` = '" . $this->db->escape($code) . "'");
 
 				break;
+		foreach ($data as $key => $value) {
+			if (substr($key, 0, strlen($code)) == $code) {
+				if (!is_array($value)) {
+					$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '" . (int)$store_id . "', `code` = '" . $this->db->escape($code) . "', `key` = '" . $this->db->escape($key) . "', `value` = '" . $this->db->escape($value) . "'");
+				} else {
+					$this->db->query("INSERT INTO `" . DB_PREFIX . "setting` SET `store_id` = '" . (int)$store_id . "', `code` = '" . $this->db->escape($code) . "', `key` = '" . $this->db->escape($key) . "', `value` = '" . $this->db->escape(json_encode($value)) . "', `serialized` = '1'");
+				}
 			}
 		}
 
@@ -807,11 +837,18 @@ class Setting extends \Opencart\System\Engine\Controller {
 
 	public function theme(): void {
 		$image = '';
+	public function deleteSetting(string $code, int $store_id = 0): void {
+		$this->db->query("DELETE FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$store_id . "' AND `code` = '" . $this->db->escape($code) . "'");
+	}
 
 		$theme = basename($this->request->get['theme']);
+	public function getValue(string $key, int $store_id = 0): string {
+		$query = $this->db->query("SELECT `value` FROM `" . DB_PREFIX . "setting` WHERE `store_id` = '" . (int)$store_id . "' AND `key` = '" . $this->db->escape($key) . "'");
 
 		if ($theme == 'basic') {
 			$image = HTTP_CATALOG . 'catalog/view/image/' . $theme . '.png';
+		if ($query->num_rows) {
+			return $query->row['value'];
 		} else {
 			$this->load->model('setting/extension');
 
@@ -820,12 +857,18 @@ class Setting extends \Opencart\System\Engine\Controller {
 			if ($extension_info) {
 				$image = DIR_EXTENSION . $extension_info['extension'] . '/catalog/view/image/' . $extension_info['code'] . '.png';
 			}
+			return '';
 		}
+	}
 
 		if ($image) {
 			$this->response->setOutput($image);
+	public function editValue(string $code = '', string $key = '', string|array $value = '', int $store_id = 0): void {
+		if (!is_array($value)) {
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = '" . $this->db->escape($value) . "', `serialized` = '0'  WHERE `code` = '" . $this->db->escape($code) . "' AND `key` = '" . $this->db->escape($key) . "' AND `store_id` = '" . (int)$store_id . "'");
 		} else {
 			$this->response->setOutput(HTTP_CATALOG . 'image/no_image.png');
+			$this->db->query("UPDATE `" . DB_PREFIX . "setting` SET `value` = '" . $this->db->escape(json_encode($value)) . "', `serialized` = '1' WHERE `code` = '" . $this->db->escape($code) . "' AND `key` = '" . $this->db->escape($key) . "' AND `store_id` = '" . (int)$store_id . "'");
 		}
 	}
 }

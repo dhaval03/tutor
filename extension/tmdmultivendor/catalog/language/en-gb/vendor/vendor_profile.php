@@ -1,13 +1,13 @@
 <?php
 // Heading
-$_['heading_title']               = 'Vendor Profile';
+$_['heading_title']               = 'Tutor Profile';
 
 // Text
 $_['text_success']                = 'Success: You have modified information!';
 $_['text_select']                 = '---Select---';
 $_['text_none']                   = '--none--';
-$_['text_register']               = 'Vendor Profile';
-$_['text_account']                = 'Vendor Profile';
+$_['text_register']               = 'Tutor Profile';
+$_['text_account']                = 'Tutor Profile';
 $_['text_account_already']        = 'If you already have an account with us, please login at the <a href="%s">login page</a>.';
 $_['text_default']      		  = 'Default';
 $_['text_name_asc']     		  = 'Name (A - Z)';
@@ -24,9 +24,9 @@ $_['text_rating']        	 	  = 'Rating';
 $_['text_connect']        		  = 'Connect with us';
 $_['text_profile']        		  = 'Profile';
 $_['text_about']        		  = 'About Store';
-$_['text_products']        	      = 'Products';
-$_['text_reviews']        	      = 'Vendor Review';
-$_['text_pro_reviews']        	  = 'Product Review';
+$_['text_products']        	      = 'Courses';
+$_['text_reviews']        	      = 'Tutor Review';
+$_['text_pro_reviews']        	  = 'Course Review';
 $_['text_write']        	      = 'Write Review';
 $_['text_name']        	          = 'Name';
 $_['text_comment']         	      = 'Comment';
@@ -36,7 +36,7 @@ $_['text_grid']         	      = 'Grid';
 
 
 $_['text_loginsellerplz']       = 'Please <a href="index.php?route=account/login">Login</a> to contact seller!!';
-$_['text_seller_contact']       = 'Contact Vendor';
+$_['text_seller_contact']       = 'Contact Tutor';
 $_['entry_from']       = 'From';
 $_['entry_subject']       = 'Subject';
 $_['entry_message']       = 'Message';
@@ -51,7 +51,7 @@ $_['button_upload']       = 'Upload';
 
 
 $_['text_loginplz']               = 'Please <a href="index.php?route=account/login">Login</a> to give your review !!';
-$_['text_proreview']              = 'There are no reviews for this product.';
+$_['text_proreview']              = 'There are no reviews for this course.';
 $_['text_aboutstore']         	 = 'About Store';
 $_['text_storedescrption']       = 'Store Description';
 $_['text_storeshipingpolicy']    = 'Store Shipping Policy';
@@ -63,7 +63,7 @@ $_['button_close']         	      = 'Close';
 $_['button_follow']         	  = 'Follow';
 $_['button_following']         	  = 'Following';
 $_['button_followers']         	  = 'Followers';
-$_['text_error']                  = 'Vendor not found!';
+$_['text_error']                  = 'Tutor not found!';
 
 
 $_['heading_titleseler'] = 'Oops! 404 Page Not Found';

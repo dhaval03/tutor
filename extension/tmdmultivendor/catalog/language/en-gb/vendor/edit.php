@@ -1,15 +1,15 @@
 <?php
 // Heading
-$_['heading_title']               = 'Change Vendor Setting';
+$_['heading_title']               = 'Change Tutor Setting';
 
 // Text
 $_['text_keyword']                = 'Do not use spaces, instead replace spaces with - and make sure the SEO URL is globally unique.';
-$_['text_account']                = 'Vendor Edit';
-$_['text_add']                    = 'Vendor Edit';
+$_['text_account']                = 'Tutor Edit';
+$_['text_add']                    = 'Tutor Edit';
 $_['text_home']                   = 'Home';
 $_['text_yes']                    = 'Yes';
 $_['text_no']                     = 'No';
-$_['text_register']               = 'Vendor Edit';
+$_['text_register']               = 'Tutor Edit';
 $_['text_account_already']        = 'If you already have an account with us, please login at the <a href="%s">login page</a>.';
 
 // Entry
@@ -28,7 +28,7 @@ $_['entry_country']               = 'Country';
 $_['entry_zone']                  = 'Region / State';
 $_['entry_password']              = 'Password';
 $_['entry_confirm']               = 'Password Confirm';
-$_['entry_about']                 = 'About Vendor Profile';
+$_['entry_about']                 = 'About Tutor Profile';
 $_['entry_image']                 = 'Image';
 $_['entry_Emailid']          = 'Paypal Email';
 $_['entry_bankname']         = 'Bank Name';
@@ -59,7 +59,7 @@ $_['entry_charges']               = 'Store Shipping Charges';
 $_['entry_url']                   = 'Store Seo Url';
 $_['entry_logo']                  = 'Store Logo';
 $_['entry_banner']                = 'Store Banner';
-$_['entry_store_about']           = 'About Vendor Store';
+$_['entry_store_about']           = 'About Tutor Store';
 /* 05 02 2021 */
 $_['entry_bank_detail']           = 'Bank Detail';
 /* 05 02 2021 */
@@ -87,7 +87,7 @@ $_['tab_chat']        	          = 'Chat System';
 $_['entry_status']        	          = 'Status';
 
 
-$_['tab_seller']        	      = 'Vendor ';
+$_['tab_seller']        	      = 'Tutor ';
 $_['tab_generalstore']            = 'General Store ';
 $_['tab_datastore']        	      = 'Data Store ';
 $_['tab_payment']        	      = 'Payment Details ';

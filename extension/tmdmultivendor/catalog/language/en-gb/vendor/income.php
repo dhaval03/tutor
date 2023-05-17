@@ -1,11 +1,11 @@
 <?php
 // Heading 
-$_['heading_title']          = 'Vendor Income';
+$_['heading_title']          = 'Tutor Income';
 $_['payment_title']          = 'Payment';
 
 // Text
 $_['text_success']           = 'Success: You have modified information!';
-$_['text_list']              = 'Vendor Income List';
+$_['text_list']              = 'Tutor Income List';
 $_['text_form']              = 'Payment Add';
 $_['text_default']           = 'Default';
 $_['text_enable']            = 'Enable';
@@ -15,7 +15,7 @@ $_['text_paypal']     		 = 'Paypal Email';
 $_['text_filter']     		 = 'Filter';
 
 // Entry
-$_['entry_seller']	         = 'Vendor';
+$_['entry_seller']	         = 'Tutor';
 $_['entry_amount']	         = 'Amount';
 $_['entry_payment']	         = 'Payment Method';
 $_['entry_comment']	         = 'Comment';
@@ -31,17 +31,17 @@ $_['entry_google_url']       = 'Google Url';
 $_['entry_from']	         = 'From';
 $_['entry_to']	             = 'To';
 $_['entry_t_amount']	     = 'Total Amount';
-$_['entry_s_amount']	     = 'Vendor Amount';
+$_['entry_s_amount']	     = 'Tutor Amount';
 $_['entry_a_amount']	     = 'Admin Amount';
 $_['entry_myblance']	     = 'My Balance';
 
 // Column
 
-$_['column_seller']	         = 'Vendor Name';
+$_['column_seller']	         = 'Tutor Name';
 $_['column_date']	     	 = 'Date Added';
 $_['column_tamount']	     = 'Total Amount';
-$_['column_samount']	     = 'Vendor Amount';
-$_['column_admin_amount']	 = 'Vendor Commission';
+$_['column_samount']	     = 'Tutor Amount';
+$_['column_admin_amount']	 = 'Tutor Commission';
 $_['column_payment_method']	 = 'Payment Method';
 $_['column_amount']	 		 = 'Amount';
 $_['column_remaining']	     = 'Remaining Amount';

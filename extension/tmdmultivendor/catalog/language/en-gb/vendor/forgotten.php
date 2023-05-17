@@ -3,7 +3,7 @@
 $_['heading_title']   = 'Forgot Your Password?';
 
 // Text
-$_['text_account']    = 'Vendor';
+$_['text_account']    = 'Tutor';
 $_['text_forgotten']  = 'Forgotten Password';
 $_['text_your_email'] = 'Your E-Mail Address';
 $_['text_email']      = 'Enter the e-mail address associated with your account. Click submit to have a password reset link e-mailed to you.';
@@ -23,7 +23,7 @@ $_['error_confirm']   = 'Password and password confirmation do not match!';
 // Mail 
 // Text
 $_['text_subject']  = '%s - Password reset request';
-$_['text_greeting'] = 'A new password was requested for %s Vendor Account.';
+$_['text_greeting'] = 'A new password was requested for %s Tutor Account.';
 /* 23-07-2019 */
 $_['text_change']   = 'For reset your password Login with New Password after login reset it from Below link';
 $_['text_newpassword'] = 'New Password';

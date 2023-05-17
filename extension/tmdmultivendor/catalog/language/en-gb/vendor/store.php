@@ -31,13 +31,13 @@ $_['button_view']           = 'View';
 
 // Column
 $_['column_name']                 = 'Store Name';
-$_['column_vendor']               = 'Vendor Name';
+$_['column_vendor']               = 'Tutor Name';
 $_['column_country']              = 'Country';
 $_['column_zone']                 = 'Zone';
 $_['column_action']               = 'Action';
 
 // Entry
-$_['entry_vendorname']            = 'Vendor Name';
+$_['entry_vendorname']            = 'Tutor Name';
 $_['entry_storename']             = 'Store Name';
 $_['entry_description']           = 'Store Description';
 $_['entry_shippingpolicy']        = 'Store Shipping Policy';

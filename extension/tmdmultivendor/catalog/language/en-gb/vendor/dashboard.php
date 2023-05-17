@@ -5,6 +5,6 @@ $_['heading_title']               = '<span class="latestorder1">Tutor</span> <sp
 
 // Text
 $_['text_order_total']            = 'Total Orders';
-$_['text_customer_total']         = 'Total Products';
+$_['text_customer_total']         = 'Total Courses';
 $_['text_sale_total']             = 'Total Sales';
 $_['text_latestorder']            = 'Latest Orders';

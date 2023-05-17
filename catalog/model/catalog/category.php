@@ -1,6 +1,63 @@
 <?php
 namespace Opencart\Catalog\Model\Catalog;
 class Category extends \Opencart\System\Engine\Model {
+	//add
+	 public function getAllCategories($data = array(), $onlyCount = false) {
+
+        if($onlyCount){
+            $sql = "SELECT count(*) as total FROM ";
+        } else {
+            $sql = "SELECT * FROM ";
+        }
+
+        $sql.= " " . DB_PREFIX . "category c
+                LEFT JOIN " . DB_PREFIX . "category_description cd ON (c.category_id = cd.category_id)";
+
+        $sql.= " LEFT JOIN " . DB_PREFIX . "category_to_store c2s ON (c.category_id = c2s.category_id) ";
+        $sql.= " WHERE  c2s.store_id = '" . (int)$this->config->get('config_store_id') . "' ";
+        $sql.= " AND cd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+
+
+        if($onlyCount) {
+            $query = $this->db->query($sql);
+            return $query->row['total'];
+        } else {
+            $sort_data = array(
+                'c.category_id',
+                'c.sort_order',
+                'cd.name'
+            );
+
+            if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
+                $sql .= " ORDER BY " . $data['sort'];
+            } else {
+                $sql .= " ORDER BY c.sort_order, LCASE(cd.name)";
+            }
+
+            if (isset($data['order']) && ($data['order'] == 'DESC')) {
+                $sql .= " DESC";
+            } else {
+                $sql .= " ASC";
+            }
+
+            if (isset($data['start']) || isset($data['limit'])) {
+                if ($data['start'] < 0) {
+                    $data['start'] = 0;
+                }
+
+                if ($data['limit'] < 1) {
+                    $data['limit'] = 20;
+                }
+
+                $sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
+            }
+
+            $query = $this->db->query($sql);
+
+            return $query->rows;
+        }
+    }
+	///
 	public function getCategory(int $category_id): array {
 		$query = $this->db->query("SELECT DISTINCT * FROM `" . DB_PREFIX . "category` c LEFT JOIN `" . DB_PREFIX . "category_description` cd ON (c.`category_id` = cd.`category_id`) LEFT JOIN `" . DB_PREFIX . "category_to_store` c2s ON (c.`category_id` = c2s.`category_id`) WHERE c.`category_id` = '" . (int)$category_id . "' AND cd.`language_id` = '" . (int)$this->config->get('config_language_id') . "' AND c2s.`store_id` = '" . (int)$this->config->get('config_store_id') . "' AND c.`status` = '1'");
 

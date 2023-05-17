@@ -23,21 +23,21 @@ $_['text_date']  		 	 = 'Date Added';
 $_['text_invoice']  		 = 'Invoice';
 $_['text_telephone']  		 = 'Telephone';
 $_['text_email']  		     = 'Email';
-$_['text_byseller']           = 'by vendor';
+$_['text_byseller']           = 'by tutor';
 
 $_['button_invoice_print']   = 'Invoice Print';
 
 // Column
 
 $_['entry_order_id']	     = 'Order id';
-$_['entry_seller']	         = 'Vendor Name';
+$_['entry_seller']	         = 'Tutor Name';
 $_['entry_customer']	     = 'Customer';
 $_['entry_status']	         = 'Order Status';
 $_['entry_date']	         = 'Date';
 $_['column_order_id']	     = 'Order id';
-$_['column_seller']	         = 'Vendor Name';
+$_['column_seller']	         = 'Tutor Name';
 $_['column_customer']	     = 'Customer';
-$_['column_product']	     = 'Product Name';
+$_['column_product']	     = 'Course Name';
 $_['column_model']	     	 = 'Mode';
 $_['column_quantity']	     = 'Quantity';
 $_['column_price']	     	 = 'Price';
@@ -47,7 +47,7 @@ $_['column_date']	     	 = 'Date';
 $_['column_orderstatus']	 = 'Order Status';
 $_['column_tracking']	     = 'Tracking Number';
 $_['column_action']	     	 = 'Action';
-$_['column_noofproduct']   	 = 'No. of Products';
+$_['column_noofproduct']   	 = 'No. of Courses';
 $_['column_adminstatus']	 = 'Admin Status';
 
 

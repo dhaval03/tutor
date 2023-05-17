@@ -888,11 +888,17 @@
                 </table>
               </div>
             </div>
-            <div class="tab-pane" id="tab-seo">
 			
-              <div class="alert alert-info"><i class="fa fa-info-circle"></i> {{ text_keyword }}</div>
-              <div class="table-responsive">
-			                    <div class="row mb-3 required">
+			
+            <div class="tab-pane" id="tab-seo">
+			<ul class="nav nav-tabs" id="language">
+                {% for language in languages %}
+                  <li class="nav-item"><a href="#language-{{ language.language_id }}" data-bs-toggle="tab" class="nav-link{% if loop.first %} active{% endif %}"><img src="catalog/language/{{ language.code }}/{{ language.code }}.png" title="{{ language.name }}"/> {{ language.name }}</a></li>
+                {% endfor %}
+              </ul>
+			<div class="mx-5 my-5">
+              <div class="table-responsive overflow-hidden">
+			      <div class="row mb-3 required">
                     <label class="col-sm-2 control-label" for="input-meta-title{{ language.language_id }}">{{ entry_meta_title }}</label>
                     <div class="col-sm-10">
                       <input type="text" name="product_description[{{ language.language_id }}][meta_title]" value="{{ product_description[language.language_id] ? product_description[language.language_id].meta_title }}" placeholder="{{ entry_meta_title }}" id="input-meta-title{{ language.language_id }}" class="form-control" />
@@ -920,6 +926,8 @@
                       <input type="text" name="product_description[{{ language.language_id }}][tag]" value="{{ product_description[language.language_id] ? product_description[language.language_id].tag }}" placeholder="{{ entry_tag }}" id="input-tag{{ language.language_id }}" class="form-control" />
                     </div>
                   </div>
+              <div class="alert alert-info mx-5 my-5"><i class="fa fa-info-circle"></i> {{ text_keyword }}</div>
+                 </div>
 			  
                 <table class="table table-bordered table-hover">
                   <thead>

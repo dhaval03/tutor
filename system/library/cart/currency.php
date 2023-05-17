@@ -112,6 +112,18 @@ class Currency {
 			return 0;
 		}
 	}
+	
+	//add
+	public $restCurrencyCode;
+
+	public function setRestCurrencyCode($code){
+		$this->restCurrencyCode = $code;
+	}
+
+	public function getRestCurrencyCode(){
+		return $this->restCurrencyCode;
+	}
+	///
 
 	public function has(string $currency): bool {
 		return isset($this->currencies[$currency]);

@@ -1,7 +1,7 @@
 <?php
 // Heading
-$_['heading_title']               = 'Vendor Registration';
-$_['text_success']               = 'Vendor Registration';
+$_['heading_title']               = 'Tutor Registration';
+$_['text_success']               = 'Tutor Registration';
 
 // Entry
 $_['entry_display_name']          = 'Display Name';
@@ -67,16 +67,16 @@ $_['tab_payment']        	      = 'Payment Details ';
 $_['email_subject']        		  = '%s - Thank you for Registering';
 
 // Text
-$_['text_signup']        	      = '<h2>A new Vendor has signed up</h2>';
+$_['text_signup']        	      = '<h2>A new Tutor has signed up</h2>';
 $_['text_firstname']              = 'First Name:';
 $_['text_lastname']               = 'Last Name:';
 $_['text_email']                  = 'E-Mail:';
 $_['text_telephone']              = 'Telephone:';
 $_['text_city']                   = 'City:';
 $_['text_rating']        	      = 'Rating';
-$_['text_login']                  = 'Vendor Login';
-$_['text_account']                = 'Vendor Registration';
-$_['text_register']               = 'Vendor';
+$_['text_login']                  = 'Tutor Login';
+$_['text_account']                = 'Tutor Registration';
+$_['text_register']               = 'Tutor';
 $_['text_account_already']        = 'If you already have an account with us, please login at the <a href="%s">login page</a>.';
 $_['text_bank']     	     	  = 'Bank Transfer';
 $_['text_paypal']     		      = 'Paypal Email';

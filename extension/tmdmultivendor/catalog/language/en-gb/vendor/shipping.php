@@ -4,7 +4,7 @@ $_['heading_title']     	 = 'Shipping Rates';
 
 // Text
 $_['text_filter']     		 = 'Filter';
-$_['text_success']       	 = 'Success: You have modified Vendor!';
+$_['text_success']       	 = 'Success: You have modified Tutor!';
 $_['text_list']           	 = 'Shipping Rates List';
 $_['text_add']          	 = 'Add Shipping Rates';
 $_['text_edit']         	 = 'Edit Shipping Rates';
@@ -18,7 +18,7 @@ $_['button_approve']       	 = 'Approve';
 
 // Column
 $_['column_store']     		 = 'Store Name';
-$_['column_sellerstore']     = 'Vendor Store Name';
+$_['column_sellerstore']     = 'Tutor Store Name';
 $_['column_country']         = 'Country';
 /*## 18 03 2021 ##*/
 $_['column_zipfrom']         = 'Zip Code';
@@ -29,7 +29,7 @@ $_['column_price']      	 = 'Price';
 $_['column_action']      	 = 'Action';
 
 // Entry
-$_['entry_storename']        = 'Vendor Store Name';
+$_['entry_storename']        = 'Tutor Store Name';
 $_['entry_country']          = 'Shipping Country';
 /*## 18 03 2021 ##*/
 $_['entry_zipfrom']          = 'Zip Code';
@@ -43,8 +43,8 @@ $_['button_add']      = 'Add';
 
 
 // Error
-$_['error_permission'] 		 = 'Warning: You do not have permission to modify manufacturers!';
-$_['error_store']        	 = 'Please Select the Vendor Store Name!';
+$_['error_permission'] 		 = 'Warning: You do not have permission to modify authors!';
+$_['error_store']        	 = 'Please Select the Tutor Store Name!';
 $_['error_country']      	     = 'Please Select the Country!';
 $_['error_zip_from']      	 = 'Please Enter Zip Code From!';
 $_['error_weight_from']      	 = 'Please Enter Weight From!';
@@ -60,7 +60,7 @@ $_['text_bulklist']          = 'Bulk Shipping Rates';
 //Entry
 $_['entry_export']      	 = 'Export Data';
 $_['entry_upload']      	 = 'Upload Data';
-$_['entry_seller']      	 = 'Select Vendor';
+$_['entry_seller']      	 = 'Select Tutor';
 $_['entry_time_allowed']     = 'Maximum time allowed for upload:';
 $_['entry_file_size']      	 = 'Maximum file size allowed for upload:';
 $_['button_export']      	 = 'Export';

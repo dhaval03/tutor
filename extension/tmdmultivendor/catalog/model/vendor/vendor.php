@@ -247,8 +247,8 @@ class Vendor extends \Opencart\System\Engine\Model {
 	}
 	
 	public function getVendors($data=array()){
-		// echo "aaa"; exit;
-			$sql="select * from " . DB_PREFIX . "multivendor v LEFT JOIN " . DB_PREFIX . "vendor_description vd on(v.vendor_id = vd.vendor_id) where v.vendor_id<>0  AND v.approved!=0  AND v.status!=0  AND vd.language_id = '" . (int)$this->config->get('config_language_id') . "' order by v.vendor_id desc ";
+		
+			$sql="select v.vendor_id, v.firstname, v.lastname, v.display_name, v.email, v.image, v.telephone, v.fax, v.about, v.company, v.postcode, v.address_1, v.address_2, v.country_id, v.zone_id, v.city, v.map_url, v.facebook_url	,v.google_url, v.whatsapp_url, v.instagram_url, v.twitter_url, v.snapchat_url, v.pinterest_url, v.youtube_url, v.linkedin_url, v.tiktok_url, v.status, v.product_status, v.approved, v.language_id, v.payment_method, v.paypal, v.bank_name, v.bank_branch_number, v.bank_swift_code, v.bank_account_name, v.bank_account_number, v.store_about, v.bank_detail, v.tax_number, v.shipping_charge, v.logo, v.banner, v.store_logowidth, v.store_logoheight, v.store_bannerwidth, v.store_bannerheight, v.commission, vd.* from " . DB_PREFIX . "multivendor v LEFT JOIN " . DB_PREFIX . "vendor_description vd on(v.vendor_id = vd.vendor_id) where v.vendor_id<>0  AND v.approved!=0  AND v.status!=0  AND vd.language_id = '" . (int)$this->config->get('config_language_id') . "' order by v.vendor_id desc ";
 			
 		if (isset($data['start']) || isset($data['limit'])) {
 			if ($data['start'] < 0) {

@@ -37,7 +37,7 @@ class Register extends \RestController
 
     public function registerCustomer($data)
     {
-			echo'ff';exit;
+			//echo'ff';exit;
         $this->language->load('checkout/checkout');
         $this->language->load('checkout/cart');
         $this->load->model('account/customer');

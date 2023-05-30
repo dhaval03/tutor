@@ -14,10 +14,10 @@
 namespace Opencart\Catalog\Controller\Extension\RestApi\Rest;
 require_once(DIR_SYSTEM . 'engine/restcontroller.php');
 
-class Register extends \RestController
+class RegisterVendor extends \RestController
 {
 
-    public function register()
+    public function registervendor()
     {
 
         $this->checkPlugin();

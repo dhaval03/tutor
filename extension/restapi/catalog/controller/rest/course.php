@@ -15,19 +15,19 @@
 namespace Opencart\Catalog\Controller\Extension\RestApi\Rest;
 require_once(DIR_SYSTEM . 'engine/restcontroller.php');
 
-class Tutor extends \RestController
+class Course extends \RestController
 {
 
     private $error = array();
 
-    public function tutor()
+    public function course()
     {
 		$this->checkPlugin();
 		if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			if (isset($this->request->get['id']) && ctype_digit($this->request->get['id'])) {
-			    $this->getVendor($this->request->get['id']);
+			    $this->getCourse($this->request->get['id']);
 			} else {
-				$this->listvendor();
+				$this->listcourse();
 			}
         }else {
             $this->statusCode = 405;
@@ -38,14 +38,15 @@ class Tutor extends \RestController
     }
 	
 	
-	public function getVendor()
+	public function getCourse($product_id)
 	{
 		$json = array('success' => true);
-		$this->load->model('extension/tmdmultivendor/vendor/vendor');
 
-        $vendor = $this->model_extension_tmdmultivendor_vendor_vendor->getVendor($this->request->get['id']);
-        if(!empty($vendor)) {
-            $this->json["data"] = $vendor;
+		$this->load->model('extension/tmdmultivendor/vendor/product');
+			
+        $course = $this->model_extension_tmdmultivendor_vendor_product->getProduct($product_id,$this->vendor->getId());
+        if(!empty($course)) {
+            $this->json["data"] = $course;
         } else {
             $this->json['success'] = false;
         }
@@ -53,14 +54,14 @@ class Tutor extends \RestController
         $this->sendResponse($json);
 	}
 	
-    public function listvendor()
+    public function listcourse()
     {
-		 $this->load->model('extension/tmdmultivendor/vendor/vendor');
+		 $this->load->model('extension/tmdmultivendor/vendor/product');
 
-        $vendor = $this->model_extension_tmdmultivendor_vendor_vendor->getVendors();
-        $data['vendor'] = array_values($vendor);
+        $course = $this->model_extension_tmdmultivendor_vendor_product->getProducts();
+        $data['course'] = array_values($course);
 
-        if (!empty($data['vendor'])) {
+        if (!empty($data['course'])) {
 
             $this->json["data"] = $data;
         }
@@ -69,8 +70,8 @@ class Tutor extends \RestController
 
             $data = $this->json['data'];
 
-            if(isset($this->json['data']['vendor'])) {
-                $intercomsData = $this->json['data']['vendor'];
+            if(isset($this->json['data']['course'])) {
+                $intercomsData = $this->json['data']['course'];
             } else {
                 $intercomsData = array();
             }

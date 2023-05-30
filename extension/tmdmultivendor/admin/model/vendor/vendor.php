@@ -589,7 +589,9 @@ class Vendor extends \Opencart\System\Engine\Model {
 	
 	public function getVendor($vendor_id){
 		
-		$sql = "SELECT DISTINCT *,v.vendor_id as vendor_id, CONCAT(v.firstname, ' ', v.lastname) AS vname FROM " . DB_PREFIX . "multivendor v LEFT JOIN " . DB_PREFIX . "vendor_description vd ON (v.vendor_id = vd.vendor_id) WHERE v.vendor_id='".(int)$vendor_id."' AND vd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+		//$sql = "SELECT DISTINCT *,v.vendor_id as vendor_id, CONCAT(v.firstname, ' ', v.lastname) AS vname FROM " . DB_PREFIX . "multivendor v LEFT JOIN " . DB_PREFIX . "vendor_description vd ON (v.vendor_id = vd.vendor_id) WHERE v.vendor_id='".(int)$vendor_id."' AND vd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+		
+		$sql = "SELECT DISTINCT *,v.vendor_id as vendor_id, CONCAT(v.firstname, ' ', v.lastname) AS vname FROM " . DB_PREFIX . "multivendor v  WHERE v.vendor_id='".(int)$vendor_id."' AND v.language_id = '" . (int)$this->config->get('config_language_id') . "'";
 		
 		$query=$this->db->query($sql);
 		

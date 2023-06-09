@@ -630,7 +630,7 @@ class RestApi extends \RestController
 
     public function search()
     {
-
+			
         $this->checkPlugin();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

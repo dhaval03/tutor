@@ -525,10 +525,22 @@ class Product extends \Opencart\System\Engine\Model {
 	}
 	/* 10 01 2020 add vendor_id */
 	public function getProduct($product_id, $vendor_id) {
+		
 		$query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN ". DB_PREFIX ."vendor_to_product v2p on (p.product_id = v2p.product_id) WHERE p.product_id = '" . (int)$product_id . "' AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND v2p.vendor_id = '" . (int)$vendor_id . "'");
 
 		return $query->row;
 	}
+		
+		/*$query = $this->db->query("SELECT DISTINCT * FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN ". DB_PREFIX ."vendor_to_product v2p on (p.product_id = v2p.product_id) WHERE p.product_id = '" . (int)$product_id . "' AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "' AND v2p.vendor_id = '" . (int)$vendor_id . "'");
+		
+		$sql = "SELECT DISTINCT * FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN ". DB_PREFIX ."vendor_to_product v2p on (p.product_id = v2p.product_id) WHERE p.product_id = '" . (int)$product_id . "' AND pd.language_id = '" . (int)$this->config->get('config_language_id') . "'";
+		if(isset($vendor_id) && $vendor_id > 0){
+			$sql .= " and v2p.vendor_id='".(int)$vendor_id."'";
+		}
+		$query = $this->db->query($sql);
+
+		return $query->row;*/
+	
 
 	public function getProducts($data = array()) {
 		$sql = "SELECT * FROM " . DB_PREFIX . "product p LEFT JOIN " . DB_PREFIX . "product_description pd ON (p.product_id = pd.product_id) LEFT JOIN " . DB_PREFIX . "vendor_to_product v2p ON (p.product_id = v2p.product_id) WHERE pd.language_id = '" . (int)$this->config->get('config_language_id') . "' and v2p.vendor_id<>0";
@@ -591,6 +603,7 @@ class Product extends \Opencart\System\Engine\Model {
 
 			$sql .= " LIMIT " . (int)$data['start'] . "," . (int)$data['limit'];
 		}
+		
 
 		$query = $this->db->query($sql);
 

@@ -12,7 +12,7 @@
  * @documentations https://opencart-api.com/opencart-rest-api-documentations/
  */
 
-namespace Opencart\Catalog\Controller\Extension\RestApi\Rest;
+namespace Opencart\Catalog\Controller\Extension\RestApi\Rest\Vendor;
 require_once(DIR_SYSTEM . 'engine/restcontroller.php');
 
 class Registervendor extends \RestController

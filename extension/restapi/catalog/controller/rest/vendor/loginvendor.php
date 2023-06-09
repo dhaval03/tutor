@@ -13,7 +13,7 @@
  * @documentations https://opencart-api.com/opencart-rest-api-documentations/
  */
  
-namespace Opencart\Catalog\Controller\Extension\RestApi\Rest;
+namespace Opencart\Catalog\Controller\Extension\RestApi\Rest\Vendor;
 require_once(DIR_SYSTEM . 'engine/restcontroller.php');
 
 class Loginvendor extends \RestController
@@ -50,6 +50,7 @@ class Loginvendor extends \RestController
 
 				// Check if vendor has been approved.
 				$vendor_info = $this->model_extension_tmdmultivendor_vendor_vendor->getVendorByEmail($post['email']);
+				 //echo 'yessssss';exit;
 
 				if ($vendor_info && !$vendor_info['status']) {
 					$this->json['error'][] = $this->language->get('error_approved');
@@ -75,13 +76,7 @@ class Loginvendor extends \RestController
 					'telephone'         => $vendor_info['telephone'],
 					// 'custom_field'      => $vendor_info['custom_field']
 				];
-
-                
-
-                unset($vendor_info['password']);
-                
-
-                
+				unset($vendor_info['password']);
                 $this->json['data'] = $vendor_info;
             }
 

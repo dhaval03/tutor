@@ -27,9 +27,7 @@ class Course extends \RestController
 		if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 			if (isset($this->request->get['id']) && ctype_digit($this->request->get['id'])) {
 			    $this->getCourse($this->request->get['id']);
-			} else if (isset($this->request->get['slug']) && !empty($this->request->get['slug'])) {
-                $this->CourseDetails($this->request->get['slug']);
-            }else {
+			} else {
 				$this->listcourse();
 			}
         }else {
@@ -200,18 +198,6 @@ class Course extends \RestController
 			}
 		}
     }
-	public function CourseDetails()
-	{
-		echo "exit;";exit;
-		$this->load->model('catalog/product');
-		$course = $this->model_catalog_product->getProducts($product_id);
-        //$course = $this->model_extension_tmdmultivendor_vendor_product->getProduct()	;
-        if (!empty($course)) {
-            $this->json["data"] = $this->getProductInfo(reset($course));
-        } else {
-            $this->json['error'][] = 'Product not found';
-            $this->statusCode = 404;
-        }
-	}
+	
 }
 

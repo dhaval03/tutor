@@ -24,8 +24,8 @@ class Course extends \RestController
     {
 		$this->checkPlugin();
 		if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-			if (isset($this->request->get['id']) && ctype_digit($this->request->get['id'])) {
-			    $this->getCourse($this->request->get['id']);
+			if (isset($this->request->get['id']) ) {
+				$this->getCourse($this->request->get['id']);
 			} else {
 				$this->listcourse();
 			}
@@ -40,7 +40,7 @@ class Course extends \RestController
 	
 	public function getCourse($product_id)
 	{
-		//echo 'yesss';exit;
+		
 		$json = array('success' => true);
 
 		$this->load->model('extension/tmdmultivendor/vendor/product');
@@ -53,9 +53,9 @@ class Course extends \RestController
 			} else {
 				$this->json['success'] = false;
 			}
-		} else {
-			$this->json['success'] = false;
-		}
+		}else {
+				$this->json['success'] = false;
+			}
 
         $this->sendResponse($json);
 	}
@@ -68,7 +68,6 @@ class Course extends \RestController
         $data['course'] = array_values($course);
 
         if (!empty($data['course'])) {
-
             $this->json["data"] = $data;
         }
 
@@ -85,5 +84,21 @@ class Course extends \RestController
             $this->response->addHeader('X-Pagination-Limit: '.count($intercomsData));
             $this->response->addHeader('X-Pagination-Page: 1');        
         }
+	}
+	public function CourseDetails($product_id)
+	{
+		
+		$json = array('success' => true);
+
+		$this->load->model('extension/tmdmultivendor/vendor/product');
+			
+        $course = $this->model_extension_tmdmultivendor_vendor_product->getProduct($product_id);
+        if(!empty($course)) {
+            $this->json["data"] = $course;
+        } else {
+            $this->json['success'] = false;
+        }
+
+        $this->sendResponse($json);
 	}
 }

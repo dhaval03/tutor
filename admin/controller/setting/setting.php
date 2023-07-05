@@ -623,4 +623,209 @@ class Setting extends \Opencart\System\Engine\Controller {
 
 		$this->response->setOutput($this->load->view('setting/setting', $data));
 	}
+
+	public function save(): void {
+		$this->load->language('setting/setting');
+
+		$json = [];
+
+		if (!$this->user->hasPermission('modify', 'setting/setting')) {
+			$json['error']['warning'] = $this->language->get('error_permission');
+		}
+
+		if (!$this->request->post['config_meta_title']) {
+			$json['error']['meta_title'] = $this->language->get('error_meta_title');
+		}
+
+		if (!$this->request->post['config_name']) {
+			$json['error']['name'] = $this->language->get('error_name');
+		}
+
+		if ((Helper\Utf8\strlen($this->request->post['config_owner']) < 3) || (Helper\Utf8\strlen($this->request->post['config_owner']) > 64)) {
+			$json['error']['owner'] = $this->language->get('error_owner');
+		}
+
+		if ((Helper\Utf8\strlen($this->request->post['config_address']) < 3) || (Helper\Utf8\strlen($this->request->post['config_address']) > 256)) {
+			$json['error']['address'] = $this->language->get('error_address');
+		}
+
+		if ((Helper\Utf8\strlen($this->request->post['config_email']) > 96) || !filter_var($this->request->post['config_email'], FILTER_VALIDATE_EMAIL)) {
+			$json['error']['email'] = $this->language->get('error_email');
+		}
+
+		if ((Helper\Utf8\strlen($this->request->post['config_telephone']) < 3) || (Helper\Utf8\strlen($this->request->post['config_telephone']) > 32)) {
+			$json['error']['telephone'] = $this->language->get('error_telephone');
+		}
+
+		if (!$this->request->post['config_product_description_length']) {
+			$json['error']['product_description_length'] = $this->language->get('error_product_description_length');
+		}
+
+		if (!$this->request->post['config_pagination']) {
+			$json['error']['pagination'] = $this->language->get('error_pagination');
+		}
+
+		if (!$this->request->post['config_pagination_admin']) {
+			$json['error']['pagination_admin'] = $this->language->get('error_pagination');
+		}
+
+		if (!empty($this->request->post['config_customer_group_display']) && !in_array($this->request->post['config_customer_group_id'], $this->request->post['config_customer_group_display'])) {
+			$json['error']['customer_group_display'] = $this->language->get('error_customer_group_display');
+		}
+
+		if ($this->request->post['config_login_attempts'] < 1) {
+			$json['error']['login_attempts'] = $this->language->get('error_login_attempts');
+		}
+
+		if (!$this->request->post['config_voucher_min']) {
+			$json['error']['voucher_min'] = $this->language->get('error_voucher_min');
+		}
+
+		if (!$this->request->post['config_voucher_max']) {
+			$json['error']['voucher_max'] = $this->language->get('error_voucher_max');
+		}
+
+		if (!$this->request->post['config_customer_online_expire']) {
+			$json['error']['customer_online_expire'] = $this->language->get('error_customer_online_expire');
+		}
+
+		if (!isset($this->request->post['config_processing_status'])) {
+			$json['error']['processing_status'] = $this->language->get('error_processing_status');
+		}
+
+		if (!isset($this->request->post['config_complete_status'])) {
+			$json['error']['complete_status'] = $this->language->get('error_complete_status');
+		}
+
+		if (!$this->request->post['config_image_category_width'] || !$this->request->post['config_image_category_height']) {
+			$json['error']['image_category'] = $this->language->get('error_image_category');
+		}
+
+		if (!$this->request->post['config_image_thumb_width'] || !$this->request->post['config_image_thumb_height']) {
+			$json['error']['image_thumb'] = $this->language->get('error_image_thumb');
+		}
+
+		if (!$this->request->post['config_image_popup_width'] || !$this->request->post['config_image_popup_height']) {
+			$json['error']['image_popup'] = $this->language->get('error_image_popup');
+		}
+
+		if (!$this->request->post['config_image_product_width'] || !$this->request->post['config_image_product_height']) {
+			$json['error']['image_product'] = $this->language->get('error_image_product');
+		}
+
+		if (!$this->request->post['config_image_additional_width'] || !$this->request->post['config_image_additional_height']) {
+			$json['error']['image_additional'] = $this->language->get('error_image_additional');
+		}
+
+		if (!$this->request->post['config_image_related_width'] || !$this->request->post['config_image_related_height']) {
+			$json['error']['image_related'] = $this->language->get('error_image_related');
+		}
+
+		if (!$this->request->post['config_image_compare_width'] || !$this->request->post['config_image_compare_height']) {
+			$json['error']['image_compare'] = $this->language->get('error_image_compare');
+		}
+
+		if (!$this->request->post['config_image_wishlist_width'] || !$this->request->post['config_image_wishlist_height']) {
+			$json['error']['image_wishlist'] = $this->language->get('error_image_wishlist');
+		}
+
+		if (!$this->request->post['config_image_cart_width'] || !$this->request->post['config_image_cart_height']) {
+			$json['error']['image_cart'] = $this->language->get('error_image_cart');
+		}
+
+		if (!$this->request->post['config_image_location_width'] || !$this->request->post['config_image_location_height']) {
+			$json['error']['image_location'] = $this->language->get('error_image_location');
+		}
+
+		if ($this->request->post['config_security'] && !$this->request->post['config_mail_engine']) {
+			$json['error']['warning'] = $this->language->get('error_security');
+		}
+
+		if ((Helper\Utf8\strlen($this->request->post['config_encryption']) < 32) || (Helper\Utf8\strlen($this->request->post['config_encryption']) > 1024)) {
+			$json['error']['encryption'] = $this->language->get('error_encryption');
+		}
+
+		if (!$this->request->post['config_file_max_size']) {
+			$json['error']['file_max_size'] = $this->language->get('error_file_max_size');
+		}
+
+		$disallowed = [
+			'php',
+			'php4',
+			'php3'
+		];
+
+		$extensions = explode("\n", $this->request->post['config_file_ext_allowed']);
+
+		foreach ($extensions as $extension) {
+			if (in_array(trim($extension), $disallowed)) {
+				$json['error']['file_ext_allowed'] = $this->language->get('error_extension');
+
+				break;
+			}
+		}
+
+		$disallowed = [
+			'php',
+			'php4',
+			'php3'
+		];
+
+		$mimes = explode("\n", $this->request->post['config_file_mime_allowed']);
+
+		foreach ($mimes as $mime) {
+			if (in_array(trim($mime), $disallowed)) {
+				$json['error']['file_mime_allowed'] = $this->language->get('error_mime');
+
+				break;
+			}
+		}
+
+		if (!$this->request->post['config_error_filename']) {
+			$json['error']['error_filename'] = $this->language->get('error_log_required');
+		} elseif (preg_match('/\.\.[\/\\\]?/', $this->request->post['config_error_filename'])) {
+			$json['error']['error_filename'] = $this->language->get('error_log_invalid');
+		} elseif (substr($this->request->post['config_error_filename'], strrpos($this->request->post['config_error_filename'], '.')) != '.log') {
+			$json['error']['error_filename'] = $this->language->get('error_log_extension');
+		}
+
+		if (isset($json['error']) && !isset($json['error']['warning'])) {
+			$json['error']['warning'] = $this->language->get('error_warning');
+		}
+
+		if (!$json) {
+			$this->load->model('setting/setting');
+
+			$this->model_setting_setting->editSetting('config', $this->request->post);
+
+			$json['success'] = $this->language->get('text_success');
+		}
+
+		$this->response->addHeader('Content-Type: application/json');
+		$this->response->setOutput(json_encode($json));
+	}
+
+	public function theme(): void {
+		$image = '';
+
+		$theme = basename($this->request->get['theme']);
+
+		if ($theme == 'basic') {
+			$image = HTTP_CATALOG . 'catalog/view/image/' . $theme . '.png';
+		} else {
+			$this->load->model('setting/extension');
+
+			$extension_info = $this->model_setting_extension->getExtensionByCode('theme', $theme);
+
+			if ($extension_info) {
+				$image = DIR_EXTENSION . $extension_info['extension'] . '/catalog/view/image/' . $extension_info['code'] . '.png';
+			}
+		}
+
+		if ($image) {
+			$this->response->setOutput($image);
+		} else {
+			$this->response->setOutput(HTTP_CATALOG . 'image/no_image.png');
+		}
+	}
 }

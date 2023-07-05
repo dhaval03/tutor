@@ -3,12 +3,12 @@
 define('APPLICATION', 'Admin');
 
 // HTTP
-define('HTTP_SERVER', 'http://127.0.0.1/tutor/admin/');
-define('HTTP_CATALOG', 'http://127.0.0.1/tutor/');
+define('HTTP_SERVER', 'http://localhost/amar123/tutor/admin2023/');
+define('HTTP_CATALOG', 'http://localhost/amar123/tutor/');
 
 // DIR
 define('DIR_OPENCART', dirname(dirname(__FILE__)) . '/');
-define('DIR_APPLICATION', DIR_OPENCART . 'admin/');
+define('DIR_APPLICATION', DIR_OPENCART . 'admin2023/');
 define('DIR_EXTENSION', DIR_OPENCART . 'extension/');
 define('DIR_IMAGE', DIR_OPENCART . 'image/');
 define('DIR_SYSTEM', DIR_OPENCART . 'system/');

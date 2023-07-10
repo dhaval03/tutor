@@ -31,7 +31,7 @@ class Register extends \RestController
             $this->allowedHeaders = array("POST");
         }
 
-        return $this->sendResponse();
+        $this->sendResponse();
     }
 
 

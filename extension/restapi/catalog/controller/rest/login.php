@@ -24,8 +24,7 @@ class Login extends \RestController
 
     public function login()
     {
-		echo"yessssssssssssssssssssss";exit;
-
+		
         $this->checkPlugin();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

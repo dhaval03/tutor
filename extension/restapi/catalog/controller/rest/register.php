@@ -68,17 +68,17 @@ class Register extends \RestController
                     break;
                 }
             }
-
+	
             if (empty($this->json['error'])) {
-                if (!isset($data['firstname']) || (utf8_strlen(trim($data['firstname'])) < 1) || (utf8_strlen(trim($data['firstname'])) > 32)) {
+                if (empty($data['firstname']) && (!isset($data['firstname']) || ((trim($data['firstname'])) < 1) || ((trim($data['firstname'])) > 32))) {
                     $this->json['error'][] = $this->language->get('error_firstname');
                 }
 
-                if (!isset($data['lastname']) || (utf8_strlen(trim($data['lastname'])) < 1) || (utf8_strlen(trim($data['lastname'])) > 32)) {
+                if (empty($data['lastname']) && (!isset($data['lastname']) || ((trim($data['lastname'])) < 1) || ((trim($data['lastname'])) > 32))) {
                     $this->json['error'][] = $this->language->get('error_lastname');
                 }
 
-                if (!isset($data['email']) || (utf8_strlen($data['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $data['email'])) {
+                if (empty($data['email']) && (!isset($data['email']) || (($data['email']) > 96) || !preg_match('/^[^\@]+@.*\.[a-z]{2,6}$/i', $data['email']))) {
                     $this->json['error'][] = $this->language->get('error_email');
                 } else {
                     if ($this->model_account_customer->getTotalCustomersByEmail($data['email'])) {
@@ -86,15 +86,14 @@ class Register extends \RestController
                     }
                 }
 
-                if (!isset($data['telephone']) || (utf8_strlen($data['telephone']) < 3) || (utf8_strlen($data['telephone']) > 32)) {
+                if (empty($data['telephone']) && (!isset($data['telephone']) || (($data['telephone']) < 3) || (($data['telephone']) > 32))) {
                     $this->json['error'][] = $this->language->get('error_telephone');
                 }
 
-                if (!isset($data['password']) || (utf8_strlen($data['password']) < 4) || (utf8_strlen($data['password']) > 20)) {
+                if (empty($data['password']) && (!isset($data['password']) || (($data['password']) < 4) || (($data['password']) > 20))) {
                     $this->json['error'][] = $this->language->get('error_password');
                 }
-
-                if (!isset($data['confirm']) || $data['confirm'] != $data['password']) {
+                if (empty($data['confirm']) && (!isset($data['confirm']) || $data['confirm'] != $data['password'])) {
                     $this->json['error'][] = $this->language->get('error_confirm');
                 }
 
@@ -119,7 +118,6 @@ class Register extends \RestController
 
                 if (is_array($this->config->get('config_customer_group_display'))) {
                     $this->load->model('account/customer_group');
-
                     $customer_groups = $this->model_account_customer_group->getCustomerGroups();
 
                     foreach ($customer_groups as $customer_group) {
@@ -157,6 +155,7 @@ class Register extends \RestController
                     }
                 }
             }
+
 
             if (empty($this->json['error'])) {
 

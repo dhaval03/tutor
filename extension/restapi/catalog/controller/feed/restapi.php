@@ -27,7 +27,6 @@ class RestApi extends \RestController
             if (!$this->config->get('module_shoppingcartrestapi_status')) {
                 $this->json["error"][] = 'Shopping Cart Rest API is disabled. Enable it!';
             } else {
-
                 $input = file_get_contents('php://input');
                 $post = json_decode($input, true);
 
@@ -45,14 +44,15 @@ class RestApi extends \RestController
 
                 $server = $this->getOauthServer();
                 $token = $server->handleTokenRequest(\OAuth2\Request::createFromGlobals())->getParameters();
-
+// print_r($token);exit;
                 if (!empty($oldTokenData)) {
                     $this->model_account_customer->loadSessionToNew($oldTokenData['data'], $token['access_token']);
                     $this->model_account_customer->deleteOldToken($oldToken);
                 }
+// echo "yes";exit;
 
-                if (isset($token['access_token'])) {
                     //clear token table
+                if (isset($token['access_token'])) {
                     $this->clearTokensTable($token['access_token'], $this->session->getId());
 
                     unset($token['scope']);

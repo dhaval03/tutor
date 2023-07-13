@@ -37,6 +37,7 @@ class Request {
      * @return	array
      */
 	public function clean(mixed $data): mixed {
+		// print_r($data);exit;
 		if (is_array($data)) {
 			foreach ($data as $key => $value) {
 				unset($data[$key]);
@@ -44,7 +45,8 @@ class Request {
 				$data[$this->clean($key)] = $this->clean($value);
 			}
 		} else {
-			$data = trim(htmlspecialchars($data, ENT_COMPAT, 'UTF-8'));
+			// $data = trim(htmlspecialchars($data, ENT_COMPAT, 'UTF-8'));
+			$data = $data;
 		}
 
 		return $data;

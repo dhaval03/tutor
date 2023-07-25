@@ -142,10 +142,10 @@ class Login extends \RestController
             $this->language->load('checkout/checkout');
 
             
-                if (!$this->customer->login($post['email'], '',true)) {
-                    $this->json['error'][] = $this->language->get('error_login');
-                    $this->statusCode = 403;
-                } else {
+                // if (!$this->customer->login($post['email'], '',true)) {
+                    // $this->json['error'][] = $this->language->get('error_login');
+                    // $this->statusCode = 403;
+                // } else {
                     $this->load->model('account/customer');
 
                     $email = $post['email'];
@@ -156,7 +156,7 @@ class Login extends \RestController
                         $this->json['error'][] = $this->language->get('error_approved');
                         $this->statusCode = 403;
                     }
-                }
+                // }
             
 
             if (empty($this->json['error'])) {

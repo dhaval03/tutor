@@ -43,7 +43,7 @@ class Login extends \RestController
 
                     $email = $post['email'];
 
-                    $customer_info = $this->model_account_customer->getCustomerByEmail($email);
+                    $customer_info = $this->model_account_customer->getCustomerByEmailorPhone($email);
 
                     if ($customer_info && !$customer_info['status']) {
                         $this->json['error'][] = $this->language->get('error_approved');

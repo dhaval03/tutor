@@ -34,11 +34,11 @@ class Login extends \RestController
             if ($this->customer->isLogged()) {
                 $this->json['error'][] = "User is logged.";
                 $this->statusCode = 400;
-            } else {
-                if (!$this->customer->login($post['email'], $post['password'])) {
-                    $this->json['error'][] = $this->language->get('error_login');
-                    $this->statusCode = 403;
-                } else {
+            // } else {
+                // if (!$this->customer->login($post['email'], $post['password'])) {
+                    // $this->json['error'][] = $this->language->get('error_login');
+                    // $this->statusCode = 403;
+                // } else {
                     $this->load->model('account/customer');
 
                     $email = $post['email'];
@@ -50,7 +50,7 @@ class Login extends \RestController
                         $this->statusCode = 403;
                     }
                 }
-            }
+            // }
 
             if (empty($this->json['error'])) {
 

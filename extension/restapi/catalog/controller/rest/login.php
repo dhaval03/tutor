@@ -147,7 +147,7 @@ class Login extends \RestController
                     // $this->statusCode = 403;
                 // } else {
                     $this->load->model('account/customer');
-
+echo "yes"; exit;
                     $email = $post['email'];
                     $telephone = $post['telephone'];
 

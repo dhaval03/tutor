@@ -35,7 +35,7 @@ class Login extends \RestController
                 $this->json['error'][] = "User is logged.";
                 $this->statusCode = 400;
             } else {
-                if (!$this->customer->login($post['email'], $post['password'])) {
+                if (!$this->customer->login($post['email'], $post['password'] || $post['telephone'] )) {
                     $this->json['error'][] = $this->language->get('error_login');
                     $this->statusCode = 403;
                 } else {

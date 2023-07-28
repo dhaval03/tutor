@@ -182,9 +182,9 @@ class Customer extends \Opencart\System\Engine\Model {
 		return $query->row;
 	}
 	
-	public function getCustomerByEmailorPhone($email,$telephone) {
+	public function getCustomerByEmailorPhone($email) {
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "customer WHERE LOWER(email)
-		= '" . $this->db->escape(utf8_strtolower($email)) . "' OR telephone = '" . $this->db->escape(int($telephone)) . "'");
+		= '" . $this->db->escape(utf8_strtolower($email)) . "' OR telephone = '" . $this->db->escape(int($email)) . "'");
 
 		return $query->row;
 	}

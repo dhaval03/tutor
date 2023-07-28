@@ -128,7 +128,7 @@ class RestApi extends \RestController
     */
     public function products()
     {
-
+		
         $this->checkPlugin();
 
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -195,6 +195,7 @@ class RestApi extends \RestController
 
         $this->load->model('tool/image');
         $this->load->model('catalog/category');
+		$this->load->model('catalog/product');
 
         //product image
         if (isset($product['image']) && !empty($product['image']) && file_exists(DIR_IMAGE . $product['image'])) {
@@ -226,7 +227,7 @@ class RestApi extends \RestController
         }
 
         if (!$simpleList) {
-            $additional_images = $this->model_catalog_product->getProductImages($product['product_id']);
+            $additional_images = $this->model_catalog_product->getImages($product['product_id']);
 
             if(!empty($additional_images)) {
                 foreach ($additional_images as $additional_image) {
@@ -242,7 +243,7 @@ class RestApi extends \RestController
             }
 
             //discounts
-            $data_discounts = $this->model_catalog_product->getProductDiscounts($product['product_id']);
+            $data_discounts = $this->model_catalog_product->getDiscounts($product['product_id']);
 
             if(!empty($data_discounts)) {
                 foreach ($data_discounts as $discount) {
@@ -257,7 +258,7 @@ class RestApi extends \RestController
             }
 
             //options
-            foreach ($this->model_catalog_product->getProductOptions($product['product_id']) as $option) {
+            foreach ($this->model_catalog_product->getOptions($product['product_id']) as $option) {
                 $product_option_value_data = array();
 
                 foreach ($option['product_option_value'] as $option_value) {
@@ -319,7 +320,7 @@ class RestApi extends \RestController
                 }
             }
 
-            $recurrings = $this->model_catalog_product->getProfiles($product['product_id']);
+            /*$recurrings = $this->model_catalog_product->getProfiles($product['product_id']);
 
             foreach ($recurrings as $recurring) {
                 $recurring_info = $this->model_catalog_product->getProfile($product['product_id'], $recurring['recurring_id']);
@@ -327,7 +328,7 @@ class RestApi extends \RestController
                 $product_seo_url = $this->model_catalog_product->getProductSeoUrls($product['product_id']);
                 $recurring_info['product_seo_url'] = $product_seo_url;
                 $recurringDetails[] = $recurring_info;
-            }
+            }*/
 
             /*reviews*/
             $this->load->model('catalog/review');
@@ -370,13 +371,13 @@ class RestApi extends \RestController
             'images' => $images,
             'original_image' => $original_image,
             'original_images' => $original_images,
-            'price_excluding_tax' => empty($hidePrices) ? $this->currency->format($product['price'], $this->currency->getRestCurrencyCode(), '', false) : false,
+            'price_excluding_tax' => empty($hidePrices) ? $this->currency->format($product['price'], $this->currency->getRestCurrencyCode(), 0, false) : false,
             'price_excluding_tax_formated' => empty($hidePrices) ? $this->currency->format($product['price'], $this->currency->getRestCurrencyCode()) : false,
-            'price' => empty($hidePrices) ? $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->currency->getRestCurrencyCode(), '', false) : false,
+            'price' => empty($hidePrices) ? $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->currency->getRestCurrencyCode(), 0, false) : false,
             'price_formated' => empty($hidePrices) ? $this->currency->format($this->tax->calculate($product['price'], $product['tax_class_id'], $this->config->get('config_tax')), $this->currency->getRestCurrencyCode()) : false,
             'rating' => (int)$product['rating'],
             'description' => html_entity_decode($product['description'], ENT_QUOTES, 'UTF-8'),
-            'attribute_groups' => empty($simpleList) ? $this->model_catalog_product->getProductAttributes($product['product_id']) : array(),
+            'attribute_groups' => empty($simpleList) ? $this->model_catalog_product->getAttributes($product['product_id']) : array(),
             'special' => $special,
             'special_excluding_tax' => $special_excluding_tax,
             'special_excluding_tax_formated' => $special_excluding_tax_formated,
@@ -413,7 +414,7 @@ class RestApi extends \RestController
             'status' => $product['status'],
             'date_added' => $product['date_added'],
             'date_modified' => $product['date_modified'],
-            'viewed' => $product['viewed'],
+            'viewed' => isset($product['viewed'])?$product['viewed']:'',
             'weight_class' => isset($product['weight_class']) ? $product['weight_class'] : '',
             'length_class' => isset($product['length_class']) ? $product['length_class'] : '',
             'shipping' => isset($product['shipping']) ? $product['shipping'] : '',
@@ -678,8 +679,7 @@ class RestApi extends \RestController
 
     public function categories()
     {
-
-        $this->checkPlugin();
+        //$this->checkPlugin();
 
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             //get category details
@@ -701,7 +701,6 @@ class RestApi extends \RestController
                 } else {
                     $level = 1;
                 }
-
                 if (!isset($this->request->get['extended'])) {
                     $this->listCategories($parent, $level);
                 } else {
@@ -778,7 +777,7 @@ class RestApi extends \RestController
 
         $data['filter_groups'] = array();
 
-        $filter_groups = $this->model_catalog_category->getCategoryFilters($category_id);
+        $filter_groups = $this->model_catalog_category->getFilters($category_id);
 
         if ($filter_groups) {
             foreach ($filter_groups as $filter_group) {
@@ -824,10 +823,10 @@ class RestApi extends \RestController
             foreach ($categories as $category) {
 
                 if (isset($category['image']) && !empty($category['image']) && file_exists(DIR_IMAGE . $category['image'])) {
-                    $image = $this->model_tool_image->resize($category['image'], $this->config->get('config_shoppingcartrestapi_image_width'), $this->config->get('config_shoppingcartrestapi_image_height'));
+                    $image = $this->model_tool_image->resize($category['image'], $this->config->get('config_image_category_width'), $this->config->get('config_image_category_height'));
                     $original_image = $this->urlPrefix . 'image/' . $category['image'];
                 } else {
-                    $image = $this->model_tool_image->resize('no_image.png', $this->config->get('config_shoppingcartrestapi_image_width'), $this->config->get('config_shoppingcartrestapi_image_height'));
+                    $image = $this->model_tool_image->resize('no_image.png', $this->config->get('config_image_category_width'), $this->config->get('config_image_category_height'));
                     $original_image = $this->urlPrefix . 'image/no_image.png';
                 }
 
@@ -843,7 +842,7 @@ class RestApi extends \RestController
                 );
             }
         }
-
+		
         return $result;
     }
 
@@ -854,7 +853,6 @@ class RestApi extends \RestController
         $this->load->model('catalog/category');
 
         $data = $this->loadCatTree($parent, $level);
-
         if (!empty($data)) {
             $this->json['data'] = $data;
         }
@@ -2354,7 +2352,7 @@ class RestApi extends \RestController
         }
 
         //discounts
-        $data_discounts = $this->model_catalog_product->getProductDiscounts($product['product_id']);
+        $data_discounts = $this->model_catalog_product->getDiscounts($product['product_id']);
 
         if(!empty($data_discounts)) {
             foreach ($data_discounts as $discount) {
@@ -2915,7 +2913,7 @@ class RestApi extends \RestController
 
                     $attribute_data = array();
 
-                    $attribute_groups = $this->model_catalog_product->getProductAttributes($product_id);
+                    $attribute_groups = $this->model_catalog_product->getAttributes($product_id);
 
                     foreach ($attribute_groups as $attribute_group) {
                         foreach ($attribute_group['attribute'] as $attribute) {

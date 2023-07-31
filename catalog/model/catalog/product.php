@@ -157,13 +157,19 @@ class Product extends \Opencart\System\Engine\Model {
 	}
 
 	public function getProductBySeoUrl($seoUrl) {
+		
 		$product = array();
-
+				
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "seo_url WHERE query
 		LIKE '%product_id=%' AND keyword = '" . $this->db->escape($seoUrl) . "'
 		AND language_id = '" . (int)$this->config->get('config_language_id') . "'
 		AND store_id = '" . (int)$this->config->get('config_store_id') . "'
 		");
+		
+		/*$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "seo_url WHERE keyword = '" . $this->db->escape($seoUrl) . "'
+		AND language_id = '" . (int)$this->config->get('config_language_id') . "'
+		AND store_id = '" . (int)$this->config->get('config_store_id') . "'
+		");*/	
 
 		if ($query->num_rows) {
 
@@ -179,13 +185,18 @@ class Product extends \Opencart\System\Engine\Model {
 
 
 	public function getCategoryBySeoUrl($seoUrl) {
+		
 		$product = array();
 
-		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "seo_url WHERE query
-		LIKE '%category_id=%' AND keyword = '" . $this->db->escape($seoUrl) . "'
+		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "seo_url WHERE LIKE'%category_id=%' AND keyword = '" . $this->db->escape($seoUrl) . "'
 		AND language_id = '" . (int)$this->config->get('config_language_id') . "'
 		AND store_id = '" . (int)$this->config->get('config_store_id') . "'
 		");
+		
+		/*$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "seo_url WHERE keyword = '" . $this->db->escape($seoUrl) . "'
+		AND language_id = '" . (int)$this->config->get('config_language_id') . "'
+		AND store_id = '" . (int)$this->config->get('config_store_id') . "'
+		");*/
 
 		if ($query->num_rows) {
 

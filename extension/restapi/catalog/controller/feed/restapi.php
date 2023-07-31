@@ -176,9 +176,9 @@ class RestApi extends \RestController
 
         $productId = $this->model_catalog_product->getProductBySeoUrl($slug);
 
-        if (!empty($productId)) {
+        if (!empty($productId)) {echo "llll";exit;
             $products = $this->model_catalog_product->getProductsByIds(array($productId), $this->customer);
-            if (!empty($products)) {
+            if (!empty($products)) {echo "dd";exit;
                 $this->json["data"] = $this->getProductInfo(reset($products));
             } else {
                 $this->json['error'][] = 'Product not found';
@@ -198,6 +198,7 @@ class RestApi extends \RestController
 
         //product image
         if (isset($product['image']) && !empty($product['image']) && file_exists(DIR_IMAGE . $product['image'])) {
+			echo"e";exit;
             $image = $this->model_tool_image->resize($product['image'], $this->config->get('config_shoppingcartrestapi_image_width'), $this->config->get('config_shoppingcartrestapi_image_height'));
             $original_image = $this->urlPrefix . 'image/' . $product['image'];
         } else {
@@ -718,8 +719,7 @@ class RestApi extends \RestController
 
     public function getCategoryBySlug($slug)
     {
-
-        $this->load->model('catalog/product');
+		$this->load->model('catalog/product');
 
         $category_id = $this->model_catalog_product->getCategoryBySeoUrl($slug);
 

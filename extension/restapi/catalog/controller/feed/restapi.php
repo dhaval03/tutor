@@ -176,7 +176,7 @@ class RestApi extends \RestController
 
         $productId = $this->model_catalog_product->getProductBySeoUrl($slug);
 
-        if (!empty($productId)) {echo "llll";exit;
+        if (!empty($productId)) {echo "dd";exit;
             $products = $this->model_catalog_product->getProductsByIds(array($productId), $this->customer);
             if (!empty($products)) {echo "dd";exit;
                 $this->json["data"] = $this->getProductInfo(reset($products));

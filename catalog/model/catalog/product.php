@@ -52,11 +52,12 @@ class Product extends \Opencart\System\Engine\Model {
 					(SELECT price FROM " . DB_PREFIX . "product_special ps WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "' AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW()) AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1)
 					 AS special,
 					(SELECT product_special_id FROM " . DB_PREFIX . "product_special ps
-					WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$customer_group_id . "'
-								AS length_class,
-									(SELECT AVG(rating) AS total FROM " . DB_PREFIX . "review r1
-										WHERE r1.product_id = p.product_id AND r1.status = '1' GROUP BY r1.product_id)
-								AS rating,					AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW())
+					WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$customer_group_id . "')
+					AS length_class,
+					(SELECT AVG(rating) AS total FROM " . DB_PREFIX . "review r1
+					WHERE r1.product_id = p.product_id AND r1.status = '1' GROUP BY r1.product_id)
+					AS rating,					
+					(SELECT price FROM " . DB_PREFIX . "product_special ps WHERE ps.product_id = p.product_id AND ps.customer_group_id = '" . (int)$this->config->get('config_customer_group_id') . "'  AND ((ps.date_start = '0000-00-00' OR ps.date_start < NOW())
 					AND (ps.date_end = '0000-00-00' OR ps.date_end > NOW())) ORDER BY ps.priority ASC, ps.price ASC LIMIT 1)
 				  AS special_id,
 					(SELECT points FROM " . DB_PREFIX . "product_reward pr
@@ -69,11 +70,9 @@ class Product extends \Opencart\System\Engine\Model {
 						WHERE p.weight_class_id = wcd.weight_class_id AND wcd.language_id = '" . (int)$this->config->get('config_language_id') . "')
 				AS weight_class,
 					(SELECT lcd.unit FROM " . DB_PREFIX . "length_class_description lcd
-						WHERE p.length_class_id = lcd.length_class_id AND lcd.language_id = '" . (int)$this->config->get('config_language_id') . "')
+						WHERE p.length_class_id = lcd.length_class_id AND lcd.language_id = '" . (int)$this->config->get('config_language_id') . "')AS length_class,
 
-					(SELECT COUNT(*) AS total FROM " . DB_PREFIX . "review r2 WHERE r2.product_id = p.product_id
-								AND r2.status = '1' GROUP BY r2.product_id)
-				AS reviews,
+					(SELECT COUNT(*) AS total FROM " . DB_PREFIX . "review r2 WHERE r2.product_id = p.product_id AND r2.status = '1' GROUP BY r2.product_id) AS reviews,
 					p.sort_order ";
 
 					if (!empty($data['filter_category_id'])) {
@@ -129,7 +128,7 @@ class Product extends \Opencart\System\Engine\Model {
 	public function getProductSeoUrls($product_id) {
 
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "seo_url
-		WHERE query = 'product_id=" . (int)$product_id . "'
+		WHERE 'product_id=" . (int)$product_id . "'
 		AND language_id = '" . (int)$this->config->get('config_language_id') . "'
 		AND store_id = '" . (int)$this->config->get('config_store_id') . "'
 		");
@@ -145,7 +144,7 @@ class Product extends \Opencart\System\Engine\Model {
 	public function getCategorySeoUrls($category_id) {
 
 		$query = $this->db->query("SELECT * FROM " . DB_PREFIX . "seo_url
-		WHERE query = 'category_id=" . (int)$category_id . "'
+		WHERE 'category_id=" . (int)$category_id . "'
 		AND language_id = '" . (int)$this->config->get('config_language_id') . "'
 		AND store_id = '" . (int)$this->config->get('config_store_id') . "'
 		");
@@ -452,14 +451,14 @@ class Product extends \Opencart\System\Engine\Model {
 							'height'           => $result['height'],
 							'length_class_id'  => $result['length_class_id'],
 							'subtract'         => $result['subtract'],
-							'rating'           => round($result['rating']),
+							'rating'           => isset($result['rating'])?round($result['rating']):'',
 							'reviews'          => $result['reviews'] ? $result['reviews'] : 0,
 							'minimum'          => $result['minimum'],
 							'sort_order'       => $result['sort_order'],
 							'status'           => $result['status'],
 							'date_added'       => $result['date_added'],
 							'date_modified'    => $result['date_modified'],
-							'viewed'           => $result['viewed'],
+							'viewed' 			=> isset($result['viewed'])?$result['viewed']:'',
 							'weight_class'     => $result['weight_class'],
 							'stock_status_id'  => $result['stock_status_id'],
 							'length_class'     => $result['length_class']
